@@ -11,6 +11,7 @@
 #
 # Note: Base Image name format {image-tag}-{php-version}
 #
+EXPOSE 6001
 
 ARG LARADOCK_PHP_VERSION
 
