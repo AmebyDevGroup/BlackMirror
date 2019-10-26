@@ -2,22 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd632638-fa38-4362-bf00-73a7d5e4d81e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/composerJson.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MirrorProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MirrorProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laradock/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/laradock/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laradock/workspace/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/laradock/workspace/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartmirror_laravel/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/smartmirror_laravel/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartmirror_laravel/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/smartmirror_laravel/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartmirror_laravel/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/smartmirror_laravel/config/broadcasting.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/SmartMirror/composer.json</pharConfigPath>
@@ -229,7 +225,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="inlay.hints" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RunDashboard">
@@ -254,8 +250,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572107712254</updated>
-      <workItem from="1572107713499" duration="15960000" />
+      <workItem from="1572107713499" duration="16595000" />
     </task>
+    <task id="LOCAL-00001" summary="Obsługa websocket">
+      <created>1572128023600</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572128023600</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,5 +275,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Obsługa websocket" />
+    <option name="LAST_COMMIT_MESSAGE" value="Obsługa websocket" />
   </component>
 </project>

@@ -14,4 +14,10 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
-</html>
+  <script>
+    Echo.channel('mirror')
+            .listen('Message', (e) => {
+              console.log(e);
+            })
+  </script>
+sadas</html>
