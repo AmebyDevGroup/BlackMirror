@@ -11,12 +11,12 @@
 #
 # Note: Base Image name format {image-tag}-{php-version}
 #
-EXPOSE 6001
+
+
 
 ARG LARADOCK_PHP_VERSION
-
 FROM laradock/workspace:2.5-${LARADOCK_PHP_VERSION}
-
+EXPOSE 6001
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 ARG LARADOCK_PHP_VERSION
