@@ -14,16 +14,18 @@ class Message implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $type;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($data)
     {
-        $this->message = $message;
+        $this->type = 'tasks';
+        $this->data = $data;
     }
 
     /**
