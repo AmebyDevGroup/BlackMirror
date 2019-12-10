@@ -8,7 +8,7 @@ return [
      * Set a custom dashboard configuration
      */
     'dashboard' => [
-        'port' => env('LARAVEL_WEBSOCKETS_PORT', 20369),
+        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
     ],
 
     /*
@@ -24,11 +24,11 @@ return [
     'apps' => [
         [
             'id' => env('PUSHER_APP_ID'),
-            'name' => "Mikr.us",
+            'name' => "BlackMirror",
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'path' => env('PUSHER_APP_PATH'),
-            'host' => 'srv03.mikr.us',
+            'host' => '86.63.86.150',
             'capacity' => null,
             'enable_client_messages' => false,
             'enable_statistics' => true,

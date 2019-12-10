@@ -3,6 +3,8 @@
 namespace App\Broadcasting;
 
 use App\Events\Message;
+use App\Jobs\SendAirQualityJob;
+use App\Jobs\SendTasksJob;
 use App\User;
 use stdClass;
 use Ratchet\ConnectionInterface;
@@ -39,7 +41,11 @@ class MirrorChannel extends Channel
         $this->saveConnection($connection);
         $message = [];
         foreach(config('mirror') as $key => $value){
-            $message[$key] = $value['enabled']??0;
+            $val = false;
+            if(isset($value['enabled']) && $value['enabled']){
+                $val = true;
+            }
+            $message[$key] = $val;
         }
 
         $connection->send(json_encode([
@@ -50,5 +56,7 @@ class MirrorChannel extends Channel
                 'data' => $message
             ])
         ]));
+        dispatch(new SendAirQualityJob());
+        dispatch(new SendTasksJob());
     }
 }
