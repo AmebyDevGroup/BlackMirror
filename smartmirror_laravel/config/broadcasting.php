@@ -39,8 +39,8 @@ return [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
 //                'useTLS' => true,
                 'encrypted' => false,
-                'host' => 'srv03.mikr.us',
-                'port' => 20369,
+                'host' => '86.63.86.150',
+                'port' => 6001,
                 'scheme' => 'http'
             ],
         ],

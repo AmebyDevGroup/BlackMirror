@@ -37,13 +37,17 @@ class MirrorChannel extends Channel
     public function subscribe(ConnectionInterface $connection, stdClass $payload)
     {
         $this->saveConnection($connection);
+        $message = [];
+        foreach(config('mirror') as $key => $value){
+            $message[$key] = $value['enabled']??0;
+        }
 
         $connection->send(json_encode([
             'event' => 'App\Events\Message',
             'channel' => $this->channelName,
             'data' => json_encode([
                 'type' => 'config',
-                'data' => 'Config Message'
+                'data' => $message
             ])
         ]));
     }

@@ -22,9 +22,9 @@ class Message implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($type, $data)
     {
-        $this->type = 'tasks';
+        $this->type = $type;
         $this->data = $data;
     }
 

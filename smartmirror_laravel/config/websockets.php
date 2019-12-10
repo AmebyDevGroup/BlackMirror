@@ -133,4 +133,5 @@ return [
      * `ChannelManager` interface provided by this package.
      */
     'channel_manager' => \BeyondCode\LaravelWebSockets\WebSockets\Channels\ChannelManagers\ArrayChannelManager::class,
+    'channel_manager' => \App\MirrorChannelManager::class,
 ];
