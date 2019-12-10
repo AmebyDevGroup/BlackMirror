@@ -104,7 +104,7 @@
                         <div class="main-select">
                             <select class="selectpicker" data-live-search="true" name="weather[city]">
                                 @foreach($weather_cities as $city)
-                                    <option value="{{$city['id']}}" @if($config['weather']['city'] == $city['id']) selected @endif>{{$city['name']}}</option>
+                                    <option value="{{$city['id']}}" @if($config['weather']['city'] == $city['ext_id']) selected @endif>{{$city['name']}}</option>
                                 @endforeach
                             </select>
                         </div>

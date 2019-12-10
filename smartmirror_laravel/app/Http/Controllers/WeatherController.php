@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\Message;
+use App\WeatherCity;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,10 +11,7 @@ class WeatherController
 {
     public function getCities()
     {
-        if(Storage::exists('city.list.json')) {
-            return collect(json_decode(Storage::get('city.list.json'), true))->where('country', 'PL');
-        }
-        return collect([]);
+        return WeatherCity::cursor();
     }
 
     public function getInfo()
