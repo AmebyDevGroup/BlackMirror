@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-  <meta charset="utf-8">
-  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Page title -->
-  <title>BlackMirror Inteligentne lustro - Panel zarzadzania</title>
-  <!-- /Page title -->
-
-  <!-- CSS Files
-  ========================================================= -->
-  <link href="css/style.css" rel="stylesheet">
-  <!-- / CSS Files
-  ========================================================= -->
-
-
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	 <title>BlackMirror Inteligentne lustro - Panel zarzadzania</title>
+	<meta name="author" content="Alvaro Trigo Lopez" />
+	<meta name="description" content="fullPage fixed full-screen backgrounds." />
+	<meta name="keywords"  content="fullpage,jquery,demo,screen,fixed,fullscreen,backgrounds,full-screen" />
+	<meta name="Resource-type" content="Document" />
   <!-- Favicon and Touch Icons
   ========================================================= -->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -24,259 +16,357 @@
   <link href="apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
   <link href="apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
   <link href="apple-touch-icon-57.png" rel="apple-touch-icon-precomposed">
+  <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAC7u7sAAAAAAERERACIiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREREREREREREREzMzMzEREREzMDAAAxERETMzAwADERERMDMwMAMREREwAzMDAxERETAAMzAzERERMwADMwMREREwMAAzMxERETADAAMzEREREzMzMzEREREhEREREhERERIiIiIhERERERERERERHAAwAA//8AAPAPAADgBwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAOAHAADwDwAA" rel="icon" type="image/x-icon" />
   <!-- /Favicon
   ========================================================= -->
-</head>
-<!-- STYLE
-========================================================= -->
-<style>
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height:70vh;
-    background-color: #000;
-    background: url("background.jpg") no-repeat center center fixed;
-     -webkit-background-size: cover;
-     -moz-background-size: cover;
-     -o-background-size: cover;
-     background-size: cover;
-  overflow: hidden;
-}
 
-h1 {
-    position: relative;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-size: calc(20px + 5vw);
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    text-shadow: 0 0 0.15em #1da9cc;
-    user-select: none;
-    white-space: nowrap;
-    filter: blur(0.007em);
-    animation: shake 2.5s linear forwards;
-}
+	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/fullpage.min.css')}}" />
+	<style>
+	/* Style for H1 
+	* --------------------------------------- */
+	h1{
+		font-family: 'Montserrat', Arial, sans-serif;
+                font-size: calc(20px + 5vw);
+                font-weight: 700;
+                color: #fff;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                text-shadow: 0 0 0.15em #1da9cc;
+                user-select: none;
+                white-space: nowrap;
+                filter: blur(0.007em);
+                margin:0;
+                padding:0;
+	}
 
-h1 span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    -webkit-clip-path: polygon(10% 0%, 44% 0%, 70% 100%, 55% 100%);
-            clip-path: polygon(10% 0%, 44% 0%, 70% 100%, 55% 100%);
-}
+	h1.bm {
+		font-family: 'Montserrat', Arial, sans-serif;
+		font-size: calc(20px + 5vw);
+		font-weight: 700;
+		color: #fff;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		text-shadow: 0 0 0.15em #1da9cc;
+		user-select: none;
+		white-space: nowrap;
+		filter: blur(0.007em);
+		animation: shake 2.5s linear forwards;
+		margin:0;
+		padding:0;
+	}
 
-h1::before,
-h1::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+	h1.bm span {
+		position: absolute;
+		left: 50; 
+		transform: translate(-50%, -50%);
+		-webkit-clip-path: polygon(10% 0%, 44% 0%, 70% 100%, 55% 100%);
+			clip-path: polygon(10% 0%, 44% 0%, 70% 100%, 55% 100%);
+	}
 
-h1::before {
-    animation: crack1 2.5s linear forwards;
-    -webkit-clip-path: polygon(0% 0%, 10% 0%, 55% 100%, 0% 100%);
+	h1.bm::before,
+	h1.bm::after {
+		content: attr(data-text);
+		position: absolute;
+		left: 50;
+	}
+
+	h1.bm::before {
+		animation: crack1 2.5s linear forwards;
+		-webkit-clip-path: polygon(0% 0%, 10% 0%, 55% 100%, 0% 100%);
             clip-path: polygon(0% 0%, 10% 0%, 55% 100%, 0% 100%);
-}
+	}
 
-h1::after {
-    animation: crack2 2.5s linear forwards;
-    -webkit-clip-path: polygon(44% 0%, 100% 0%, 100% 100%, 70% 100%);
+	h1.bm::after {
+		animation: crack2 2.5s linear forwards;
+		-webkit-clip-path: polygon(44% 0%, 100% 0%, 100% 100%, 70% 100%);
             clip-path: polygon(44% 0%, 100% 0%, 100% 100%, 70% 100%);
-}
+		}
 
-@keyframes shake {
-    5%, 15%, 25%, 35%, 55%, 65%, 75%, 95% {
-        filter: blur(0.018em);
-        transform: translateY(0.018em) rotate(0deg);
-    }
+		@keyframes  shake {
+			5%, 15%, 25%, 35%, 55%, 65%, 75%, 95% {
+			filter: blur(0.018em);
+			transform: translateY(0.018em) rotate(0deg);
+		}
 
-    10%, 30%, 40%, 50%, 70%, 80%, 90% {
-        filter: blur(0.01em);
-        transform: translateY(-0.018em) rotate(0deg);
-    }
+		10%, 30%, 40%, 50%, 70%, 80%, 90% {
+			filter: blur(0.01em);
+			transform: translateY(-0.018em) rotate(0deg);
+		}
 
-    20%, 60% {
-        filter: blur(0.03em);
-        transform: translate(-0.018em, 0.018em) rotate(0deg);
-    }
+		20%, 60% {
+			filter: blur(0.03em);
+			transform: translate(-0.018em, 0.018em) rotate(0deg);
+		}
 
-    45%, 85% {
-        filter: blur(0.03em);
-        transform: translate(0.018em, -0.018em) rotate(0deg);
-    }
+		45%, 85% {
+			filter: blur(0.03em);
+			transform: translate(0.018em, -0.018em) rotate(0deg);
+		}
 
-    100% {
-        filter: blur(0.007em);
-        transform: translate(0) rotate(-0.5deg);
-    }
-}
+		100% {
+			filter: blur(0.007em);
+			transform: translate(0) rotate(-0.5deg);
+		}
+	}
 
-@keyframes crack1 {
-    0%, 95% {
-        transform: translate(-50%, -50%);
-    }
+	@keyframes  crack1 {
+		0%, 95% {
+			transform: translate(-50%, -50%);
+		}
 
-    100% {
-        transform: translate(-51%, -48%);
-    }
-}
+		100% {
+			transform: translate(-51%, -48%);
+		}
+	}
 
-@keyframes crack2 {
-    0%, 95% {
-        transform: translate(-50%, -50%);
-    }
+	@keyframes  crack2 {
+		0%, 95% {
+			transform: translate(-50%, -50%);
+		}
 
-    100% {
-        transform: translate(-49%, -53%);
-    }
-}
+		100% {
+			transform: translate(-49%, -53%);
+		}
+	}
 
-.descrition
-{
-	margin-top:7%;
-	font-size:100px;
-	position:absolute;
-	font-family: 'Montserrat', Arial, sans-serif;
-    font-size: calc(10px + 1vw);
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    text-shadow: 0 0 0.15em #1da9cc;
-    user-select: none;
-    white-space: nowrap;
-    filter: blur(0.007em);
-}
-.przycisk
-{
-	margin-top:11%;
-	font-size:100px;
-	position:absolute;
-}
 
-.btn-link {
-  font-family: 'Montserrat', Arial, sans-serif;
-    text-transform: uppercase;
-    text-shadow: 0 0 0.15em #1da9cc;
-    user-select: none;
-    white-space: nowrap;
-    filter: blur(0.007em);
-  position: relative;
+	/* Centered texts in each section
+	* --------------------------------------- */
+	.section{
+		text-align:center;
+	}
+
+
+	/* Backgrounds will cover all the section
+	* --------------------------------------- */
+	#section0,
+	#section1,
+	#section2,
+	#section3,
+    #slide1,
+    #slide2{
+		background-size: cover;
+		background-attachment: fixed;
+	}
+
+	/* Defining each sectino background and styles
+	* --------------------------------------- */
+	#section0{
+		background-image: url({{asset('assets/img/bg1.jpg')}});
+		background-position: center;
+		background-repeat: no-repeat;
+	    background-size: cover;
+	}
+	#section2{
+		background-image: url({{asset('assets/img/bg1.jpg')}});
+		padding: 6% 0 0 0;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.descrition
+	{
+		font-size: 100px;
+		font-family: 'Montserrat', Arial, sans-serif;
+		font-size: calc(10px + 1vw);
+		font-weight: 700;
+		color: #fff;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		text-shadow: 0 0 0.15em #1da9cc;
+		user-select: none;
+		white-space: nowrap;
+		filter: blur(0.007em);
+		position:absolute;
+		top: 50%;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, -50%) 
+	}
+		.descrition2
+	{
+		font-family: 'Montserrat', Arial, sans-serif;
+		font-weight: 700;
+		font-size: calc(10px + 1vw);
+		color: #fff;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		text-shadow: 0 0 0.15em #1da9cc;
+		user-select: none;
+		white-space: nowrap;
+		position:absolute;
+		top: 50%;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, -50%);
+		background-color:#010100;
+		padding: 50px; 
+		box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+ 		 border: 3px solid #00d7c3;
+	}
+
+.button-1 {
+  width: 250px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  cursor: pointer;
   display: inline-block;
-  color: #fff;
-  font-size: 24px;
-  letter-spacing: 0.02em;
   text-decoration: none;
-  z-index: 1;
+  background-color: #010100;
+  border: 3px solid #00d7c3;
+  border-radius: 50px;
+  -webkit-transition: all .15s ease-in-out;
+  transition: all .15s ease-in-out;
 }
-.btn-link:before,
-.btn-link:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.button-1:hover {
+  box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+  border: 3px solid #00d7c3;
 }
-.btn-link:before {
-  background-color: #00ffff;
-  z-index: -1;
+#fp-nav ul li a span
+{
+background-color:#fff;
 }
-.btn-link:after {
-  background-color: #fff;
-  z-index: -2;
-}
-.btn-link:hover .link-inner {
-  -webkit-animation: glitchy 0.3s ease 1;
-          animation: glitchy 0.3s ease 1;
-}
-.btn-link:hover:before {
-  -webkit-animation: glitchy 0.3s ease 0.3s infinite;
-          animation: glitchy 0.3s ease 0.3s infinite;
-}
-.btn-link:hover:after {
-  animation: glitchy 0.3s ease infinite reverse;
-}
-.link-inner {
-  display: block;
-  height: 100%;
-  background-color: #30302f;
-  padding: 10px 15px;
-}
-@-webkit-keyframes glitchy {
-  0% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
-  25% {
-    -webkit-transform: translate(-2px, -2px);
-            transform: translate(-2px, -2px);
-  }
-  50% {
-    -webkit-transform: translate(2px, 2px);
-            transform: translate(2px, 2px);
-  }
-  75% {
-    -webkit-transform: translate(2px, -2px);
-            transform: translate(2px, -2px);
-  }
-  100% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
-}
-@keyframes glitchy {
-  0% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
-  25% {
-    -webkit-transform: translate(-2px, -2px);
-            transform: translate(-2px, -2px);
-  }
-  50% {
-    -webkit-transform: translate(2px, 2px);
-            transform: translate(2px, 2px);
-  }
-  75% {
-    -webkit-transform: translate(2px, -2px);
-            transform: translate(2px, -2px);
-  }
-  100% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
+#section01 a {
+		padding-top: 60px;
+		position: absolute;
+		bottom: 20px;
+		z-index: 2;
+		display: inline-block;
+		left: 50.5%;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+		color: #fff;
+		font : normal 400 20px/1 'Josefin Sans', sans-serif;
+		letter-spacing: .1em;
+		text-decoration: none;
+		transition: opacity .3s;
+	}
+	#section01 a span {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 30px;
+		height: 30px;
+		margin-left: -12px;
+		border-left: 5px solid #fff;
+		border-bottom: 5px solid #fff;
+		-webkit-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+		box-sizing: border-box;
+	}
+#section02 a {
+	 padding-bottom: 60px;
+	position: absolute;
+		bottom: 20px;
+		z-index: 2;
+		display: inline-block;
+		left: 50.5%;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+		color: #fff;
+		font : normal 400 20px/1 'Josefin Sans', sans-serif;
+		letter-spacing: .1em;
+		text-decoration: none;
+		transition: opacity .3s;
+	}
+#section02 a span {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 30px;
+		height: 30px;
+		margin-left: -12px;
+		border-left: 5px solid #fff;
+		border-bottom: 5px solid #fff;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+		box-sizing: border-box;
+	}
+@media only screen
+and (min-device-width : 300px) 
+and (max-device-width : 800px) 
+and (orientation : portrait)
+{
+	.button-1{
+		width:100%;
+		height:100px;
+		text-align: center;
+		font-size:50px;
+		margin: 0 auto;
+		padding-top:70px;
+	}
+ 	.descrition2	
+	{
+		font-size:50px;
+		width:80%;
+	}
+	.descrition
+	{
+	font-size:40px;
+	width:80%;
+	}
+	h1{
+	font-size:90px;
+	}
+	h1.bm
+	{font-size:110px;
+	}
 }
 
-</style>
+	</style>
 
-<!-- /STYLE
-========================================================= -->
-<link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAC7u7sAAAAAAERERACIiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREREREREREREREzMzMzEREREzMDAAAxERETMzAwADERERMDMwMAMREREwAzMDAxERETAAMzAzERERMwADMwMREREwMAAzMxERETADAAMzEREREzMzMzEREREhEREREhERERIiIiIhERERERERERERHAAwAA//8AAPAPAADgBwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAOAHAADwDwAA" rel="icon" type="image/x-icon" />
-
-<!-- CONTENT
-========================================================= -->
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+</head>
 <body>
-<h1 data-text="black mirror"><span>black mirror</span></h1>
-<div class="descrition">
-PROJEKT INTELGENTNEGO LUSTRA
+
+<div id="fullpage">
+	<div class="section " id="section0">
+	<body>
+	<div class="descrition">
+	<h1 class="bm" data-text="black mirror">
+	<div style="opacity: 0;display: inline-block;width: 1px;transform: translate(-50%, -50%);">BLACK MIRROR</div><span>black mirror</span></h1>
+		PROJEKT INTELGENTNEGO LUSTRA
+		<div class="przycisk">
+		</br>
+		<a href="{{route('admin')}}" class="button-1">LOGOWANIE</a>
+		</div>
+	</div>
+	<section id="section01" class="updown">
+	 <a href="#autorzy"><span></span></a>
+	</div> 
+	<div class="section" id="section2"><h1>TWÓRCY:</h1>
+		<div class="descrition2">
+		JAKUB LORC</br></br>                           
+		ADRIAN SUTKOWSKI</br></br>                           
+		JAKUB WERWINSKI</br></br>                              
+		KRZYSZTOF WIECZOREK       
+		</div>
+	<section id="section02">
+	 <a href="#logowanie"><span></span></a>
+	</div>
 </div>
- <div class="przycisk">
-	<a href="{{route('admin')}}" class="btn-link"> <span class="link-inner">LOGOWANIE</span></a>
-</div>
 
-<!-- /CONTENT
-========================================================= -->
+<script type="text/javascript" src="{{asset('assets/js/fullpage.min.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('assets/js/examples.js')}}"></script> --}}
 
-<!-- Javascript Files
-========================================================= -->
-<script src=""></script>
-
-
-
+<script type="text/javascript">
+  var myFullpage = new fullpage('#fullpage', {
+	verticalCentered: false,
+	anchors: ['logowanie', 'autorzy'],
+	navigation: true,
+        navigationPosition: 'right',
+        css3:false
+    });
+</script>
 </body>
 </html>
