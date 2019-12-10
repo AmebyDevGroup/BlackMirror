@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <Weather></Weather>
-    <Time></Time>
+    <DateTime></DateTime>
   </div>
 </template>
 
 <script>
 import Weather from "./components/Weather";
-import Time from "./components/Time";
+import DateTime from "./components/DateTime";
 
 export default {
   name: 'app',
   components: {
     Weather,
-    Time,
+    DateTime,
   }
 }
 </script>
