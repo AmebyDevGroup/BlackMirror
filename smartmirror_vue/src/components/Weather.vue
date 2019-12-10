@@ -1,21 +1,29 @@
 <template>
-  {{test}}
+  <div v-if="show">
+    {{title}}
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Weather',
-  data() {
+  data: function () {
     return {
-      title: 'Test',
+      title: 'Weather',
+      show: false,
     }
   },
   mounted() {
-
+    this.$root.$on('configChange', this.handleConfig);
+  },
+  methods: {
+    handleConfig(e) {
+      this.show = e.weather === "1";
+    },
   }
 }
 </script>
 
-<style lang="less">
+<style>
 
 </style>

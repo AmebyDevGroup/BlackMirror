@@ -4,17 +4,23 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
-window.Echo = new Echo({
+const echo = new Echo({
     broadcaster: 'pusher',
     key: 123456,
     cluster: 'mt1',
     // encrypted: true
-    wsHost: 'localhost',
+    wsHost: '86.63.86.150',
     wsPort: 6001
 });
 
-Vue.config.productionTip = false
+echo.channel('mirror')
+  .listen('Message', (e) => {
+      console.log(e);
+      window.Vue.$root.$emit(`${e.type}Change`, e.data);
+  });
 
-new Vue({
+Vue.config.productionTip = false;
+
+window.Vue = new Vue({
   render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');
