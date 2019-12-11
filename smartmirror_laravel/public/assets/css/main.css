@@ -183,15 +183,15 @@ input:checked + .slider:before {
 }
 .card-header
 {
-    background-color: #ffffff;
-    color: #010100;
+    color: #ffffff;
     text-transform: uppercase;
     text-align: center;
     font-weight: 700;
     letter-spacing: 0.02em;
     user-select: none;
     white-space: nowrap;
-    box-shadow: 0 0 10px 0 #ffffff;
+    border-bottom: 1px solid #00d7c3;
+    box-shadow: 0 4px 2px -2px #00d7c3;
 }
 .card
 {
@@ -201,3 +201,23 @@ input:checked + .slider:before {
     background-color: #010100;
     box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
 }
+.btn-primary
+{
+    color: #fff;
+    border-color: #00d7c3;
+    background-color: #010100;
+}
+.btn-primary:hover
+{
+    border-color: #00d7c3;
+    background-color: #00d7c3;
+}
+.btn-link
+{
+    color: #fff;
+}
+.btn-link:hover
+{
+    color: #fff;
+}
+
