@@ -3,8 +3,7 @@
 namespace App\Broadcasting;
 
 use App\Events\Message;
-use App\Jobs\SendAirQualityJob;
-use App\Jobs\SendTasksJob;
+use App\Jobs;
 use App\User;
 use stdClass;
 use Ratchet\ConnectionInterface;
@@ -40,9 +39,9 @@ class MirrorChannel extends Channel
     {
         $this->saveConnection($connection);
         $message = [];
-        foreach(config('mirror') as $key => $value){
+        foreach (config('mirror') as $key => $value) {
             $val = false;
-            if(isset($value['enabled']) && $value['enabled']){
+            if (isset($value['enabled']) && $value['enabled']) {
                 $val = true;
             }
             $message[$key] = $val;
@@ -56,7 +55,26 @@ class MirrorChannel extends Channel
                 'data' => $message
             ])
         ]));
-        dispatch(new SendAirQualityJob());
-        dispatch(new SendTasksJob());
+        foreach ($message as $key => $enabled) {
+            if ($enabled) {
+                switch ($key) {
+                    case "air":
+                        dispatch(new Jobs\SendAirQualityJob());
+                        break;
+                    case "calendar":
+
+                        break;
+                    case "news":
+                        dispatch(new Jobs\SendNewsJob());
+                        break;
+                    case "tasks":
+                        dispatch(new Jobs\SendTasksJob());
+                        break;
+                    case "weather":
+                        dispatch(new Jobs\SendWeatherJob());
+                        break;
+                }
+            }
+        }
     }
 }
