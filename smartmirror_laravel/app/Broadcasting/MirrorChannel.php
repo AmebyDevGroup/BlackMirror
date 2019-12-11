@@ -46,7 +46,6 @@ class MirrorChannel extends Channel
             }
             $message[$key] = $val;
         }
-
         $connection->send(json_encode([
             'event' => 'App\Events\Message',
             'channel' => $this->channelName,
