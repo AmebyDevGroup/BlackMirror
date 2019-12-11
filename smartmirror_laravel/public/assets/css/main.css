@@ -181,3 +181,23 @@ input:checked + .slider:before {
         transform: translate(24px, 0);
     }
 }
+.card-header
+{
+    background-color: #ffffff;
+    color: #010100;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    user-select: none;
+    white-space: nowrap;
+    box-shadow: 0 0 10px 0 #ffffff;
+}
+.card
+{
+    font-family: 'Montserrat', Arial, sans-serif;
+    border: 1px solid #00d7c3;
+    color: #ffffff;
+    background-color: #010100;
+    box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+}
