@@ -191,7 +191,9 @@ input:checked + .slider:before {
     user-select: none;
     white-space: nowrap;
     border-bottom: 1px solid #00d7c3;
-    box-shadow: 0 4px 2px -2px #00d7c3;
+    -webkit-box-shadow: 0 10px 10px -10px #00d7c3;
+    -moz-box-shadow: 0 10px 10px -10px #00d7c3;
+    box-shadow: 0 10px 10px -10px #00d7c3;
 }
 .card
 {
@@ -200,18 +202,33 @@ input:checked + .slider:before {
     color: #ffffff;
     background-color: #010100;
     box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+    opacity: 0.95;
 }
 .btn-primary
 {
+
     color: #fff;
-    border-color: #00d7c3;
+    border-color: #9098A9;
     background-color: #010100;
 }
 .btn-primary:hover
+ {
+     background: #00d7c3;
+     border-color: #00d7c3;
+ }
+.btn-primary:active
 {
+    background: #00d7c3;
     border-color: #00d7c3;
-    background-color: #00d7c3;
+    animation: wave 0.4s ease;
 }
+.btn-primary:focus
+{
+    background: #00d7c3;
+    border-color: #00d7c3;
+    animation: wave 0.4s ease;
+}
+
 .btn-link
 {
     color: #fff;

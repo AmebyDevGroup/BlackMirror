@@ -42,19 +42,23 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Zapamiętaj mnie') }}
-                                    </label>
+                                    <input class="form-check-input" style="display: none;" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="remember"><span>
+                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                     <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg></span><span>Zapamiętaj mnie</span></label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Zaloguj') }}
+                                <button type="submit" class="animated-button">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    {{ __('ZALOGUJ') }}
                                 </button>
 
                                 @if (Route::has('password.request'))

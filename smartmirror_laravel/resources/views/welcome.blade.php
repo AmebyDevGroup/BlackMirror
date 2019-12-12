@@ -184,7 +184,8 @@
             top: 50%;
             left: 50%;
             margin-right: -50%;
-            transform: translate(-50%, -50%)
+            transform: translate(-50%, -50%);
+
         }
 
         .descrition2 {
@@ -206,6 +207,7 @@
             padding: 50px;
             box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
             border: 3px solid #00d7c3;
+            opacity: 0.9;
         }
 
         .button-1 {

@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
           integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?3">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?{{time()}}">
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-        <a href="{{route('admin')}}" class="navbar-brand">BlackMirror Panel</a>
+        <a href="{{route('admin')}}" class="navbar-brand">BlackMirror - Panel</a>
 {{--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"--}}
 {{--                aria-controls="navbarCollapse" aria-expanded="false"--}}
 {{--                aria-label="{{ __('Toggle navigation') }}">--}}
@@ -32,18 +32,20 @@
         </div>
         <ul class="navbar-nav ml-auto">
             @auth
-                <div class="btn btn-secondary">
+
                     <a class="text-white" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                        Wyloguj
+                        <div class="btn btn-secondary">
+                        <i style="font-size:15px" class="fa">&#xf011;</i>
+                        </div>
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                           style="display: none;">
                         @csrf
                     </form>
-                </div>
+
             @endauth
         </ul>
     </div>

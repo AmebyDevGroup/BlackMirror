@@ -4,11 +4,59 @@
     <section id="config">
         <form method="POST">
             @csrf
+            <div class="row bg-dark py-5">
+                <h2 class="info">Zaloguj się do swojego konta, by móc korzystać z opcji konfiguracji:</h2>
+                <div class="col-sm-6">
+                    <div class="jumbotron">
+                        <img src="https://www.freepnglogos.com/uploads/microsoft-logo-microsoft-symbol-meaning-history-png-14.png" alt="Microsoft" class="logo">
+                        @if(isset($microsoft) && count($microsoft))
+                            <h4>Witaj, {{ $microsoft['userName'] }}!</h4>
+                            <a href="{{route('microsoft.signout')}}" class="animated-button2">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Wyloguj</a>
+                        @else
+                            <h4>Zaloguj się do swojego konta:</h4>
+                            <a href="{{route('microsoft.signin')}}" class="animated-button">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Zaloguj</a>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="jumbotron">
+                        <img src="https://www.freepnglogos.com/uploads/google-logo-png-hd-11.png" alt="Google" class="logo">
+                        @if(isset($google) && count($google))
+                            <h4>Welcome {{ $google['userName'] }}!</h4>
+                            <a href="{{route('google.signout')}}" class="animated-button2">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Wyloguj</a>
+                        @else
+                            <h4>Zaloguj się do swojego konta:
+                            </h4>
+                            <a href="{{route('google.signin')}}" class="animated-button">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Zaloguj</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <h2 class="title d-flex justify-content-between">
-                        <span>Konfiguracja</span>
-                        <button class="btn btn-dark" type="submit">Zapisz</button>
+                        <span>KONFIGURACJA</span>
+                        <button class="btn-secondary2" type="submit"><i style="font-size:20px" class="fa">&#xf0c7;</i><span> ZAPISZ</span></button>
                     </h2>
                 </div>
             </div>
@@ -135,34 +183,6 @@
             </div>
         </form>
     </section>
-
-
-    <div class="row bg-dark py-5">
-        <div class="col-sm-6">
-            <div class="jumbotron">
-                <h1>Microsoft</h1>
-                @if(isset($microsoft) && count($microsoft))
-                    <h4>Welcome {{ $microsoft['userName'] }}!</h4>
-                    <a href="{{route('microsoft.signout')}}" class="btn btn-primary btn-large">Wyloguj</a>
-                @else
-                    <h4>Zaloguj się</h4>
-                    <a href="{{route('microsoft.signin')}}" class="btn btn-primary btn-large">Zaloguj</a>
-                @endif
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="jumbotron">
-                <h1>Google</h1>
-                @if(isset($google) && count($google))
-                    <h4>Welcome {{ $google['userName'] }}!</h4>
-                    <a href="{{route('microsoft.signout')}}" class="btn btn-primary btn-large">Wyloguj</a>
-                @else
-                    <h4>Zaloguj się</h4>
-                    <a href="{{route('microsoft.signin')}}" class="btn btn-primary btn-large">Zaloguj</a>
-                @endif
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts-before')
