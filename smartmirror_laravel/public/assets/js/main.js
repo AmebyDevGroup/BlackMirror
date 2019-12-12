@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    if($("input[name='config[tasks]']").is(':checked')){
+    if($("input[name='tasks[enabled]']").is(':checked')){
         let $selectDirectory = $("select[name=\'tasks[directory]\']");
         $('.loader.tasks').css('display','flex');
         $.ajax({
@@ -21,7 +21,7 @@ $(document).ready(function() {
         $("select[name=\'tasks[directory]\']").prop('disabled', true).selectpicker('refresh');
     }
 
-    if($("input[name='config[air]']").is(':checked')){
+    if($("input[name='air[enabled]']").is(':checked')){
         let $selectStation = $("select[name=\'air[station]\']");
         $('.loader.air').css('display','flex');
         $.ajax({
@@ -42,10 +42,16 @@ $(document).ready(function() {
     } else {
         $("select[name=\'air[station]\']").prop('disabled', true).selectpicker('refresh');
     }
+
+    if($("select[name='news[rss]']").val() == -1){
+        $("input[name='news[rss]']").prop('disabled', false);
+    } else {
+        $("input[name='news[rss]']").prop('disabled', true);
+    }
 });
 //TASKS
-$(document).on('change', "input[name='config[tasks]'], select[name=\'tasks[provider]\']", function() {
-    if($("input[name='config[tasks]']").is(':checked')){
+$(document).on('change', "input[name='tasks[enabled]'], select[name='tasks[provider]']", function() {
+    if($("input[name='tasks[enabled]']").is(':checked')){
         let $selectDirectory = $("select[name=\'tasks[directory]\']");
         $('.loader.tasks').css('display','flex');
         $.ajax({
@@ -68,7 +74,7 @@ $(document).on('change', "input[name='config[tasks]'], select[name=\'tasks[provi
     }
 })
 //AirQuality
-$(document).on('change', "input[name='config[air]']", function() {
+$(document).on('change', "input[name='air[enabled]']", function() {
     if($(this).is(':checked')){
         let $selectStation = $("select[name=\'air[station]\']");
         $('.loader.air').css('display','flex');
@@ -91,3 +97,11 @@ $(document).on('change', "input[name='config[air]']", function() {
         $("select[name=\'air[station]\']").prop('disabled', true).selectpicker('refresh');
     }
 })
+//RSS
+$(document).on('change', "select[name='news[rss]']", function() {
+    if ($(this).val() == -1) {
+        $("input[name='news[rss]']").prop('disabled', false);
+    } else {
+        $("input[name='news[rss]']").prop('disabled', true);
+    }
+});

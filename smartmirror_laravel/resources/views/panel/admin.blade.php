@@ -64,21 +64,23 @@
                 <div class="col-sm-12">
                     <div class="d-flex flex-wrap align-items-stretch item">
                         <label class="switch">
-                            <input type="hidden" name="config[tasks]" value="0">
-                            <input type="checkbox" name="config[tasks]" value="1" @if($config['tasks']['enabled']??false) checked @endif>
+                            <input type="hidden" name="tasks[enabled]" value="0">
+                            <input type="checkbox" name="tasks[enabled]" value="1" @if(($config['tasks']??false) && $config['tasks']->active??false) checked @endif>
                             <span class="slider"></span>
                         </label>
                         <span class="object_title">Lista zadań</span>
                         <span class="flex-grow-1"></span>
                         <div class="main-select">
+                            <input type="hidden" name="tasks[provider]" value="false">
                             <select class="selectpicker" name="tasks[provider]">
                                 <option value="microsoft" data-value="{{route('taskFolders',['provider'=>'microsoft'])}}"
-                                    @if($config['tasks']['provider'] == 'microsoft') selected @endif>Microsoft To-Do</option>
+                                    @if(($config['tasks']??false) && $config['tasks']->data['provider'] == 'microsoft') selected @endif>Microsoft To-Do</option>
                                 <option value="google" data-value="{{route('taskFolders',['provider'=>'google'])}}"
-                                    @if($config['tasks']['provider'] == 'google') selected @endif>Google Tasks</option>
+                                    @if(($config['tasks']??false) && $config['tasks']->data['provider'] == 'google') selected @endif>Google Tasks</option>
                             </select>
                         </div>
                         <div class="second-select">
+                            <input type="hidden" name="tasks[directory]" value="false">
                             <select class="selectpicker" name="tasks[directory]" disabled>
                                 <option>Wybierz źródło</option>
                             </select>
@@ -94,8 +96,8 @@
                 <div class="col-sm-12">
                     <div class="d-flex flex-wrap align-items-stretch item">
                         <label class="switch">
-                            <input type="hidden" name="config[calendar]" value="0">
-                            <input type="checkbox" name="config[calendar]" value="1" @if($config['calendar']['enabled']??false) checked @endif>
+                            <input type="hidden" name="calendar[enabled]" value="0">
+                            <input type="checkbox" name="calendar[enabled]" value="1" @if(($config['calendar']??false) && $config['calendar']->active??false) checked @endif>
                             <span class="slider"></span>
                         </label>
                         <span class="object_title">Kalendarz</span>
@@ -119,21 +121,34 @@
                 <div class="col-sm-12">
                     <div class="d-flex flex-wrap align-items-stretch item">
                         <label class="switch">
-                            <input type="hidden" name="config[news]" value="0">
-                            <input type="checkbox" name="config[news]" value="1" @if($config['news']['enabled']??false) checked @endif>
+                            <input type="hidden" name="news[enabled]" value="0">
+                            <input type="checkbox" name="news[enabled]" value="1" @if(($config['news']??false) && $config['news']->active??false) checked @endif>
                             <span class="slider"></span>
                         </label>
                         <span class="object_title">Wiadomości</span>
                         <span class="flex-grow-1"></span>
+                        <input type="hidden" name="news[rss]" value="false">
                         <div class="main-select">
-                            <select class="selectpicker" name="rss">
-                                <option value="rss1">Wiadomości 1</option>
-                                <option value="rss2">Wiadomości 2</option>
-                                <option value="-1">Inne</option>
+                            <select class="selectpicker" name="news[rss]">
+                                @foreach($rss as $channel_url => $channel_title)
+                                    <option value="{{$channel_url}}" @if(($config['news']??false)
+                                        && $config['news']->data['rss'] == $channel_url)
+                                            selected
+                                            @php
+                                                $news_selected = true;
+                                            @endphp
+                                        @endif>{{$channel_title}}
+                                    </option>
+                                @endforeach
+                                <option value="-1" @if(($config['news']??false)
+                                        && $config['news']->data['rss'] != '' && !($news_selected??false)) selected @endif >Inne</option>
                             </select>
                         </div>
                         <div class="second-select">
-                            <input type="text" class="form-control rss-input" name="rss" disabled>
+                            <input type="text" class="form-control rss-input" name="news[rss]"
+                                   @if(($config['news']??false)
+                                        && $config['news']->data['rss'] != '' && !($news_selected??false))
+                                            value="{{$config['news']->data['rss']}}" @endif disabled>
                         </div>
                     </div>
                 </div>
@@ -143,16 +158,20 @@
                 <div class="col-sm-12">
                     <div class="d-flex flex-wrap align-items-stretch item">
                         <label class="switch">
-                            <input type="hidden" name="config[weather]" value="0">
-                            <input type="checkbox" name="config[weather]" value="1" @if($config['weather']['enabled']??false) checked @endif>
+                            <input type="hidden" name="weather[enabled]" value="0">
+                            <input type="checkbox" name="weather[enabled]" value="1" @if(($config['weather']??false) && $config['weather']->active??false) checked @endif>
                             <span class="slider"></span>
                         </label>
                         <span class="object_title">Pogoda</span>
                         <span class="flex-grow-1"></span>
                         <div class="main-select">
+                            <input type="hidden" name="weather[city]" value="false">
                             <select class="selectpicker" data-live-search="true" name="weather[city]">
                                 @foreach($weather_cities as $city)
-                                    <option value="{{$city['id']}}" @if($config['weather']['city'] == $city['ext_id']) selected @endif>{{$city['name']}}</option>
+                                    <option value="{{$city['ext_id']}}"
+                                            @if(($config['weather']??false) && $config['weather']->data['city'] == $city['ext_id']) selected @endif>
+                                        {{$city['name']}}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -164,13 +183,14 @@
                 <div class="col-sm-12">
                     <div class="d-flex flex-wrap align-items-stretch item">
                         <label class="switch">
-                            <input type="hidden" name="config[air]" value="0">
-                            <input type="checkbox" name="config[air]" value="1" @if($config['air']['enabled']??false) checked @endif>
+                            <input type="hidden" name="air[enabled]" value="0">
+                            <input type="checkbox" name="air[enabled]" value="1" @if(($config['air']??false) && $config['air']->active??false) checked @endif>
                             <span class="slider"></span>
                         </label>
                         <span class="object_title">AirQuality</span>
                         <span class="flex-grow-1"></span>
                         <div class="main-select">
+                            <input type="hidden" name="air[station]" value="false">
                             <select class="selectpicker" name="air[station]" data-url="{{route('air.getStations')}}" data-live-search="true" disabled>
                                 <option>Wybierz miasto</option>
                             </select>
@@ -188,17 +208,13 @@
 @section('scripts-before')
     <script>
         let config = {
-            'tasks': {
-                'provider': '{{$config['tasks']['provider']}}',
-                'directory': '{{$config['tasks']['directory']}}'
-            },
-            'calendar': {
-                'provider': '{{$config['calendar']['provider']}}',
-                'directory': '{{$config['calendar']['directory']}}'
-            },
-            'air': {
-                'station': '{{$config['air']['station']}}',
-            }
+            @foreach($config as $json_config)
+                '{{$json_config->name}}' : {
+                    @foreach($json_config->data as $key => $value)
+                        '{{$key}}': '{{$value}}',
+                    @endforeach
+                },
+            @endforeach
         }
     </script>
 @endsection
