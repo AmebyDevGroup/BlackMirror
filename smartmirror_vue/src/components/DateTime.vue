@@ -1,5 +1,6 @@
 <template>
 	<div class="time">
+		<div class="time__date">{{ weekday }}</div>
 		<div class="time__date">{{ date }}</div>
 		<div class="time__wrapper">
 			<span class="time__item" v-if="hoursValue !== null">{{ hours }}:</span>
@@ -18,6 +19,7 @@
 				minutesValue: null,
 				secondsValue: null,
 			  	date: null,
+			  	weekday: null,
 			}
 		},
 		mounted() {
@@ -30,7 +32,8 @@
 					this.hoursValue = now.getHours();
 					this.minutesValue = now.getMinutes();
 					this.secondsValue = now.getSeconds();
-					this.date = now.toLocaleString('PL-pl', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+					this.weekday = now.toLocaleString('PL-pl', { weekday: 'long' });
+					this.date = now.toLocaleString('PL-pl', { year: 'numeric', month: 'long', day: 'numeric' });
 				}, 1000);
 			}
 		},
@@ -51,7 +54,7 @@
 <style lang="less">
 	.time {
 		&__item {
-			font-size: 70px;
+			font-size: 80px;
 		}
 
 		&__wrapper {
@@ -60,7 +63,7 @@
 
 		&__date {
 			text-transform: capitalize;
-			font-size: 30px;
+			font-size: 35px;
 		}
 	}
 </style>
