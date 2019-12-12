@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\Message;
+use App\MirrorConfig;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,6 +15,7 @@ class SendNewsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $rss;
     /**
      * Create a new job instance.
      *
@@ -21,7 +23,8 @@ class SendNewsJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $config = MirrorConfig::where('name', 'news')->first();
+        $this->rss = $config->data['rss'];
     }
 
     /**
@@ -31,7 +34,7 @@ class SendNewsJob implements ShouldQueue
      */
     public function handle()
     {
-        $feed = Feeds::make('https://www.gry-online.pl/rss/news.xml', 5, true); // if RSS Feed has invalid mime types, force to read
+        $feed = Feeds::make($this->rss, 5, true); // if RSS Feed has invalid mime types, force to read
         $data = array(
             'title'     => $feed->get_title(),
             'permalink' => $feed->get_permalink(),

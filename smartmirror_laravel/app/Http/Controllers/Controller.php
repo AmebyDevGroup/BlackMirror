@@ -8,10 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
-use Microsoft\Graph\Beta\Model\Package;
+use App\Jobs;
 
 class Controller extends BaseController
 {
@@ -28,6 +25,30 @@ class Controller extends BaseController
         $viewData['weather_cities'] = app('\App\Http\Controllers\WeatherController')->getCities();
         $viewData['rss'] = $this->loadRssChannels();
         return view('panel.admin', $viewData);
+    }
+
+    public function forceSync()
+    {
+        $config = MirrorConfig::where('active', 1)->get();
+        foreach($config as $item) {
+            switch ($item->name) {
+                case "air":
+                    dispatch(new Jobs\SendAirQualityJob());
+                    break;
+                case "calendar":
+
+                    break;
+                case "news":
+                    dispatch(new Jobs\SendNewsJob());
+                    break;
+                case "tasks":
+                    dispatch(new Jobs\SendTasksJob());
+                    break;
+                case "weather":
+                    dispatch(new Jobs\SendWeatherJob());
+                    break;
+            }
+        }
     }
 
     public function loadMicrosoftViewData()

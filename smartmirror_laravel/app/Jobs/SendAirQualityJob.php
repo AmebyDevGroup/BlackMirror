@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\Message;
+use App\MirrorConfig;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,8 +27,9 @@ class SendAirQualityJob implements ShouldQueue
      */
     public function __construct()
     {
-        $this->getStationUrl = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/". config('mirror.air.station');
-        $this->getSensorUrl = "http://api.gios.gov.pl/pjp-api/rest/data/getData/". config('mirror.air.station');
+        $config = MirrorConfig::where('name', 'air')->first();
+        $this->getStationUrl = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/". $config->data['station']??'';
+        $this->getSensorUrl = "http://api.gios.gov.pl/pjp-api/rest/data/getData/";
     }
 
     /**
@@ -43,7 +45,7 @@ class SendAirQualityJob implements ShouldQueue
             $airInfo = [];
             foreach (json_decode($response->getBody()->getContents()) as $station) {
                 $client = new Client();
-                $sensor = $client->request('GET', $this->getSensorUrl);
+                $sensor = $client->request('GET', $this->getSensorUrl.$station->id);
                 $airInfo[] = [
                     'name' => ucfirst($station->param->paramName),
                     'code' => $station->param->paramCode,

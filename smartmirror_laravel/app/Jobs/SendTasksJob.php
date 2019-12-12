@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\Message;
+use App\MirrorConfig;
 use App\TokenStore\TokenCache;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -18,6 +19,8 @@ class SendTasksJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $tasks;
+    private $provider;
+    private $directory;
 
     /**
      * Create a new job instance.
@@ -26,7 +29,9 @@ class SendTasksJob implements ShouldQueue
      */
     public function __construct()
     {
-
+        $config = MirrorConfig::where('name', 'tasks')->first();
+        $this->provider = $config->data['provider'];
+        $this->directory = $config->data['directory'];
     }
 
     /**
@@ -37,7 +42,7 @@ class SendTasksJob implements ShouldQueue
     public function handle()
     {
         try {
-            switch (config('mirror.tasks.provider')) {
+            switch ($this->provider) {
                 case 'microsoft':
                     $this->tasks = $this->getMicrosoftTasks();
                     break;
@@ -62,7 +67,7 @@ class SendTasksJob implements ShouldQueue
             '$top' => 20,
             '$filter' => "status ne 'completed'"
         );
-        $getEventsUrl = '/me/outlook/taskFolders/'.config('mirror.tasks.directory').'/tasks?'.http_build_query($queryParams);
+        $getEventsUrl = '/me/outlook/taskFolders/'.$this->directory.'/tasks?'.http_build_query($queryParams);
         $tasks = $graph->createRequest('GET', $getEventsUrl)
             ->setReturnType(Model\OutlookTask::class)
             ->execute();

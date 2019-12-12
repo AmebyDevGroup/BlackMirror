@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\Message;
+use App\MirrorConfig;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
@@ -15,6 +16,9 @@ class SendWeatherJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $key;
+    protected $city;
+
     /**
      * Create a new job instance.
      *
@@ -22,7 +26,9 @@ class SendWeatherJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $config = MirrorConfig::where('name', 'weather')->first();
+        $this->city = $config->data['city'];
+        $this->key = env('WEATHER_KEY');
     }
 
     /**
@@ -34,7 +40,7 @@ class SendWeatherJob implements ShouldQueue
     {
         $client = new Client();
         $response = $client->request('GET',
-            'http://api.openweathermap.org/data/2.5/weather?units=metric&lang=pl&id=' . config('mirror.weather.city') . '&appid=' . env('WEATHER_KEY'));
+            'http://api.openweathermap.org/data/2.5/weather?units=metric&lang=pl&id=' . $this->city . '&appid=' . $this->key);
         $data = json_decode($response->getBody()->getContents());
         $weatherInfo = [
             'city' => $data->name,

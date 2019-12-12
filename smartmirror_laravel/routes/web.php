@@ -22,6 +22,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'Controller@admin')->name('admin');
     Route::post('/', 'Controller@saveConfig')->name('admin');
 
+    Route::get('force-sync', 'Controller@forceSync')->name('forceSync');
+
     Route::get('/taskFolders/{provider}', 'Controller@getTasksFolder')->name('taskFolders');
     Route::get('/tasks', 'MicrosoftController@tasks')->name('tasks');
 

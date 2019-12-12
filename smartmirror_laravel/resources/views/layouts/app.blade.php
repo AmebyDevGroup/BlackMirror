@@ -32,6 +32,12 @@
         </div>
         <ul class="navbar-nav ml-auto">
             @auth
+                    <a class="text-white" id="force-refresh" href="{{route('forceSync')}}" style="margin-right: 15px">
+                        <div class="btn btn-secondary" style="position: relative">
+                            <i style="font-size:15px; opacity:0" class="fa">&#128472;</i>
+                            <i class="fa refresh-icon">&#128472;</i>
+                        </div>
+                    </a>
 
                     <a class="text-white" href="{{ route('logout') }}"
                        onclick="event.preventDefault();

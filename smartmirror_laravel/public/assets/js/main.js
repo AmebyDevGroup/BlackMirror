@@ -49,6 +49,17 @@ $(document).ready(function() {
         $("input[name='news[rss]']").prop('disabled', true);
     }
 });
+
+$(document).on('click', '#force-refresh', function(e) {
+    e.preventDefault();
+    $.ajax({
+        method: "GET",
+        url: $(this).attr('href'),
+    }).done(function(data){
+        alert('Synchronizacja uruchomiona');
+    });
+})
+
 //TASKS
 $(document).on('change', "input[name='tasks[enabled]'], select[name='tasks[provider]']", function() {
     if($("input[name='tasks[enabled]']").is(':checked')){

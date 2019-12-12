@@ -46,7 +46,17 @@ span.object_title {
     justify-content: center;
     display: none;
 }
-
+.refresh-icon {
+    font-size: 20px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media (max-width: 768px){
     .main-select {
         width: 49%;
