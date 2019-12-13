@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <div class="app__wrapper">
+    <div class="app__section">
       <DateTime></DateTime>
+    </div>
+    <div class="app__section">
       <Weather></Weather>
     </div>
-    <Air></Air>
+    <div class="app__wrapper">
+      <Air></Air>
+    </div>
   </div>
 </template>
 
@@ -32,11 +36,14 @@ export default {
   }
 
   .app {
+    &__section {
+      margin-bottom: 40px;
+    }
+
     &__wrapper {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
     }
   }
 </style>
