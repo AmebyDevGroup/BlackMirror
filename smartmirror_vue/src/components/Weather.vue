@@ -1,43 +1,43 @@
 <template>
-	<div v-if="show && data" class="weather">
-          <div>
-                <span class="weather__city">{{ data.city }}</span>
-                <div class="weather__box">
-                      <img :src="`http://openweathermap.org/img/wn/${data.icon}@2x.png`" alt="" v-if="data.icon">
-                      <span class="weather__temperature">{{ data.temperature }}&#8451;</span>
-                </div>
-                <span>{{ data.description }}</span>
-          </div>
-          <div class="weather__item-wrapper">
-                <div class="weather__item">
-                      <span class="weather__item-label">
-                            Wilgotność:
-                            <span class="weather__item-value">{{ data.humidity }}%</span>
-                      </span>
-                      <span class="weather__item-label">
-                            Ciśnienie:
-                            <span class="weather__item-value">{{ data.pressure }} hPa</span>
-                      </span>
-                      <span class="weather__item-label">
-                            Zachmurzenie:
-                            <span class="weather__item-value">{{ data.clouds }}%</span>
-                      </span>
-                      <span class="weather__item-label">
-                            Wiatr:
-                            <span class="weather__item-value">{{ data.wind_gust }} m/s</span>
-                      </span>
-                </div>
-                <div class="weather__item">
-                      <span class="weather__item-label">
-                            Wschód słońca:
-                            <span class="weather__item-value">{{ sunrise }}</span>
-                      </span>
-                      <span class="weather__item-label">
-                            Zachód słońca:
-                            <span class="weather__item-value">{{ sunset }}</span>
-                      </span>
-                </div>
-          </div>
+	<div v-if="show && temperature" class="weather">
+		<div>
+			<span class="weather__city">{{ data.city }}</span>
+			<div class="weather__box">
+				<img :src="`http://openweathermap.org/img/wn/${data.icon}@2x.png`" alt="" v-if="data.icon">
+				<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
+			</div>
+			<span>{{ data.description }}</span>
+		</div>
+		<div class="weather__item-wrapper">
+			<div class="weather__item">
+				<span class="weather__item-label">
+					Wilgotność:
+					<span class="weather__item-value">{{ data.humidity }}%</span>
+				</span>
+				<span class="weather__item-label">
+					Ciśnienie:
+					<span class="weather__item-value">{{ data.pressure }} hPa</span>
+				</span>
+				<span class="weather__item-label">
+					Zachmurzenie:
+					<span class="weather__item-value">{{ data.clouds }}%</span>
+				</span>
+				<span class="weather__item-label">
+					Wiatr:
+					<span class="weather__item-value">{{ data.wind_speed }} m/s</span>
+				</span>
+			</div>
+			<div class="weather__item">
+				<span class="weather__item-label">
+					Wschód słońca:
+					<span class="weather__item-value">{{ sunrise }}</span>
+				</span>
+				<span class="weather__item-label">
+					Zachód słońca:
+					<span class="weather__item-value">{{ sunset }}</span>
+				</span>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -48,8 +48,9 @@
 			return {
 				data: [],
 				show: false,
-                  sunrise: false,
-                  sunset: false,
+				sunrise: false,
+				sunset: false,
+				temperature: false,
 			}
 		},
 		mounted() {
@@ -62,63 +63,69 @@
 			},
 			handleData(data) {
 				this.data = data;
+				this.temperature = Math.round(data.temperature);
 				this.sunrise = this.prepareSunData(data.sunrise);
 				this.sunset = this.prepareSunData(data.sunset);
 			},
-              prepareSunData(value) {
-                    const hours = new Date(value * 1000).getHours();
-                    const hoursFormatted = hours < 10 ? `0${hours}` : hours;
-                    const minutes = new Date(value * 1000).getMinutes();
-                    const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+			prepareSunData(value) {
+				const hours = new Date(value * 1000).getHours();
+				const hoursFormatted = hours < 10 ? `0${hours}` : hours;
+				const minutes = new Date(value * 1000).getMinutes();
+				const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
 
-                    return `${hoursFormatted}:${minutesFormatted}`
-              }
+				return `${hoursFormatted}:${minutesFormatted}`
+			}
 		}
 	}
 </script>
 
 <style lang="less">
 	.weather {
-      display: flex;
+		display: flex;
 
-          &__item {
-                display: flex;
-                justify-content: flex-start;
-                align-items: flex-start;
-                margin-bottom: 25px;
+		&__item {
+			display: flex;
+			justify-content: flex-start;
+			align-items: flex-start;
+			margin-bottom: 25px;
 
-                &-label {
-                      margin-right: 10px;
-                      font-size: 18px;
-                      width: 25%;
-                      max-width: 170px;
-                }
+			&:last-of-type {
+				margin-bottom: 0;
+			}
 
-                &-value {
-                      font-size: 20px;
-                      display: block;
-                }
+			&-label {
+				margin-right: 10px;
+				font-size: 16px;
+				width: 25%;
+				max-width: 170px;
+			}
 
-                &-wrapper {
-                      display: flex;
-                      flex-direction: column;
-                      padding-left: 35px;
-                      width: 100%;
-                }
-          }
+			&-value {
+				font-size: 18px;
+				display: block;
+			}
 
-          &__city {
-                font-size: 35px;
-          }
+			&-wrapper {
+				display: flex;
+				justify-content: flex-end;
+				flex-direction: column;
+				padding-left: 40px;
+				width: 100%;
+			}
+		}
 
-          &__temperature {
-                font-size: 45px;
-          }
+		&__city {
+			font-size: 30px;
+		}
 
-          &__box {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-          }
-    }
+		&__temperature {
+			font-size: 40px;
+		}
+
+		&__box {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
 </style>

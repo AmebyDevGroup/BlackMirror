@@ -17,33 +17,33 @@
 				hoursValue: null,
 				minutesValue: null,
 				secondsValue: null,
-			  	date: null,
-			  	weekday: null,
+				date: null,
+				weekday: null,
 			}
 		},
 		mounted() {
 			this.handleTimer();
 		},
-	  	methods: {
+		methods: {
 			handleTimer() {
 				setInterval(() => {
 					let now = new Date();
 					this.hoursValue = now.getHours();
 					this.minutesValue = now.getMinutes();
 					this.secondsValue = now.getSeconds();
-					this.date = now.toLocaleString('PL-pl', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+					this.date = now.toLocaleString('PL-pl', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
 				}, 1000);
 			}
 		},
-	  	computed: {
+		computed: {
 			hours() {
-				return this.hoursValue < 10 ? `0${this.hoursValue}`: this.hoursValue;
+				return this.hoursValue < 10 ? `0${this.hoursValue}` : this.hoursValue;
 			},
 			minutes() {
-				return this.minutesValue < 10 ? `0${this.minutesValue}`: this.minutesValue;
+				return this.minutesValue < 10 ? `0${this.minutesValue}` : this.minutesValue;
 			},
 			seconds() {
-				return this.secondsValue < 10 ? `0${this.secondsValue}`: this.secondsValue;
+				return this.secondsValue < 10 ? `0${this.secondsValue}` : this.secondsValue;
 			},
 		}
 	}
@@ -52,7 +52,7 @@
 <style lang="less">
 	.time {
 		&__item {
-			font-size: 70px;
+			font-size: 60px;
 		}
 
 		&__wrapper {
@@ -61,7 +61,7 @@
 
 		&__date {
 			text-transform: capitalize;
-			font-size: 40px;
+			font-size: 35px;
 		}
 	}
 </style>
