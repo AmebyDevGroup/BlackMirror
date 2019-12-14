@@ -8,7 +8,7 @@
 					<span class="air__item-code">({{ item.code }})</span>
 				</span>
 				<span class="air__item-value">
-					{{ item.value.value ? item.value.value : '-' }} &#181;g/m<sup>3</sup>
+					{{ item.value.value }} &#181;g/m<sup>3</sup>
 				</span>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 			},
 			handleData(data) {
 				this.data = data.map(elem => {
-					const float = parseFloat(elem.value.value).toFixed(2);
+					const float = elem.value.value ? parseFloat(elem.value.value).toFixed(2) : '-';
 					return {...elem, value: {value: float, date: elem.value.date}};
 				});
 			}

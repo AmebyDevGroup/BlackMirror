@@ -2,13 +2,14 @@
 	<div v-if="show" class="tasks">
 		<span class="tasks__title">{{title}}</span>
 		<div v-for="item in data" class="tasks__item">
-			<div>Autor: {{ item.owner }}</div>
-			<div>Tytuł: {{ item.title }}</div>
-			<div>Opis: {{ item.description }}</div>
-			<div>Priorytet: {{ item.priority }}</div>
-			<div v-if="item.deadline_at">Deadline: {{ item.deadline_at }}</div>
-			<div>Utworzono: {{ item.created_at }}</div>
-			<div v-if="item.updated_at">Update: {{ item.updated_at }}</div>
+			<div class="tasks__item-content">
+				<div class="tasks__item-title">{{ item.title }}</div>
+				<div class="tasks__item-description" v-if="item.description">{{ item.description }}</div>
+				<div v-if="item.deadline" class="tasks__deadline">
+					<span class="tasks__deadline-alert">{{ item.deadline }}</span>
+				</div>
+			</div>
+			<div class="tasks__priority">{{ item.priority }}</div>
 		</div>
 	</div>
 </template>
@@ -32,7 +33,11 @@
 				this.show = event.tasks;
 			},
 			handleData(data) {
-				this.data = data;
+				this.data = data.map(elem => {
+					const deadlineDate = elem.deadline_at ? new Date(elem.deadline_at) : null;
+					const day = deadlineDate ? deadlineDate.toLocaleString('PL-pl', {weekday: 'long', month: 'long', day: 'numeric'}) : null;
+					return {...elem, deadline: day}
+				});
 			}
 		}
 	}
@@ -48,6 +53,39 @@
 
 		&__item {
 			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			padding: 10px 0;
+			border-bottom: 1px solid #505050;
+			max-width: 800px;
+			width: 100%;
+
+			&-content {
+				display: flex;
+				flex-direction: column;
+				position: relative;
+				max-width: 700px;
+				width: 100%;
+				margin-right: 25px;
+			}
+
+			&-title {
+				margin-bottom: 10px;
+				font-size: 18px;
+			}
+
+			&-description {
+				font-size: 16px;
+				margin-bottom: 10px;
+			}
+		}
+
+		&__deadline {
+			font-size: 12px;
+			&-alert {
+				color: red;
+			}
 		}
 	}
 </style>

@@ -12,6 +12,9 @@
 		<div class="app__section">
 			<Tasks></Tasks>
 		</div>
+		<div class="app__section">
+			<News></News>
+		</div>
 	</div>
 </template>
 
@@ -20,10 +23,12 @@
 	import Air from "./components/Air";
 	import Tasks from "./components/Tasks";
 	import DateTime from "./components/DateTime";
+	import News from "./components/News";
 
 	export default {
 		name: 'app',
 		components: {
+			News,
 			Tasks,
 			Weather,
 			Air,

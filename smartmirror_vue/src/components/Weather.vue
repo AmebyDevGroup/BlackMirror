@@ -4,6 +4,7 @@
 			<span class="weather__city">{{ data.city }}</span>
 			<div class="weather__box">
 				<img :src="`http://openweathermap.org/img/wn/${data.icon}@2x.png`" alt="" v-if="data.icon">
+<!--				<img src="../assets/02d.svg" alt="">-->
 				<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
 			</div>
 			<span>{{ data.description }}</span>
