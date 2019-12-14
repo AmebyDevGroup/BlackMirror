@@ -6,6 +6,7 @@ use App\Events\Message;
 use App\MirrorConfig;
 use App\TokenStore\TokenCache;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -50,10 +51,10 @@ class SendTasksJob implements ShouldQueue
                     break;
             }
             broadcast(new Message('tasks', $this->tasks));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return broadcast(new Message('tasks', [
-            "status" => 'failed',
-            "message" => $e->getMessage()
+                "status" => 'failed',
+                "message" => $e->getMessage()
             ]));
         }
 
@@ -67,19 +68,19 @@ class SendTasksJob implements ShouldQueue
             '$top' => 20,
             '$filter' => "status ne 'completed'"
         );
-        $getEventsUrl = '/me/outlook/taskFolders/'.$this->directory.'/tasks?'.http_build_query($queryParams);
+        $getEventsUrl = '/me/outlook/taskFolders/' . $this->directory . '/tasks?' . http_build_query($queryParams);
         $tasks = $graph->createRequest('GET', $getEventsUrl)
             ->setReturnType(Model\OutlookTask::class)
             ->execute();
         $formattedTasks = [];
-        foreach($tasks as $task) {
+        foreach ($tasks as $task) {
             $this_task = [
                 'owner' => $task->getOwner(),
                 'title' => $task->getSubject(),
                 'description' => $task->getBody()->getContent(),
                 'priority' => $task->getImportance()->value(),
-                'deadline_at' => is_array($deadline_at = $task->getDueDateTime()->getProperties())?
-                                    Carbon::parse($deadline_at['dateTime'])->format('Y-m-d H:i'):null,
+                'deadline_at' => is_array($deadline_at = $task->getDueDateTime()->getProperties()) ?
+                    Carbon::parse($deadline_at['dateTime'])->format('Y-m-d H:i') : null,
                 'created_at' => Carbon::parse($task->getCreatedDateTime())->format('Y-m-d H:i'),
                 'updated_at' => Carbon::parse($task->getLastModifiedDateTime())->format('Y-m-d H:i'),
             ];

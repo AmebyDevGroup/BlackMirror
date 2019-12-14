@@ -16,6 +16,7 @@ class SendNewsJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $rss;
+
     /**
      * Create a new job instance.
      *
@@ -36,11 +37,11 @@ class SendNewsJob implements ShouldQueue
     {
         $feed = Feeds::make($this->rss, 5, true); // if RSS Feed has invalid mime types, force to read
         $data = array(
-            'title'     => $feed->get_title(),
+            'title' => $feed->get_title(),
             'permalink' => $feed->get_permalink(),
-            'items'     => $feed->get_items(),
+            'items' => $feed->get_items(),
         );
-        foreach($data['items'] as $key => $item) {
+        foreach ($data['items'] as $key => $item) {
             $title = preg_replace('/\s+/S', " ", $item->get_title());
             $description = ltrim(preg_replace('/\s+/S', " ", strip_tags($item->get_description())));
             $content = preg_replace('/\s+/S', " ", $item->get_content());
@@ -52,7 +53,7 @@ class SendNewsJob implements ShouldQueue
                     "description" => $description,
                     "content" => $content,
                 ];
-            if($key > 5) {
+            if ($key > 5) {
                 break;
             }
         }

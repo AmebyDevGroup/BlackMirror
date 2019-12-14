@@ -30,7 +30,7 @@ class Controller extends BaseController
     public function forceSync()
     {
         $config = MirrorConfig::where('active', 1)->get();
-        foreach($config as $item) {
+        foreach ($config as $item) {
             switch ($item->name) {
                 case "air":
                     dispatch(new Jobs\SendAirQualityJob());

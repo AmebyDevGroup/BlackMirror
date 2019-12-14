@@ -21,7 +21,7 @@ class MirrorChannelManager implements ChannelManager
 
     public function findOrCreate(string $appId, string $channelName): Channel
     {
-        if (! isset($this->channels[$appId][$channelName])) {
+        if (!isset($this->channels[$appId][$channelName])) {
             $channelClass = $this->determineChannelClass($channelName);
 
             $this->channels[$appId][$channelName] = new $channelClass($channelName);
@@ -65,7 +65,7 @@ class MirrorChannelManager implements ChannelManager
 
     public function removeFromAllChannels(ConnectionInterface $connection)
     {
-        if (! isset($connection->app)) {
+        if (!isset($connection->app)) {
             return;
         }
 

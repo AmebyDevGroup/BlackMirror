@@ -3,9 +3,12 @@
 namespace App\TokenStore;
 
 use Illuminate\Support\Facades\Storage;
+use League\OAuth2\Client\Provider\GenericProvider;
 
-class TokenCache {
-    public function storeTokens($accessToken, $user) {
+class TokenCache
+{
+    public function storeTokens($accessToken, $user)
+    {
         Storage::put('microsoft.json', json_encode([
             'accessToken' => $accessToken->getToken(),
             'refreshToken' => $accessToken->getRefreshToken(),
@@ -22,7 +25,8 @@ class TokenCache {
         ]);
     }
 
-    public function clearTokens() {
+    public function clearTokens()
+    {
         Storage::delete('microsoft.json');
         session()->forget('accessToken');
         session()->forget('refreshToken');
@@ -31,16 +35,17 @@ class TokenCache {
         session()->forget('userEmail');
     }
 
-    public function getAccessToken() {
+    public function getAccessToken()
+    {
         // Check if tokens exist
         $storage = null;
-        if(Storage::exists('microsoft.json')) {
+        if (Storage::exists('microsoft.json')) {
             $storage = json_decode(Storage::get('microsoft.json'), true);
         }
         if (empty(session('accessToken')) ||
             empty(session('refreshToken')) ||
             empty(session('tokenExpires'))) {
-            if($storage != null) {
+            if ($storage != null) {
                 session($storage);
             } else {
                 return '';
@@ -55,14 +60,14 @@ class TokenCache {
             // so let's refresh
 
             // Initialize the OAuth client
-            $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-                'clientId'                => env('OAUTH_APP_ID'),
-                'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-                'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-                'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-                'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+            $oauthClient = new GenericProvider([
+                'clientId' => env('OAUTH_APP_ID'),
+                'clientSecret' => env('OAUTH_APP_PASSWORD'),
+                'redirectUri' => env('OAUTH_REDIRECT_URI'),
+                'urlAuthorize' => env('OAUTH_AUTHORITY') . env('OAUTH_AUTHORIZE_ENDPOINT'),
+                'urlAccessToken' => env('OAUTH_AUTHORITY') . env('OAUTH_TOKEN_ENDPOINT'),
                 'urlResourceOwnerDetails' => '',
-                'scopes'                  => env('OAUTH_SCOPES')
+                'scopes' => env('OAUTH_SCOPES')
             ]);
 
             try {
@@ -74,8 +79,7 @@ class TokenCache {
                 $this->updateTokens($newToken);
 
                 return $newToken->getToken();
-            }
-            catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+            } catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
                 return '';
             }
         }
@@ -84,7 +88,8 @@ class TokenCache {
         return session('accessToken');
     }
 
-    public function updateTokens($accessToken) {
+    public function updateTokens($accessToken)
+    {
         Storage::put('microsoft.json', json_encode([
             'accessToken' => $accessToken->getToken(),
             'refreshToken' => $accessToken->getRefreshToken(),
