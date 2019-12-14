@@ -3,8 +3,7 @@
 		<div>
 			<span class="weather__city">{{ data.city }}</span>
 			<div class="weather__box">
-				<img :src="`http://openweathermap.org/img/wn/${data.icon}@2x.png`" alt="" v-if="data.icon">
-<!--				<img src="../assets/02d.svg" alt="">-->
+				<img :src="prepareSvgUrl" alt="" class="weather__icon">
 				<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
 			</div>
 			<span>{{ data.description }}</span>
@@ -76,6 +75,11 @@
 
 				return `${hoursFormatted}:${minutesFormatted}`
 			}
+		},
+		computed: {
+			prepareSvgUrl() {
+				return require(`../assets/${this.data.icon}.svg`);
+			}
 		}
 	}
 </script>
@@ -83,6 +87,13 @@
 <style lang="less">
 	.weather {
 		display: flex;
+
+		&__icon {
+			max-width: 75px;
+			margin-top: 10px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
 
 		&__item {
 			display: flex;
