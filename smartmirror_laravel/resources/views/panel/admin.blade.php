@@ -108,11 +108,11 @@
                                 <option value="google">Google Calendar</option>
                             </select>
                         </div>
-                        <div class="second-select">
-                            <select class="selectpicker" disabled>
-                                <option>Wybierz źródło</option>
-                            </select>
-                        </div>
+{{--                        <div class="second-select">--}}
+{{--                            <select class="selectpicker" disabled>--}}
+{{--                                <option>Wybierz źródło</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>

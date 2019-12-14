@@ -21,16 +21,14 @@ Route::get('/', 'Controller@welcome')->name('home');
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'Controller@admin')->name('admin');
     Route::post('/', 'Controller@saveConfig')->name('admin');
-
     Route::get('force-sync', 'Controller@forceSync')->name('forceSync');
 
-    Route::get('/taskFolders/{provider}', 'Controller@getTasksFolder')->name('taskFolders');
-    Route::get('/tasks', 'MicrosoftController@tasks')->name('tasks');
-
+    Route::get('taskFolders/{provider}', 'Controller@getTasksFolder')->name('taskFolders');
     Route::get('air-quality/stations', 'AirQualityController@getStations')->name('air.getStations');
-    Route::get('air-quality', 'AirQualityController@getInfo')->name('air.getInfo');
 
-    Route::get('weather', 'WeatherController@getInfo')->name('weather.getInfo');
+    //    Route::get('/tasks', 'MicrosoftController@tasks')->name('tasks');
+    //    Route::get('air-quality', 'AirQualityController@getInfo')->name('air.getInfo');
+    //    Route::get('weather', 'WeatherController@getInfo')->name('weather.getInfo');
 
     Route::prefix('microsoft')->group(function () {
         Route::get('/zaloguj', 'MicrosoftAuthController@signin')->name('microsoft.signin');

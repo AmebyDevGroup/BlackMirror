@@ -627,6 +627,7 @@ a:hover
     border-radius: 100%;
     -webkit-transition: all .15s ease-in-out;
     transition: all .15s ease-in-out;
+    margin-right: 3px;
 }
 .btn-secondary:hover {
     box-shadow: 0 0 5px 0 #00d7c3 inset, 0 0 10px 2px #00d7c3;
@@ -678,7 +679,6 @@ a:hover
     transition: .2s opacity ease-in-out;
 
 }
-
 .btn-secondary2:hover::before {
     opacity: 0.2;
 }
@@ -693,4 +693,9 @@ and (orientation: portrait) {
     {
         font-size: 20px;
     }
+    .navbar-brand
+    {
+
+    }
+
 }
