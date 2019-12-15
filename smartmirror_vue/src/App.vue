@@ -19,7 +19,7 @@
 				<Air></Air>
 			</div>
 		</div>
-		<div class="app__section">
+		<div class="app__section app__section--news">
 			<News></News>
 		</div>
 	</div>
@@ -67,6 +67,10 @@
 
 		&__section {
 			margin-bottom: 40px;
+
+			&--news {
+				margin: auto auto 20px;
+			}
 		}
 
 		&__wrapper {
@@ -75,10 +79,11 @@
 			align-items: flex-start;
 			flex-direction: column;
 			margin-bottom: 40px;
-			width: 50%;
+			width: 58%;
 
 			&--right {
 				align-items: flex-end;
+				width: 42%;
 			}
 		}
 	}

@@ -1,16 +1,19 @@
 <template>
-	<div v-if="!show" class="tasks">
+	<div v-if="show" class="tasks">
 		<span class="tasks__title">{{title}}</span>
-		<div v-for="item in data" class="tasks__item">
-			<div class="tasks__item-content">
-				<div class="tasks__item-title">{{ item.title }}</div>
-				<div class="tasks__item-description" v-if="item.description">{{ item.description }}</div>
-				<div v-if="item.deadline" class="tasks__deadline">
-					<span class="tasks__deadline-alert">{{ item.deadline }}</span>
+		<ul>
+			<li v-for="item in data"
+					class="tasks__item"
+					:class="{'star': item.priority === 'high'}">
+				<div class="tasks__item-content">
+					<div class="tasks__item-title">{{ item.title }}</div>
+					<div class="tasks__item-description" v-if="item.description">{{ item.description }}</div>
+					<div v-if="item.deadline" class="tasks__deadline">
+						<span class="tasks__deadline-alert">{{ item.deadline }}</span>
+					</div>
 				</div>
-			</div>
-			<div class="tasks__priority">{{ item.priority }}</div>
-		</div>
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -19,7 +22,7 @@
 		name: 'Tasks',
 		data: function () {
 			return {
-				title: 'Tasks',
+				title: 'TODO',
 				data: [],
 				show: false,
 			}
@@ -52,14 +55,37 @@
 		}
 
 		&__item {
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
-			padding: 10px 0;
-			border-bottom: 1px solid #505050;
 			max-width: 800px;
 			width: 100%;
+			position: relative;
+
+			&.star {
+				&:before {
+					background-image: url("../assets/star.svg");
+					background-color: black;
+					background-size: contain;
+					background-repeat: no-repeat;
+					width: 18px;
+					height: 18px;
+					left: -33px;
+					top: 2px;
+				}
+			}
+
+			&:before {
+				content: '';
+				width: 13px;
+				height: 13px;
+				border-radius: 50%;
+				position: absolute;
+				left: -30px;
+				top: 3px;
+				background-color: white;
+			}
 
 			&-content {
 				display: flex;
@@ -72,7 +98,8 @@
 
 			&-title {
 				margin-bottom: 10px;
-				font-size: 18px;
+				font-size: 16px;
+				text-transform: uppercase;
 			}
 
 			&-description {
@@ -82,7 +109,8 @@
 		}
 
 		&__deadline {
-			font-size: 12px;
+			font-size: 14px;
+
 			&-alert {
 				color: red;
 			}

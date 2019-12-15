@@ -97,6 +97,8 @@
 			margin-top: 10px;
 			font-size: 18px;
 			margin-left: -20px;
+			max-width: 200px;
+			text-align: center;
 		}
 
 		&__city {
