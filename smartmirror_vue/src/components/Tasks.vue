@@ -1,5 +1,5 @@
 <template>
-	<div v-if="show" class="tasks">
+	<div v-if="!show" class="tasks">
 		<span class="tasks__title">{{title}}</span>
 		<div v-for="item in data" class="tasks__item">
 			<div class="tasks__item-content">

@@ -20,11 +20,11 @@
 			<div class="weather__item">
 				<span class="weather__item-label">
 					<img src="../assets/sunup.svg" alt="" class="weather__sun">
-					<span class="weather__item-value">{{ sunrise }}</span>
+					<span class="weather__item-value weather__item-value--bigger">{{ sunrise }}</span>
 				</span>
 				<span class="weather__item-label">
 					<img src="../assets/sundown.svg" alt="" class="weather__sun">
-					<span class="weather__item-value">{{ sunset }}</span>
+					<span class="weather__item-value weather__item-value--bigger">{{ sunset }}</span>
 				</span>
 			</div>
 			<div class="weather__item">
@@ -90,8 +90,7 @@
 		flex-direction: column;
 
 		&__sun {
-			max-width: 100px;
-			margin-bottom: 5px;
+			max-width: 80px;
 		}
 
 		&__description {
@@ -131,10 +130,10 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: flex-start;
-			margin-top: 40px;
+			margin-top: 5px;
 
 			&:last-of-type {
-				margin-top: 30px;
+				margin-top: 10px;
 			}
 
 			&-label {
@@ -145,12 +144,17 @@
 			}
 
 			&-value {
-				font-size: 22px;
+				font-size: 18px;
 				display: block;
+
+				&--bigger {
+					font-size: 22px;
+					line-height: 1;
+				}
 			}
 
 			&-title {
-				font-size: 22px;
+				font-size: 20px;
 				margin-bottom: 5px;
 				display: block;
 			}

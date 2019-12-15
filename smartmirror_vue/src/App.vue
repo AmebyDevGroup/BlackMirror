@@ -1,14 +1,20 @@
 <template>
-	<div id="app">
+	<div id="app" class="app">
 		<div class="app__wrapper">
-			<DateTime></DateTime>
-			<Weather></Weather>
+			<div class="app__section">
+				<DateTime></DateTime>
+			</div>
+			<div class="app__section">
+				<Tasks></Tasks>
+			</div>
 		</div>
-		<div class="app__section">
-			<Air></Air>
-		</div>
-		<div class="app__section">
-			<Tasks></Tasks>
+		<div class="app__wrapper app__wrapper--right">
+			<div class="app__section">
+				<Weather></Weather>
+			</div>
+			<div class="app__section">
+				<Air></Air>
+			</div>
 		</div>
 		<div class="app__section">
 			<News></News>
@@ -48,15 +54,27 @@
 	}
 
 	.app {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		height: 1600px;
+
 		&__section {
 			margin-bottom: 40px;
 		}
 
 		&__wrapper {
 			display: flex;
-			justify-content: space-between;
+			justify-content: flex-start;
 			align-items: flex-start;
+			flex-direction: column;
 			margin-bottom: 40px;
+			width: 50%;
+
+			&--right {
+				align-items: flex-end;
+			}
 		}
 	}
 </style>

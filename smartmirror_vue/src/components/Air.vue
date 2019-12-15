@@ -1,16 +1,9 @@
 <template>
-	<div v-if="show" class="air">
+	<div v-if="show && data" class="air">
 		<span class="air__title">{{title}}</span>
 		<div class="air__wrapper">
-			<div class="air__item" v-for="item in data">
-				<span class="air__item-title">
-					{{ item.name }}
-					<span class="air__item-code">({{ item.code }})</span>
-				</span>
-				<span class="air__item-value">
-					{{ item.value.value }} &#181;g/m<sup>3</sup>
-				</span>
-			</div>
+			<img :src="prepareIconUrl" alt="" v-if="quality_id !== false">
+			<span class="air__label">{{ data.quality_message }}</span>
 		</div>
 	</div>
 </template>
@@ -20,8 +13,9 @@
 		name: 'Air',
 		data: function () {
 			return {
-				title: 'Jakość powietrza:',
+				title: 'Jakość powietrza',
 				data: [],
+				quality_id: false,
 				show: false,
 			}
 		},
@@ -34,10 +28,13 @@
 				this.show = event.air;
 			},
 			handleData(data) {
-				// this.data = data.map(elem => {
-				// 	const float = elem.value.value ? parseFloat(elem.value.value).toFixed(2) : '-';
-				// 	return {...elem, value: {value: float, date: elem.value.date}};
-				// });
+				this.data = data.main;
+				this.quality_id = this.data.quality_id;
+			}
+		},
+		computed: {
+			prepareIconUrl() {
+				return require(`../assets/${this.quality_id}.svg`)
 			}
 		}
 	}
@@ -45,44 +42,27 @@
 
 <style lang="less">
 	.air {
+		margin-right: 42px;
+
 		&__title {
 			font-size: 30px;
 			margin-bottom: 15px;
 			display: block;
+			text-align: center;
 		}
 
 		&__wrapper {
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
-			margin-top: 25px;
+			flex-direction: column;
+			margin-top: 15px;
 		}
 
-		&__item {
-			padding: 10px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			height: 110px;
-			border-radius: 10px;
-			margin-right: 35px;
-
-			&-title {
-				font-size: 16px;
-				margin-right: 5px;
-				text-align: center;
-			}
-
-			&-code {
-				display: block;
-			}
-
-			&-value {
-				font-size: 20px;
-				margin-top: 10px;
-				font-weight: bold;
-			}
+		&__label {
+			font-size: 24px;
+			margin-top: 15px;
+			display: block;
 		}
 	}
 </style>
