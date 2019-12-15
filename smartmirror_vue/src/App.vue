@@ -1,9 +1,7 @@
 <template>
 	<div id="app">
-		<div class="app__section">
+		<div class="app__wrapper">
 			<DateTime></DateTime>
-		</div>
-		<div class="app__section">
 			<Weather></Weather>
 		</div>
 		<div class="app__section">
@@ -51,6 +49,13 @@
 
 	.app {
 		&__section {
+			margin-bottom: 40px;
+		}
+
+		&__wrapper {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
 			margin-bottom: 40px;
 		}
 	}

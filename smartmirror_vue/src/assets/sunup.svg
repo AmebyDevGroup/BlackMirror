@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2019 (64-Bit Wersja próbna) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="98.5151mm" height="58.4062mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 1887.9 1119.27"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#FFCC01;stroke-width:152.11;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str1 {stroke:white;stroke-width:95.82;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .fil2 {fill:none}
+    .fil0 {fill:#FFCC01}
+    .fil1 {fill:#FFCC01;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Warstwa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2161104006608">
+   <path class="fil0" d="M1288.26 810.34c-5.32,-191.32 -162.07,-344.79 -354.68,-344.79 -192.61,0 -349.36,153.47 -354.68,344.79l709.36 0z"/>
+   <path class="fil1" d="M1212.17 810.34c-2.58,-73 -33.22,-138.85 -81.46,-187.09 -50.44,-50.44 -120.14,-81.64 -197.13,-81.64 -76.99,0 -146.69,31.2 -197.13,81.64 -48.24,48.24 -78.88,114.09 -81.46,187.09l-152.18 0c2.63,-114.99 50.31,-218.86 126.09,-294.63 77.98,-77.98 185.7,-126.21 304.67,-126.21 118.97,0 226.7,48.23 304.67,126.21 75.77,75.78 123.46,179.65 126.09,294.63l-152.18 0z"/>
+   <line class="fil2 str0" x1="940.21" y1="76.06" x2="940.21" y2= "289.11" />
+   <path class="fil1" d="M120.56 810.34c2.96,-39.3 35.78,-70.26 75.84,-70.26l216.79 0c40.05,0 72.88,30.96 75.84,70.26l-368.47 0z"/>
+   <path class="fil1" d="M1402.62 810.34c2.96,-39.3 35.78,-70.26 75.84,-70.26l213.05 0c40.05,0 72.88,30.96 75.84,70.26l-364.73 0z"/>
+   <line class="fil2 str0" x1="1314.12" y1="454.01" x2="1466.51" y2= "301.62" />
+   <line class="fil2 str0" x1="398.2" y1="301.62" x2="550.59" y2= "454.01" />
+  </g>
+  <g id="_2161104011056">
+   <line class="fil2 str1" x1="47.91" y1="1070.24" x2="795.95" y2= "1070.24" />
+   <line class="fil2 str1" x1="1091.95" y1="1071.36" x2="1839.99" y2= "1071.36" />
+   <g>
+    <line class="fil2 str1" x1="797.26" y1="1070.28" x2="942.09" y2= "893.97" />
+    <line class="fil2 str1" x1="1088.8" y1="1070.28" x2="943.97" y2= "893.97" />
+   </g>
+  </g>
+ </g>
+</svg>

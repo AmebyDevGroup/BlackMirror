@@ -1,40 +1,40 @@
 <template>
 	<div v-if="show && temperature" class="weather">
 		<div>
-			<span class="weather__city">{{ data.city }}</span>
 			<div class="weather__box">
-				<img :src="prepareSvgUrl" alt="" class="weather__icon">
-				<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
+				<span class="weather__city">{{ data.city }}</span>
+				<span class="weather__wind">
+					<img src="../assets/wind.svg" alt="">
+					<span class="weather__wind-text">{{ data.wind_speed }} m/s</span>
+				</span>
 			</div>
-			<span>{{ data.description }}</span>
+			<div class="weather__box weather__box--start">
+				<img :src="prepareSvgUrl" alt="" class="weather__icon">
+				<div class="weather__temperature-wrapper">
+					<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
+					<span class="weather__description">{{ data.description }}</span>
+				</div>
+			</div>
 		</div>
 		<div class="weather__item-wrapper">
 			<div class="weather__item">
 				<span class="weather__item-label">
-					Wilgotność:
-					<span class="weather__item-value">{{ data.humidity }}%</span>
+					<img src="../assets/sunup.svg" alt="" class="weather__sun">
+					<span class="weather__item-value">{{ sunrise }}</span>
 				</span>
 				<span class="weather__item-label">
-					Ciśnienie:
-					<span class="weather__item-value">{{ data.pressure }} hPa</span>
-				</span>
-				<span class="weather__item-label">
-					Zachmurzenie:
-					<span class="weather__item-value">{{ data.clouds }}%</span>
-				</span>
-				<span class="weather__item-label">
-					Wiatr:
-					<span class="weather__item-value">{{ data.wind_speed }} m/s</span>
+					<img src="../assets/sundown.svg" alt="" class="weather__sun">
+					<span class="weather__item-value">{{ sunset }}</span>
 				</span>
 			</div>
 			<div class="weather__item">
 				<span class="weather__item-label">
-					Wschód słońca:
-					<span class="weather__item-value">{{ sunrise }}</span>
+					<span class="weather__item-title">Ciśnienie:</span>
+					<span class="weather__item-value">{{ data.pressure }} hPa</span>
 				</span>
 				<span class="weather__item-label">
-					Zachód słońca:
-					<span class="weather__item-value">{{ sunset }}</span>
+					<span class="weather__item-title">Wilgotność:</span>
+					<span class="weather__item-value">{{ data.humidity }}%</span>
 				</span>
 			</div>
 		</div>
@@ -87,57 +87,102 @@
 <style lang="less">
 	.weather {
 		display: flex;
+		flex-direction: column;
+
+		&__sun {
+			max-width: 100px;
+			margin-bottom: 5px;
+		}
+
+		&__description {
+			margin-top: 10px;
+			font-size: 18px;
+			margin-left: -20px;
+		}
+
+		&__city {
+			font-size: 50px;
+			margin-right: 25px;
+		}
+
+		&__wind {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			img {
+				width: 32px;
+			}
+
+			&-text {
+				font-size: 30px;
+				margin-left: 10px;
+			}
+		}
 
 		&__icon {
-			max-width: 75px;
-			margin-top: 10px;
+			max-width: 135px;
+			margin-top: 15px;
 			margin-right: 10px;
 			margin-bottom: 10px;
 		}
 
 		&__item {
 			display: flex;
-			justify-content: flex-start;
+			justify-content: space-between;
 			align-items: flex-start;
-			margin-bottom: 25px;
+			margin-top: 40px;
 
 			&:last-of-type {
-				margin-bottom: 0;
+				margin-top: 30px;
 			}
 
 			&-label {
-				margin-right: 10px;
 				font-size: 16px;
-				width: 25%;
+				width: 50%;
 				max-width: 170px;
+				text-align: center;
 			}
 
 			&-value {
-				font-size: 18px;
+				font-size: 22px;
+				display: block;
+			}
+
+			&-title {
+				font-size: 22px;
+				margin-bottom: 5px;
 				display: block;
 			}
 
 			&-wrapper {
 				display: flex;
-				justify-content: flex-end;
+				justify-content: flex-start;
 				flex-direction: column;
-				padding-left: 40px;
 				width: 100%;
 			}
 		}
 
-		&__city {
-			font-size: 30px;
-		}
-
 		&__temperature {
-			font-size: 40px;
+			font-size: 70px;
+			margin-left: 25px;
+			margin-top: 10px;
+			line-height: 1;
+
+			&-wrapper {
+				display: flex;
+				flex-direction: column;
+			}
 		}
 
 		&__box {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+
+			&--start {
+				align-items: flex-start;
+			}
 		}
 	}
 </style>

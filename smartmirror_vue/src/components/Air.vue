@@ -34,10 +34,10 @@
 				this.show = event.air;
 			},
 			handleData(data) {
-				this.data = data.map(elem => {
-					const float = elem.value.value ? parseFloat(elem.value.value).toFixed(2) : '-';
-					return {...elem, value: {value: float, date: elem.value.date}};
-				});
+				// this.data = data.map(elem => {
+				// 	const float = elem.value.value ? parseFloat(elem.value.value).toFixed(2) : '-';
+				// 	return {...elem, value: {value: float, date: elem.value.date}};
+				// });
 			}
 		}
 	}

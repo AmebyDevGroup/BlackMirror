@@ -1,11 +1,10 @@
 <template>
 	<div class="time">
-		<div class="time__date">{{ date }}</div>
 		<div class="time__wrapper">
 			<span class="time__item" v-if="hoursValue !== null">{{ hours }}:</span>
-			<span class="time__item" v-if="minutesValue !== null">{{ minutes }}:</span>
-			<span class="time__item" v-if="secondsValue !== null">{{ seconds }}</span>
+			<span class="time__item" v-if="minutesValue !== null">{{ minutes }}</span>
 		</div>
+		<div class="time__date">{{ date }}</div>
 	</div>
 </template>
 
@@ -16,7 +15,6 @@
 			return {
 				hoursValue: null,
 				minutesValue: null,
-				secondsValue: null,
 				date: null,
 				weekday: null,
 			}
@@ -30,8 +28,7 @@
 					let now = new Date();
 					this.hoursValue = now.getHours();
 					this.minutesValue = now.getMinutes();
-					this.secondsValue = now.getSeconds();
-					this.date = now.toLocaleString('PL-pl', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+					this.date = now.toLocaleString('PL-pl', {weekday: 'long', month: 'long', day: 'numeric'});
 				}, 1000);
 			}
 		},
@@ -42,9 +39,6 @@
 			minutes() {
 				return this.minutesValue < 10 ? `0${this.minutesValue}` : this.minutesValue;
 			},
-			seconds() {
-				return this.secondsValue < 10 ? `0${this.secondsValue}` : this.secondsValue;
-			},
 		}
 	}
 </script>
@@ -52,7 +46,10 @@
 <style lang="less">
 	.time {
 		&__item {
-			font-size: 60px;
+			font-weight: 700;
+			font-size: 130px;
+			line-height: 1;
+			letter-spacing: 2px;
 		}
 
 		&__wrapper {
@@ -61,7 +58,7 @@
 
 		&__date {
 			text-transform: capitalize;
-			font-size: 35px;
+			font-size: 34px;
 		}
 	}
 </style>
