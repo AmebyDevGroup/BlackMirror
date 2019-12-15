@@ -1,13 +1,14 @@
 <template>
-	<div v-if="show" class="news">
+	<div v-if="show && data" class="news">
 		<div class="news__wrapper">
-			<div v-for="(item, index) in data" class="news__item" v-if="index < 1">
-				<span class="news__item-date">
-					{{ item.hours }}:{{ item.minutes }}
+			<div class="news__item">
+				<span class="news__item-date"
+							v-if="currentHours">
+					{{ currentHours }}:{{ currentMinutes }}
 				</span>
 				<div class="news__item-content">
-					<div class="news__item-title">{{ item.title }}</div>
-					<div class="news__item-description">{{ item.description }}</div>
+					<div class="news__item-title" v-if="currentTitle">{{ currentTitle }}</div>
+					<div class="news__item-description" v-if="currentDescription">{{ currentDescription }}</div>
 				</div>
 			</div>
 		</div>
@@ -21,11 +22,17 @@
 			return {
 				data: [],
 				show: false,
+				currentHours: false,
+				currentMinutes: false,
+				currentTitle: false,
+				currentDescription: false,
 			}
 		},
 		mounted() {
 			this.$root.$on('configChange', this.handleConfig);
 			this.$root.$on('newsChange', this.handleData);
+
+			this.updateCurrentNews();
 		},
 		methods: {
 			handleConfig(event) {
@@ -45,16 +52,29 @@
 						description: elem.description,
 					}
 				});
-			}
-		}
+			},
+			updateCurrentNews() {
+				let i = 0;
+
+				setInterval(() => {
+					if (i === this.data.length) i = 0;
+					this.currentHours = this.data[i].hours;
+					this.currentMinutes = this.data[i].minutes;
+					this.currentTitle = this.data[i].title;
+					this.currentDescription = this.data[i].description;
+					i++;
+				}, 7000);
+			},
+		},
 	}
 </script>
 
 <style lang="less">
 	.news {
 		&__wrapper {
-			max-width: 90%;
-			padding: 10px;
+			max-width: 900px;
+			width: 100%;
+			padding: 15px;
 			background: #252525;
 			border-radius: 10px;
 			margin: auto;
@@ -64,6 +84,10 @@
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
+
+			&-date {
+				margin-right: 20px;
+			}
 
 			&-content {
 				display: flex;
@@ -77,10 +101,6 @@
 
 			&-description {
 				font-size: 14px;
-			}
-
-			&-date {
-				margin-right: 20px;
 			}
 		}
 	}
