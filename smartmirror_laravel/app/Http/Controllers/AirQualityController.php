@@ -34,7 +34,7 @@ class AirQualityController
             $airInfo[] = [
                 'name' => ucfirst($station->param->paramName),
                 'code' => $station->param->paramCode,
-                'value' => json_decode($sensor->getBody()->getContents())->values[0]??false
+                'value' => json_decode($sensor->getBody()->getContents())->values[0] ?? false
             ];
         }
         broadcast(new Message('air', $airInfo));

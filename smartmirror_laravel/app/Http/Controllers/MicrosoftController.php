@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\Message;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Beta\Model;
@@ -31,16 +32,16 @@ class MicrosoftController extends Controller
             '$top' => 100,
 //            '$filter' => "status ne 'completed'"
         );
-        $getEventsUrl = '/me/outlook/taskFolders?'.http_build_query($queryParams);
+        $getEventsUrl = '/me/outlook/taskFolders?' . http_build_query($queryParams);
         try {
             $folders = $graph->createRequest('GET', $getEventsUrl)
                 ->setReturnType(Model\OutlookTaskFolder::class)
                 ->execute();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e->getMessage());
         }
         $formatedFolders = [];
-        foreach($folders as $folder) {
+        foreach ($folders as $folder) {
             $this_folder = [
                 'id' => $folder->getId(),
                 'title' => $folder->getName()
@@ -53,37 +54,39 @@ class MicrosoftController extends Controller
     public function tasks()
     {
         $graph = $this->initConnection();
-        $queryParams = array(
-//          '$select' => 'subject,importance,body,dueDateTime,createdDateTime',
-            '$orderby' => 'importance DESC, createdDateTime DESC',
-            '$top' => 20,
-            '$filter' => "status ne 'completed'"
-        );
-        $getEventsUrl = '/me/outlook/taskFolders/'.config('mirror.tasks.directory').'/tasks?'.http_build_query($queryParams);
         try {
-            $tasks = $graph->createRequest('GET', $getEventsUrl)
-                ->setReturnType(Model\OutlookTask::class)
+            $calendars = $graph->createRequest('GET', '/me/calendars')
+                ->setReturnType(Model\Calendar::class)
                 ->execute();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e->getMessage());
         }
-        $formatedTasks = [];
-        foreach($tasks as $task) {
-            $this_task = [
-                'owner' => $task->getOwner(),
-                'title' => $task->getSubject(),
-                'description' => $task->getBody()->getContent(),
-                'priority' => $task->getImportance()->value(),
-                'deadline_at' => is_array($deadline_at = $task->getDueDateTime()->getProperties())? Carbon::parse($deadline_at['dateTime'])->format('Y-m-d H:i'):null,
-                'created_at' => Carbon::parse($task->getCreatedDateTime())->format('Y-m-d H:i'),
-                'updated_at' => Carbon::parse($task->getLastModifiedDateTime())->format('Y-m-d H:i'),
-            ];
-            $formatedTasks[] = $this_task;
+        $all_events = [];
+        foreach ($calendars as $calendar) {
+            $getEventsUrl = "/me/calendars/{$calendar->getId()}/calendarView?startDateTime=2019-12-14T10:00:00.0000000&endDateTime=2019-12-31T23:59:00.0000000";
+            $events = $graph->createRequest('GET', $getEventsUrl)
+                ->setReturnType(Model\Event::class)
+                ->execute();
+            $all_events = array_merge($all_events, $events);
         }
-        broadcast(new Message('tasks', $formatedTasks));
-
+        $formatedEvents = [];
+        foreach ($all_events as $event) {
+            $this_event = [
+                'title' => $event->getSubject(),
+                'allDay' => $event->getIsAllDay(),
+                'full_start_date' => Carbon::parse($event->getStart()->getDateTime())->format('Y-m-d H:i:s'),
+                'start' => Carbon::now()->diffInDays(Carbon::parse($event->getStart()->getDateTime())->format('Y-m-d'),
+                    false),
+                'hour' => $event->getIsAllDay() ? false : Carbon::parse($event->getStart()->getDateTime())->format('H:i')
+            ];
+            $formatedEvents[] = $this_event;
+        }
+        $formatedEvents = collect($formatedEvents)->sortBy('full_start_date')->values();
+        $endDate = $formatedEvents->get(3)['start'];
+        $formatedEvents = $formatedEvents->where('start', '<=', $endDate);
+        broadcast(new Message('calendar', $formatedEvents));
         $viewData = $this->loadMicrosoftViewData();
-        $viewData['events'] = $formatedTasks;
+        $viewData['events'] = $formatedEvents;
         return view('panel.calendar', $viewData);
     }
 }

@@ -61,7 +61,7 @@ class MirrorChannel extends Channel
                         dispatch(new Jobs\SendAirQualityJob());
                         break;
                     case "calendar":
-
+                        dispatch(new Jobs\SendCalendarJob());
                         break;
                     case "news":
                         dispatch(new Jobs\SendNewsJob());

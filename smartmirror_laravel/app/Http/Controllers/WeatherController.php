@@ -29,15 +29,16 @@ class WeatherController
             'temperature' => $data->main->temp,
             'pressure' => $data->main->pressure,
             'humidity' => $data->main->humidity,
-            'wind_speed' => $data->wind->speed,
-            'wind_gust' => $data->wind->gust,
+            'wind_speed' => $data->wind->speed ?? false,
+            'wind_deg' => $data->wind->deg ?? false,
+            'wind_gust' => $data->wind->gust ?? false,
             'clouds' => $data->clouds->all,
             'sunrise' => $data->sys->sunrise,
             'sunset' => $data->sys->sunset,
             'description' => $data->weather[0]->description,
             'icon' => $data->weather[0]->icon,
             'time' => Carbon::parse($data->dt)->format('Y-m-d H:i:s'),
-         ];
+        ];
         broadcast(new Message('current_weather', $weatherInfo));
         return response()->json($weatherInfo);
     }

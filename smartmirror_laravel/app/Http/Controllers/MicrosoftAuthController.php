@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\TokenStore\TokenCache;
 use Illuminate\Http\Request;
+use League\OAuth2\Client\Provider\GenericProvider;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Beta\Model;
 
@@ -13,14 +14,14 @@ class MicrosoftAuthController extends Controller
     public function signin()
     {
         // Initialize the OAuth client
-        $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-            'clientId'                => env('OAUTH_APP_ID'),
-            'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-            'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-            'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-            'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+        $oauthClient = new GenericProvider([
+            'clientId' => env('OAUTH_APP_ID'),
+            'clientSecret' => env('OAUTH_APP_PASSWORD'),
+            'redirectUri' => env('OAUTH_REDIRECT_URI'),
+            'urlAuthorize' => env('OAUTH_AUTHORITY') . env('OAUTH_AUTHORIZE_ENDPOINT'),
+            'urlAccessToken' => env('OAUTH_AUTHORITY') . env('OAUTH_TOKEN_ENDPOINT'),
             'urlResourceOwnerDetails' => '',
-            'scopes'                  => env('OAUTH_SCOPES')
+            'scopes' => env('OAUTH_SCOPES')
         ]);
 
         $authUrl = $oauthClient->getAuthorizationUrl();
@@ -54,14 +55,14 @@ class MicrosoftAuthController extends Controller
         $authCode = $request->query('code');
         if (isset($authCode)) {
             // Initialize the OAuth client
-            $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-                'clientId'                => env('OAUTH_APP_ID'),
-                'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-                'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-                'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-                'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+            $oauthClient = new GenericProvider([
+                'clientId' => env('OAUTH_APP_ID'),
+                'clientSecret' => env('OAUTH_APP_PASSWORD'),
+                'redirectUri' => env('OAUTH_REDIRECT_URI'),
+                'urlAuthorize' => env('OAUTH_AUTHORITY') . env('OAUTH_AUTHORIZE_ENDPOINT'),
+                'urlAccessToken' => env('OAUTH_AUTHORITY') . env('OAUTH_TOKEN_ENDPOINT'),
                 'urlResourceOwnerDetails' => '',
-                'scopes'                  => env('OAUTH_SCOPES')
+                'scopes' => env('OAUTH_SCOPES')
             ]);
 
             try {
@@ -81,8 +82,7 @@ class MicrosoftAuthController extends Controller
                 $tokenCache->storeTokens($accessToken, $user);
 
                 return redirect()->route('admin');
-            }
-            catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+            } catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
                 return redirect()->route('admin')
                     ->with('error', 'Error requesting access token')
                     ->with('errorDetail', $e->getMessage());

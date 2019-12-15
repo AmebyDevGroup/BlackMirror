@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         try {
             $config = MirrorConfig::all();
             $array_config = [];
-            foreach($config as $config_object) {
+            foreach ($config as $config_object) {
                 $array_config[$config_object->name] = $config_object;
                 Config::set("mirror.{$config_object->name}", $config_object->data);
                 Config::set("mirror.{$config_object->name}.enabled", $config_object->active);

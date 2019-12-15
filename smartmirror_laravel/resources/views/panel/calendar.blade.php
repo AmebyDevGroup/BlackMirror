@@ -5,10 +5,10 @@
     <table class="table">
         <thead>
         <tr>
-{{--            <th scope="col">Organizer</th>--}}
+            {{--            <th scope="col">Organizer</th>--}}
             <th scope="col">Subject</th>
             <th scope="col">Start</th>
-{{--            <th scope="col">End</th>--}}
+            {{--            <th scope="col">End</th>--}}
         </tr>
         </thead>
         <tbody>
