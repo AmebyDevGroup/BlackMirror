@@ -5,6 +5,9 @@
 				<DateTime></DateTime>
 			</div>
 			<div class="app__section">
+				<Calendar></Calendar>
+			</div>
+			<div class="app__section">
 				<Tasks></Tasks>
 			</div>
 		</div>
@@ -28,10 +31,12 @@
 	import Tasks from "./components/Tasks";
 	import DateTime from "./components/DateTime";
 	import News from "./components/News";
+	import Calendar from "./components/Calendar";
 
 	export default {
 		name: 'app',
 		components: {
+			Calendar,
 			News,
 			Tasks,
 			Weather,
