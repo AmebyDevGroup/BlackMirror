@@ -63,7 +63,7 @@
 					this.currentTitle = this.data[i].title;
 					this.currentDescription = this.data[i].description;
 					i++;
-				}, 7000);
+				}, 15000);
 			},
 		},
 	}
@@ -72,12 +72,13 @@
 <style lang="less">
 	.news {
 		&__wrapper {
-			max-width: 900px;
+			max-width: 950px;
 			width: 100%;
 			padding: 15px;
-			background: #252525;
+			background: #383838;
 			border-radius: 10px;
 			margin: auto;
+			position: relative;
 		}
 
 		&__item {
@@ -87,6 +88,10 @@
 
 			&-date {
 				margin-right: 20px;
+				font-size: 20px;
+				position: absolute;
+				top: -35px;
+				left: 15px;
 			}
 
 			&-content {
@@ -95,12 +100,13 @@
 			}
 
 			&-title {
-				font-size: 16px;
+				font-size: 20px;
+				font-weight: 700;
 				margin-bottom: 10px;
 			}
 
 			&-description {
-				font-size: 14px;
+				font-size: 18px;
 			}
 		}
 	}

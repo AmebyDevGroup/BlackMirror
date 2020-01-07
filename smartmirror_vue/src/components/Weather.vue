@@ -174,6 +174,7 @@
 			margin-left: 25px;
 			margin-top: 10px;
 			line-height: 1;
+			font-weight: 700;
 
 			&-wrapper {
 				display: flex;

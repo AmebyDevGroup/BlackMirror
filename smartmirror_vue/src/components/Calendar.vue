@@ -2,7 +2,9 @@
 	<div v-if="show && data" class="calendar">
 		<div v-for="item in data" class="calendar__item">
 			<img src="../assets/calendar.svg" alt="" class="calendar__icon">
-			<p class="calendar__text">{{item.title}} za {{item.start}} {{ dayTypo(item.start) }}</p>
+			<p class="calendar__text" v-if="item.start !== 0 && item.start !== 1">{{item.title}} za {{item.start}} {{ dayTypo(item.start) }}</p>
+			<p class="calendar__text" v-if="item.start === 0">{{item.title}} dziś</p>
+			<p class="calendar__text" v-if="item.start === 1">{{item.title}} jutro</p>
 		</div>
 	</div>
 </template>
