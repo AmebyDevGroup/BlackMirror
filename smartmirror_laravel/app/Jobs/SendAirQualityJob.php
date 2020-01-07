@@ -20,6 +20,8 @@ class SendAirQualityJob implements ShouldQueue
     protected $getStationUrl;
     // http://api.gios.gov.pl/pjp-api/rest/data/getData/{sensorId}
     protected $getSensorUrl;
+    // http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/{stationId}
+    protected $getIndexUrl;
 
     /**
      * Create a new job instance.
@@ -29,6 +31,7 @@ class SendAirQualityJob implements ShouldQueue
     public function __construct()
     {
         $config = MirrorConfig::where('name', 'air')->first();
+        $this->getIndexUrl = "http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/" . $config->data['station'] ?? '';
         $this->getStationUrl = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/" . $config->data['station'] ?? '';
         $this->getSensorUrl = "http://api.gios.gov.pl/pjp-api/rest/data/getData/";
     }
@@ -42,12 +45,18 @@ class SendAirQualityJob implements ShouldQueue
     {
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->getStationUrl);
             $airInfo = [];
+            $response = $client->request('GET', $this->getIndexUrl);
+            $data = json_decode($response->getBody()->getContents());
+            $airInfo['main'] = [
+                'date' => $data->stCalcDate,
+                'quality_id' => $data->stIndexLevel->id,
+                'quality_message' => $data->stIndexLevel->indexLevelName,
+            ];
+            $response = $client->request('GET', $this->getStationUrl);
             foreach (json_decode($response->getBody()->getContents()) as $station) {
-                $client = new Client();
                 $sensor = $client->request('GET', $this->getSensorUrl . $station->id);
-                $airInfo[] = [
+                $airInfo['details'][] = [
                     'name' => ucfirst($station->param->paramName),
                     'code' => $station->param->paramCode,
                     'value' => json_decode($sensor->getBody()->getContents())->values[0] ?? false

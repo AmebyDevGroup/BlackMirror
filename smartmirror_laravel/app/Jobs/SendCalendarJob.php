@@ -66,11 +66,14 @@ class SendCalendarJob implements ShouldQueue
             ->setReturnType(Model\Calendar::class)
             ->execute();
         $all_events = [];
+        $now = Carbon::parse(Carbon::now()->format('Y-m-d'))->format('Y-m-d\TH:i:s.000001');
+        $two_weeks = Carbon::parse(Carbon::now()->format('Y-m-d'))->addDays(14)->format('Y-m-d\TH:i:s.000001');
         foreach ($calendars as $calendar) {
-            $getEventsUrl = "/me/calendars/{$calendar->getId()}/calendarView?startDateTime=2019-12-14T10:00:00.0000000&endDateTime=2019-12-31T23:59:00.0000000";
+            $getEventsUrl = "/me/calendars/{$calendar->getId()}/calendarView?startDateTime={$now}&endDateTime={$two_weeks}";
             $events = $graph->createRequest('GET', $getEventsUrl)
                 ->setReturnType(Model\Event::class)
                 ->execute();
+            if(!is_array($events)) continue;
             $all_events = array_merge($all_events, $events);
         }
         $formatedEvents = [];
@@ -79,15 +82,18 @@ class SendCalendarJob implements ShouldQueue
                 'title' => $event->getSubject(),
                 'allDay' => $event->getIsAllDay(),
                 'full_start_date' => Carbon::parse($event->getStart()->getDateTime())->format('Y-m-d H:i:s'),
-                'start' => Carbon::now()->diffInDays(Carbon::parse($event->getStart()->getDateTime())->format('Y-m-d'),
-                    false),
-                'hour' => $event->getIsAllDay() ? false : Carbon::parse($event->getStart()->getDateTime())->format('H:i')
+                'start' => Carbon::parse(Carbon::now()->format('Y-m-d'))
+                            ->diffInDays(Carbon::parse($event->getStart()->getDateTime()), false),
+                'hour' => $event->getIsAllDay() ? false : Carbon::parse($event->getStart()->getDateTime())
+                            ->format('H:i')
             ];
             $formatedEvents[] = $this_event;
         }
         $formatedEvents = collect($formatedEvents)->sortBy('full_start_date')->values();
-        $endDate = $formatedEvents->get(3)['start'];
-        $formatedEvents = $formatedEvents->where('start', '<=', $endDate);
+        if($formatedEvents->count() > 3){
+            $endDate = $formatedEvents->get(3)['start'];
+            $formatedEvents = $formatedEvents->where('start', '<=', $endDate);
+        }
         return $formatedEvents;
     }
 
