@@ -5,10 +5,11 @@ import Echo from 'laravel-echo';
 window.Pusher = require('pusher-js');
 
 let eventCounter = 0;
+let activeSections = 0;
 
 const handleLoading = (ev) => {
 	const data = Object.values(ev.data);
-	const number = [...data].filter(elem => elem === true).length;
+	activeSections = [...data].filter(elem => elem === true).length;
 };
 
 const echo = new Echo({
@@ -26,7 +27,7 @@ echo.channel('mirror')
 		if (e.type === "config") handleLoading(e);
 		window.Vue.$root.$emit(`${e.type}Change`, e.data);
 		eventCounter++;
-		if (eventCounter === 6) window.Vue.$root.$emit('loading', false);
+		if (eventCounter === activeSections) window.Vue.$root.$emit('loading', false);
 	});
 
 Vue.config.productionTip = false;
