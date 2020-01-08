@@ -1,17 +1,22 @@
 <template>
 	<div v-if="show && data" class="news">
-		<div class="news__wrapper">
-			<div class="news__item">
-				<span class="news__item-date"
-							v-if="currentHours">
+		<transition name="expand"
+								@enter="enter"
+								@after-enter="afterEnter"
+								@leave="leave">
+			<div class="news__wrapper" :key="currentTitle">
+				<div class="news__item">
+					<span class="news__item-date"
+					v-if="currentHours">
 					{{ currentHours }}:{{ currentMinutes }}
-				</span>
-				<div class="news__item-content">
-					<div class="news__item-title" v-if="currentTitle">{{ currentTitle }}</div>
-					<div class="news__item-description" v-if="currentDescription">{{ currentDescription }}</div>
+					</span>
+					<div class="news__item-content">
+							<div class="news__item-title" v-if="currentTitle">{{ currentTitle }}</div>
+							<div class="news__item-description" v-if="currentDescription">{{ currentDescription }}</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		</transition>
 	</div>
 </template>
 
@@ -35,6 +40,33 @@
 			this.updateCurrentNews();
 		},
 		methods: {
+			enter(element) {
+				const width = getComputedStyle(element).width;
+				element.style.width = width;
+				element.style.position = 'absolute';
+				element.style.visibility = 'hidden';
+				element.style.height = 'auto';
+				const height = getComputedStyle(element).height;
+				element.style.width = null;
+				element.style.position = null;
+				element.style.visibility = null;
+				element.style.height = 0;
+				getComputedStyle(element).height;
+				setTimeout(() => {
+					element.style.height = height;
+				});
+			},
+			afterEnter(element) {
+				element.style.height = 'auto';
+			},
+			leave(element) {
+				const height = getComputedStyle(element).height;
+				element.style.height = height;
+				getComputedStyle(element).height;
+				setTimeout(() => {
+					element.style.height = 0;
+				});
+			},
 			handleConfig(event) {
 				this.show = event.news;
 			},
@@ -71,6 +103,20 @@
 
 <style lang="less">
 	.news {
+		.expand-enter-active,
+		.expand-leave-active {
+			transition: all 0.75s ease;
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.expand-enter,
+		.expand-leave-to {
+			height: 0;
+			opacity: 0;
+			visibility: hidden;
+		}
+
 		&__wrapper {
 			max-width: 950px;
 			width: 100%;
