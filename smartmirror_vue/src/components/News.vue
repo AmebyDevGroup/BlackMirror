@@ -36,7 +36,6 @@
 		mounted() {
 			this.$root.$on('configChange', this.handleConfig);
 			this.$root.$on('newsChange', this.handleData);
-
 			this.updateCurrentNews();
 		},
 		methods: {
@@ -71,19 +70,30 @@
 				this.show = event.news;
 			},
 			handleData(data) {
-				this.data = data.items.map(elem => {
-					const hours = new Date(elem.date).getHours();
-					const hoursFormatted = hours < 10 ? `0${hours}` : hours;
-					const minutes = new Date(elem.date).getMinutes();
-					const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+				return new Promise((resolve) => {
+					this.data = data.items.map(elem => {
+						const hours = new Date(elem.date).getHours();
+						const hoursFormatted = hours < 10 ? `0${hours}` : hours;
+						const minutes = new Date(elem.date).getMinutes();
+						const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
 
-					return {
-						hours: hoursFormatted,
-						minutes: minutesFormatted,
-						title: elem.title,
-						description: elem.description,
-					}
-				});
+						return {
+							hours: hoursFormatted,
+							minutes: minutesFormatted,
+							title: elem.title,
+							description: elem.description,
+						}
+					});
+					return resolve(this.data);
+				}).then(() => {
+					this.getInitialData();
+				})
+			},
+			getInitialData() {
+				this.currentHours = this.data[0].hours;
+				this.currentMinutes = this.data[0].minutes;
+				this.currentTitle = this.data[0].title;
+				this.currentDescription = this.data[0].description;
 			},
 			updateCurrentNews() {
 				let i = 0;

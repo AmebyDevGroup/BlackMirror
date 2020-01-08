@@ -4,6 +4,13 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
+let eventCounter = 0;
+
+const handleLoading = (ev) => {
+	const data = Object.values(ev.data);
+	const number = [...data].filter(elem => elem === true).length;
+};
+
 const echo = new Echo({
 	broadcaster: 'pusher',
 	key: 123456,
@@ -16,7 +23,10 @@ const echo = new Echo({
 echo.channel('mirror')
 	.listen('Message', (e) => {
 		console.log(e);
+		if (e.type === "config") handleLoading(e);
 		window.Vue.$root.$emit(`${e.type}Change`, e.data);
+		eventCounter++;
+		if (eventCounter === 6) window.Vue.$root.$emit('loading', false);
 	});
 
 Vue.config.productionTip = false;

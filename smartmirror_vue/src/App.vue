@@ -22,6 +22,7 @@
 		<div class="app__section app__section--news">
 			<News></News>
 		</div>
+		<Loader></Loader>
 	</div>
 </template>
 
@@ -32,10 +33,12 @@
 	import DateTime from "./components/DateTime";
 	import News from "./components/News";
 	import Calendar from "./components/Calendar";
+	import Loader from "./components/Loader";
 
 	export default {
 		name: 'app',
 		components: {
+			Loader,
 			Calendar,
 			News,
 			Tasks,
