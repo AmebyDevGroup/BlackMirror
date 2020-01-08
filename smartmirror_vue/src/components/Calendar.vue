@@ -24,7 +24,7 @@
 		},
 		methods: {
 			handleConfig(event) {
-				this.show = event.air;
+				this.show = event.calendar;
 			},
 			handleData(data) {
 				this.data = data;
