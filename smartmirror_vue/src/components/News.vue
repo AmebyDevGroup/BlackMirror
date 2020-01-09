@@ -1,23 +1,25 @@
 <template>
-	<div v-if="show && data" class="news">
-		<transition name="expand"
-								@enter="enter"
-								@after-enter="afterEnter"
-								@leave="leave">
-			<div class="news__wrapper" :key="currentTitle">
-				<div class="news__item">
-					<span class="news__item-date"
-					v-if="currentHours">
-					{{ currentHours }}:{{ currentMinutes }}
-					</span>
-					<div class="news__item-content">
-							<div class="news__item-title" v-if="currentTitle">{{ currentTitle }}</div>
-							<div class="news__item-description" v-if="currentDescription">{{ currentDescription }}</div>
+	<transition name="fade-bottom">
+		<div v-if="show && data && !prerender" class="news">
+			<transition name="expand"
+									@enter="enter"
+									@after-enter="afterEnter"
+									@leave="leave">
+				<div class="news__wrapper" :key="currentTitle">
+					<div class="news__item">
+						<span class="news__item-date"
+						v-if="currentHours">
+						{{ currentHours }}:{{ currentMinutes }}
+						</span>
+						<div class="news__item-content">
+								<div class="news__item-title" v-if="currentTitle">{{ currentTitle }}</div>
+								<div class="news__item-description" v-if="currentDescription">{{ currentDescription }}</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</transition>
-	</div>
+			</transition>
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -31,14 +33,19 @@
 				currentMinutes: false,
 				currentTitle: false,
 				currentDescription: false,
+				prerender: true,
 			}
 		},
 		mounted() {
 			this.$root.$on('configChange', this.handleConfig);
 			this.$root.$on('newsChange', this.handleData);
+			this.$root.$on('loading', this.handlePrerender);
 			this.updateCurrentNews();
 		},
 		methods: {
+			handlePrerender(bool) {
+				this.prerender = bool;
+			},
 			enter(element) {
 				const width = getComputedStyle(element).width;
 				element.style.width = width;

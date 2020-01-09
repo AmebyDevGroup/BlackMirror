@@ -1,20 +1,22 @@
 <template>
-	<div v-if="show" class="tasks">
-		<span class="tasks__title">{{title}}</span>
-		<ul>
-			<li v-for="item in data"
-					class="tasks__item"
-					:class="{'star': item.priority === 'high'}">
-				<div class="tasks__item-content">
-					<div class="tasks__item-title">{{ item.title }}</div>
-					<div class="tasks__item-description" v-if="item.description">{{ item.description }}</div>
-					<div v-if="item.deadline" class="tasks__deadline">
-						<span class="tasks__deadline-alert">{{ item.deadline }}</span>
+	<transition name="fade-left">
+		<div v-if="show && data && !prerender" class="tasks">
+			<span class="tasks__title">{{title}}</span>
+			<ul>
+				<li v-for="item in data"
+						class="tasks__item"
+						:class="{'star': item.priority === 'high'}">
+					<div class="tasks__item-content">
+						<div class="tasks__item-title">{{ item.title }}</div>
+						<div class="tasks__item-description" v-if="item.description">{{ item.description }}</div>
+						<div v-if="item.deadline" class="tasks__deadline">
+							<span class="tasks__deadline-alert">{{ item.deadline }}</span>
+						</div>
 					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
+				</li>
+			</ul>
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -25,13 +27,18 @@
 				title: 'TODO',
 				data: [],
 				show: false,
+				prerender: true,
 			}
 		},
 		mounted() {
 			this.$root.$on('configChange', this.handleConfig);
 			this.$root.$on('tasksChange', this.handleData);
+			this.$root.$on('loading', this.handlePrerender);
 		},
 		methods: {
+			handlePrerender(bool) {
+				this.prerender = bool;
+			},
 			handleConfig(event) {
 				this.show = event.tasks;
 			},

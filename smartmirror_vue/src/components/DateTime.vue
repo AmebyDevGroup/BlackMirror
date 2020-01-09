@@ -1,11 +1,13 @@
 <template>
-	<div class="time">
-		<div class="time__wrapper">
-			<span class="time__item" v-if="hoursValue !== null">{{ hours }}:</span>
-			<span class="time__item" v-if="minutesValue !== null">{{ minutes }}</span>
+	<transition name="fade-left">
+		<div class="time" v-if="!prerender">
+			<div class="time__wrapper">
+				<span class="time__item" v-if="hoursValue !== null">{{ hours }}:</span>
+				<span class="time__item" v-if="minutesValue !== null">{{ minutes }}</span>
+			</div>
+			<div class="time__date">{{ date }}</div>
 		</div>
-		<div class="time__date">{{ date }}</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -17,12 +19,17 @@
 				minutesValue: null,
 				date: null,
 				weekday: null,
+				prerender: true,
 			}
 		},
 		mounted() {
 			this.handleTimer();
+			this.$root.$on('loading', this.handlePrerender);
 		},
 		methods: {
+			handlePrerender(bool) {
+				this.prerender = bool;
+			},
 			handleTimer() {
 				setInterval(() => {
 					let now = new Date();

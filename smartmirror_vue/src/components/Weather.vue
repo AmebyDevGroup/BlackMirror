@@ -1,44 +1,46 @@
 <template>
-	<div v-if="show && temperature" class="weather">
-		<div>
-			<div class="weather__box">
-				<span class="weather__city">{{ data.city }}</span>
-				<span class="weather__wind">
+	<transition name="fade-right">
+		<div v-if="show && temperature && !prerender" class="weather">
+			<div>
+				<div class="weather__box">
+					<span class="weather__city">{{ data.city }}</span>
+					<span class="weather__wind">
 					<img src="../assets/wind.svg" alt="">
 					<span class="weather__wind-text">{{ data.wind_speed }} m/s</span>
 				</span>
-			</div>
-			<div class="weather__box weather__box--start">
-				<img :src="prepareSvgUrl" alt="" class="weather__icon">
-				<div class="weather__temperature-wrapper">
-					<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
-					<span class="weather__description">{{ data.description }}</span>
+				</div>
+				<div class="weather__box weather__box--start">
+					<img :src="prepareSvgUrl" alt="" class="weather__icon">
+					<div class="weather__temperature-wrapper">
+						<span class="weather__temperature" v-if="temperature">{{ temperature }}&#8451;</span>
+						<span class="weather__description">{{ data.description }}</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="weather__item-wrapper">
-			<div class="weather__item">
+			<div class="weather__item-wrapper">
+				<div class="weather__item">
 				<span class="weather__item-label">
 					<img src="../assets/sunup.svg" alt="" class="weather__sun">
 					<span class="weather__item-value weather__item-value--bigger">{{ sunrise }}</span>
 				</span>
-				<span class="weather__item-label">
+					<span class="weather__item-label">
 					<img src="../assets/sundown.svg" alt="" class="weather__sun">
 					<span class="weather__item-value weather__item-value--bigger">{{ sunset }}</span>
 				</span>
-			</div>
-			<div class="weather__item">
+				</div>
+				<div class="weather__item">
 				<span class="weather__item-label">
 					<span class="weather__item-title">Ciśnienie:</span>
 					<span class="weather__item-value">{{ data.pressure }} hPa</span>
 				</span>
-				<span class="weather__item-label">
+					<span class="weather__item-label">
 					<span class="weather__item-title">Wilgotność:</span>
 					<span class="weather__item-value">{{ data.humidity }}%</span>
 				</span>
+				</div>
 			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -51,13 +53,18 @@
 				sunrise: false,
 				sunset: false,
 				temperature: false,
+				prerender: true,
 			}
 		},
 		mounted() {
 			this.$root.$on('configChange', this.handleConfig);
 			this.$root.$on('current_weatherChange', this.handleData);
+			this.$root.$on('loading', this.handlePrerender);
 		},
 		methods: {
+			handlePrerender(bool) {
+				this.prerender = bool;
+			},
 			handleConfig(event) {
 				this.show = event.weather;
 			},

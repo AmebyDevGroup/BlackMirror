@@ -1,11 +1,13 @@
 <template>
-	<div v-if="show && data" class="air">
-		<span class="air__title">{{title}}</span>
-		<div class="air__wrapper">
-			<img :src="prepareIconUrl" alt="" v-if="quality_id !== false">
-			<span class="air__label">{{ data.quality_message }}</span>
+	<transition name="fade-right">
+		<div v-if="show && data && !prerender" class="air">
+			<span class="air__title">{{title}}</span>
+			<div class="air__wrapper">
+				<img :src="prepareIconUrl" alt="" v-if="quality_id !== false">
+				<span class="air__label">{{ data.quality_message }}</span>
+			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -17,13 +19,18 @@
 				data: [],
 				quality_id: false,
 				show: false,
+				prerender: true,
 			}
 		},
 		mounted() {
 			this.$root.$on('configChange', this.handleConfig);
 			this.$root.$on('airChange', this.handleData);
+			this.$root.$on('loading', this.handlePrerender);
 		},
 		methods: {
+			handlePrerender(bool) {
+				this.prerender = bool;
+			},
 			handleConfig(event) {
 				this.show = event.air;
 			},

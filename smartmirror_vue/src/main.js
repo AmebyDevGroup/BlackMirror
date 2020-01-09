@@ -27,7 +27,11 @@ echo.channel('mirror')
 		if (e.type === "config") handleLoading(e);
 		window.Vue.$root.$emit(`${e.type}Change`, e.data);
 		eventCounter++;
-		if (eventCounter === activeSections) window.Vue.$root.$emit('loading', false);
+		if (eventCounter === activeSections) {
+			setTimeout(() => {
+				window.Vue.$root.$emit('loading', false);
+			}, 500)
+		}
 	});
 
 Vue.config.productionTip = false;
