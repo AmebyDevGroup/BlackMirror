@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Message;
 use App\MirrorConfig;
 use App\WeatherCity;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -50,6 +51,17 @@ class Controller extends BaseController
                 ]);
             }
         }
+        $config = MirrorConfig::all();
+        $message = [];
+        foreach ($config as $config_object) {
+            $val = false;
+            if ($config_object->active) {
+                $val = true;
+            }
+            $message[$config_object->name] = $val;
+        }
+        broadcast(new Message('config', $message));
+        $this->forceSync();
         return redirect()->back();
     }
 
