@@ -2,9 +2,8 @@
 
 namespace App\Broadcasting;
 
-use App\Events\Message;
 use App\Jobs;
-use App\User;
+use App\MirrorConfig;
 use stdClass;
 use Ratchet\ConnectionInterface;
 use BeyondCode\LaravelWebSockets\WebSockets\Channels\Channel;
@@ -39,12 +38,13 @@ class MirrorChannel extends Channel
     {
         $this->saveConnection($connection);
         $message = [];
-        foreach (config('mirror') as $key => $value) {
+        $config = MirrorConfig::all();
+        foreach ($config as $config_object) {
             $val = false;
-            if (isset($value['enabled']) && $value['enabled']) {
+            if ($config_object->active) {
                 $val = true;
             }
-            $message[$key] = $val;
+            $message[$config_object->name] = $val;
         }
         $connection->send(json_encode([
             'event' => 'App\Events\Message',
