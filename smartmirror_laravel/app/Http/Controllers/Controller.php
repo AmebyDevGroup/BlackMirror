@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MirrorConfig;
+use App\WeatherCity;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -19,12 +20,37 @@ class Controller extends BaseController
         return view('welcome');
     }
 
+    public function help()
+    {
+        return view('help');
+    }
+
     public function admin()
     {
         $viewData['microsoft'] = $this->loadMicrosoftViewData();
-        $viewData['weather_cities'] = app('\App\Http\Controllers\WeatherController')->getCities();
+        $viewData['weather_cities'] = WeatherCity::all();
         $viewData['rss'] = $this->loadRssChannels();
         return view('panel.admin', $viewData);
+    }
+
+    public function saveConfig(Request $request)
+    {
+        foreach ($request->except('_token') as $slug => $config) {
+            $db_config = MirrorConfig::where('name', $slug)->first();
+            if ($db_config) {
+                $db_config->update([
+                    'active' => $config['enabled'] ?? 0,
+                    'data' => $config
+                ]);
+            } else {
+                MirrorConfig::create([
+                    'name' => $slug,
+                    'active' => $config['enabled'] ?? 0,
+                    'data' => $config
+                ]);
+            }
+        }
+        return redirect()->back();
     }
 
     public function forceSync()
@@ -78,26 +104,6 @@ class Controller extends BaseController
             'https://asta24.pl/feed' => 'Asta24 - powiat pilski',
             'https://www.gry-online.pl/rss/news.xml' => 'GryOnline',
         ];
-    }
-
-    public function saveConfig(Request $request)
-    {
-        foreach ($request->except('_token') as $slug => $config) {
-            $db_config = MirrorConfig::where('name', $slug)->first();
-            if ($db_config) {
-                $db_config->update([
-                    'active' => $config['enabled'] ?? 0,
-                    'data' => $config
-                ]);
-            } else {
-                MirrorConfig::create([
-                    'name' => $slug,
-                    'active' => $config['enabled'] ?? 0,
-                    'data' => $config
-                ]);
-            }
-        }
-        return redirect()->back();
     }
 
     public function getTasksFolder($provider)

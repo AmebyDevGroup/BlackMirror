@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>BlackMirror Inteligentne lustro - Panel zarzadzania</title>
-    <meta name="author" content="Alvaro Trigo Lopez"/>
+    <meta name="author" content="EkipaPolitechnika"/>
     <meta name="description" content="fullPage fixed full-screen backgrounds."/>
     <meta name="keywords" content="fullpage,jquery,demo,screen,fixed,fullscreen,backgrounds,full-screen"/>
     <meta name="Resource-type" content="Document"/>
@@ -357,6 +357,10 @@
             <div class="przycisk">
                 </br>
                 <a href="{{route('admin')}}" class="button-1">LOGOWANIE</a>
+            </div>
+            <div class="przycisk">
+                </br>
+                <a href="{{route('help')}}" class="button-1">POMOC</a>
             </div>
         </div>
         <section id="section01" class="updown">
