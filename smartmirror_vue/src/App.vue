@@ -55,6 +55,7 @@
 		color: white;
 		font-family: 'Montserrat', sans-serif;
 		padding: 15px;
+		overflow: hidden;
 
 		* {
 			box-sizing: border-box;
