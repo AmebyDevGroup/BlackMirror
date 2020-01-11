@@ -43,6 +43,10 @@
 				this.show = event.tasks;
 			},
 			handleData(data) {
+				if (data.hasOwnProperty('status') && data.status === 'failed') {
+					this.show = false;
+					return;
+				}
 				this.data = data.map(elem => {
 					const deadlineDate = elem.deadline_at ? new Date(elem.deadline_at) : null;
 					const day = deadlineDate ? deadlineDate.toLocaleString('PL-pl', {weekday: 'long', month: 'long', day: 'numeric'}) : null;

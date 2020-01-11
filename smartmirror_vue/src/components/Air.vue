@@ -35,6 +35,10 @@
 				this.show = event.air;
 			},
 			handleData(data) {
+				if (data.hasOwnProperty('status') && data.status === 'failed') {
+					this.show = false;
+					return;
+				}
 				this.data = data.main;
 				this.quality_id = this.data.quality_id;
 			}

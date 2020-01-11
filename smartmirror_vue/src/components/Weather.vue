@@ -69,6 +69,10 @@
 				this.show = event.weather;
 			},
 			handleData(data) {
+				if (data.hasOwnProperty('status') && data.status === 'failed') {
+					this.show = false;
+					return;
+				}
 				this.data = data;
 				this.temperature = Math.round(data.temperature);
 				this.sunrise = this.prepareSunData(data.sunrise);

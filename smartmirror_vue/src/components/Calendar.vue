@@ -34,6 +34,10 @@
 				this.show = event.calendar;
 			},
 			handleData(data) {
+				if (data.hasOwnProperty('status') && data.status === 'failed') {
+					this.show = false;
+					return;
+				}
 				this.data = data;
 			},
 			dayTypo(start) {

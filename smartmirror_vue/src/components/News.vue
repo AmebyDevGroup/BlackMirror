@@ -77,6 +77,10 @@
 				this.show = event.news;
 			},
 			handleData(data) {
+				if (data.hasOwnProperty('status') && data.status === 'failed') {
+					this.show = false;
+					return;
+				}
 				return new Promise((resolve) => {
 					this.data = data.items.map(elem => {
 						const hours = new Date(elem.date).getHours();
