@@ -67,7 +67,7 @@
 			justify-content: flex-start;
 			align-items: center;
 			flex-direction: column;
-			margin-top: 15px;
+			margin-top: 20px;
 		}
 
 		&__label {

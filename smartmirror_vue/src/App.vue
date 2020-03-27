@@ -18,6 +18,9 @@
 			<div class="app__section">
 				<Air></Air>
 			</div>
+			<div class="app__section">
+				<CoronaVirus></CoronaVirus>
+			</div>
 		</div>
 		<div class="app__section app__section--news">
 			<News></News>
@@ -34,10 +37,12 @@
 	import News from "./components/News";
 	import Calendar from "./components/Calendar";
 	import Loader from "./components/Loader";
+	import CoronaVirus from "./components/CoronaVirus";
 
 	export default {
 		name: 'app',
 		components: {
+			CoronaVirus,
 			Loader,
 			Calendar,
 			News,
