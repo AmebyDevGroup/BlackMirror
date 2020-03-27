@@ -16,6 +16,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function test()
+    {
+        dd('stop');
+    }
+
     public function welcome()
     {
         return view('welcome');
@@ -84,6 +89,9 @@ class Controller extends BaseController
                     break;
                 case "weather":
                     dispatch(new Jobs\SendWeatherJob());
+                    break;
+                case "covid":
+                    dispatch(new Jobs\SendCovidJob());
                     break;
             }
         }
