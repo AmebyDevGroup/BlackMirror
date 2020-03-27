@@ -7,6 +7,7 @@
             <div class="row bg-dark py-5">
                 <h2 class="info">Zaloguj się do swojego konta, by móc korzystać z opcji konfiguracji:</h2>
                 <div class="col-sm-6">
+{{--                    <div class="btn fblogin">Zaloguj do fb</div>--}}
                     <div class="jumbotron">
                         <img
                             src="https://www.freepnglogos.com/uploads/microsoft-logo-microsoft-symbol-meaning-history-png-14.png"
@@ -229,6 +230,46 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="d-flex flex-wrap align-items-stretch item">
+                        <label class="switch">
+                            <input type="hidden" name="covid[enabled]" value="0">
+                            <input type="checkbox" name="covid[enabled]" value="1"
+                                   @if(($config['covid']??false) && $config['covid']->active??false) checked @endif>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="object_title">Statystyka Covid19</span>
+                        <span class="flex-grow-1"></span>
+                        <div class="main-select">
+                            <input type="hidden" name="covid[type]" value="false">
+                            <select class="selectpicker" name="covid[type]">
+                                    <option value="1"
+                                            @if(($config['covid']??false) && $config['covid']->data['type'] == 1) selected @endif>
+                                        Globalne
+                                    </option>
+                                    <option value="2"
+                                            @if(($config['covid']??false) && $config['covid']->data['type'] == 2) selected @endif>
+                                        Polska
+                                    </option>
+                                    <option value="3"
+                                            @if(($config['covid']??false) && $config['covid']->data['type'] == 3) selected @endif>
+                                        Obie statystyki
+                                    </option>
+                            </select>
+                            <div class="loader tasks">
+                                <div class="lds-ellipsis">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </section>
 @endsection
@@ -248,5 +289,28 @@
 @endsection
 
 @section('scripts-after')
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId            : '2234454740181521',
+                autoLogAppEvents : true,
+                xfbml            : true,
+                version          : 'v5.0'
+            });
+            $(document).on('click', '.fblogin', function() {
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        console.log('Welcome!  Fetching your information.... ');
+                        FB.api('/me', function(response) {
+                            console.log('Good to see you, ' + response.name + '.');
+                        });
+                    } else {
+                        console.log('User cancelled login or did not fully authorize.');
+                    }
+                });
+            })
+        };
+    </script>
+    <script async defer src="https://connect.facebook.net/pl_PL/sdk.js"></script>
 
 @endsection

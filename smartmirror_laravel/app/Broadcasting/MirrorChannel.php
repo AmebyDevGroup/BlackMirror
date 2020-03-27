@@ -72,6 +72,9 @@ class MirrorChannel extends Channel
                     case "weather":
                         dispatch(new Jobs\SendWeatherJob());
                         break;
+                    case "covid":
+                        dispatch(new Jobs\SendCovidJob());
+                        break;
                 }
             }
         }
