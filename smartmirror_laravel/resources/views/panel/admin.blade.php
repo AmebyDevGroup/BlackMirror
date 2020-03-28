@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    <section id="tests">
+            <div class="alert alert-warning" role="alert">
+                Komunikacja między panelem administracyjnym (serwerem) a aplikacją kliencką (lustrem) odbywa się za pomocą technologii WebSocket.
+                <div class="font-weight-bolder">
+                    Aby przetestować komunikację przejdź <a href="{{route('testWebsockets')}}">TUTAJ</a>
+                </div>
+            </div>
+    </section>
     <section id="config">
         <form method="POST">
             @csrf
@@ -258,7 +266,7 @@
                                         Obie statystyki
                                     </option>
                             </select>
-                            <div class="loader tasks">
+                            <div class="loader">
                                 <div class="lds-ellipsis">
                                     <div></div>
                                     <div></div>

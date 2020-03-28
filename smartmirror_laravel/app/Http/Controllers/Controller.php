@@ -21,6 +21,12 @@ class Controller extends BaseController
         dd('stop');
     }
 
+    public function testWebsockets()
+    {
+        $features = MirrorConfig::all();
+        return view('panel.test-websockets', ['features'=>$features]);
+    }
+
     public function welcome()
     {
         return view('welcome');

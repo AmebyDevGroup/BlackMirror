@@ -38,45 +38,41 @@ class Kernel extends ConsoleKernel
     {
         $config = MirrorConfig::all();
         foreach ($config as $item) {
-            switch ($item->name) {
-                case "air":
-                    $schedule->command('ws:airquality')
-                        ->everyThirtyMinutes()
-                        ->runInBackground();
-                    break;
-                case "calendar":
-                    $schedule->command('ws:calendar')
-                        ->everyFifteenMinutes()
-                        ->runInBackground();
-                    break;
-                case "news":
-                    $schedule->command('ws:news')
-                        ->hourly()
-                        ->runInBackground();
-                    break;
-                case "tasks":
-                    $schedule->command('ws:tasks')
-                        ->everyMinute()
-                        ->runInBackground();
-                    break;
-                case "weather":
-                    $schedule->command('ws:weather')
-                        ->hourly()
-                        ->runInBackground();
-                    break;
-                case "covid":
-                    $schedule->command('ws:covid')
-                        ->everyThirtyMinutes()
-                        ->runInBackground();
-                    break;
-            }
+             if($item->active) {
+                switch ($item->name) {
+                    case "air":
+                        $schedule->command('ws:airquality')
+                            ->everyThirtyMinutes()
+                            ->runInBackground();
+                        break;
+                    case "calendar":
+                        $schedule->command('ws:calendar')
+                            ->everyFifteenMinutes()
+                            ->runInBackground();
+                        break;
+                    case "news":
+                        $schedule->command('ws:news')
+                            ->hourly()
+                            ->runInBackground();
+                        break;
+                    case "tasks":
+                        $schedule->command('ws:tasks')
+                            ->everyMinute()
+                            ->runInBackground();
+                        break;
+                    case "weather":
+                        $schedule->command('ws:weather')
+                            ->hourly()
+                            ->runInBackground();
+                        break;
+                    case "covid":
+                        $schedule->command('ws:covid')
+                            ->everyThirtyMinutes()
+                            ->runInBackground();
+                        break;
+                }
+             }
         }
-
-
-
-
-
-
     }
 
     /**

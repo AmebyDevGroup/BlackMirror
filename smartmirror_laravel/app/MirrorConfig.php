@@ -16,4 +16,9 @@ class MirrorConfig extends Model
         'data' => 'array',
         'active' => 'boolean'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }
