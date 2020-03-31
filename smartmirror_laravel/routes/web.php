@@ -27,6 +27,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('taskFolders/{provider}', 'Controller@getTasksFolder')->name('taskFolders');
     Route::get('air-quality/stations', 'AirQualityController@getStations')->name('air.getStations');
 
+    Route::get('test-websockets', 'Controller@testWebsockets')->name('testWebsockets');
+    Route::get('test-websockets/{feature}', 'WebsocketTestController@getData')->name('testWebsocketsData');
+
     Route::get('test', 'Controller@test')->name('test');
 
     Route::prefix('microsoft')->group(function () {
