@@ -22,8 +22,12 @@
     <!-- /Favicon
     ========================================================= -->
 
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/fullpage.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/fullpage.min.css')}}"/>
     <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
         /* Style for H1
         * --------------------------------------- */
         h1 {
@@ -154,14 +158,14 @@
         /* Defining each sectino background and styles
         * --------------------------------------- */
         #section0 {
-            background-image: url({{asset('assets/img/bg1.jpg')}});
+            background-image: url({{asset('img/bg1.jpg')}});
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
         }
 
         #section2 {
-            background-image: url({{asset('assets/img/bg1.jpg')}});
+            background-image: url({{asset('img/bg1.jpg')}});
             padding: 6% 0 0 0;
             background-position: center;
             background-repeat: no-repeat;
@@ -358,28 +362,16 @@
                 </br>
                 <a href="{{route('admin')}}" class="button-1">LOGOWANIE</a>
             </div>
-            <div class="przycisk">
+            {{-- <div class="przycisk">
                 </br>
                 <a href="{{route('help')}}" class="button-1">POMOC</a>
-            </div>
+            </div> --}}
         </div>
-        <section id="section01" class="updown">
-            <a href="#autorzy"><span></span></a>
-    </div>
-    <div class="section" id="section2"><h1>TWÓRCY:</h1>
-        <div class="descrition2">
-            JAKUB LORC</br></br>
-            ADRIAN SUTKOWSKI</br></br>
-            JAKUB WERWIŃSKI</br></br>
-            KRZYSZTOF WIECZOREK
-        </div>
-        <section id="section02">
-            <a href="#logowanie"><span></span></a>
     </div>
 </div>
 
-<script type="text/javascript" src="{{asset('assets/js/fullpage.min.js')}}"></script>
-{{-- <script type="text/javascript" src="{{asset('assets/js/examples.js')}}"></script> --}}
+<script type="text/javascript" src="{{asset('js/fullpage.min.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('js/examples.js')}}"></script> --}}
 
 <script type="text/javascript">
     var myFullpage = new fullpage('#fullpage', {

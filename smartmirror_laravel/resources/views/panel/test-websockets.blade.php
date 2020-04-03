@@ -2,13 +2,9 @@
 
 @section('content')
     <section id="test-websockets">
+        <h4 class="header-main">TESTOWANIE KOMUNIKACJI WEBSOCKET</h4>
+        <hr>
         <div class="row">
-            <div class="col-sm-12">
-                <h2 class="title d-flex justify-content-between">
-                    <span>Testowanie komunikacji WebSocket</span>
-                </h2>
-            </div>
-
             <div class="col-sm-12">
                 <p>
                     Korzystając z poniższych przycisków można wywołać pobranie danych z zewnętrznego systemu
@@ -22,34 +18,38 @@
                     więc ilość obiektów po stronie podglądu LIVE będzie znacznie większa.
                     <br/><br/>
                     <div class="text-center font-weight-bolder">
-                        Aby zwiększyć wygodę osób testujących odpowiedź jest wyświetlana w postaci inteaktywnej tablicy.<br>W realnej komunikacji jest to JSON.<br/><br/>
+                        Aby zwiększyć wygodę osób testujących odpowiedź jest wyświetlana w postaci interaktywnej tablicy.<br>W realnej komunikacji jest to JSON.<br/><br/>
                         W razie jakichkolwiek problemów bądź pytań proszę o kontakt z członkami zespołu nr 3.
                     </div>
                 </p>
             </div>
         </div>
-
         <div class="row">
-            @foreach($features as $feature)
-            <div class="col-4 py-3">
-                <div class="card">
-                    <div class="card-header">
-                        {{trans('features.'.$feature->name)}}
-                    </div>
-                    <div class="card-body text-center">
-                        @if($feature->active)
-                            <a href="{{route('testWebsocketsData', [$feature])}}" data-name="{{trans('features.'.$feature->name)}}" class="btn btn-primary init-ws">Wywołaj</a>
-                        @else
-                            <div style="padding: .375rem .75rem;font-size: 1rem;line-height: 1.5; border:1px solid transparent">
-                                Włącz usługę w panelu zarządzania
+            <div class="col-6">
+                @foreach($features as $feature)
+                    <div class="col-4 py-3">
+                        <div class="card">
+                            <div class="card-header">
+                                {{trans('features.'.$feature->name)}}
                             </div>
-                        @endif
+                            <div class="card-body text-center">
+                                @if($feature->active)
+                                    <a href="{{route('testWebsocketsData', [$feature])}}" data-name="{{trans('features.'.$feature->name)}}" class="btn btn-info init-ws" id="btnapi">Wywołaj</a>
+                                @else
+                                    <div style="padding: .375rem .75rem;font-size: 1rem;line-height: 1.5; border:1px solid transparent">
+                                        Włącz usługę w panelu zarządzania
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            @endforeach
+            <div class="col-6">.col-6</div>
         </div>
+        <div class="row">
 
+        </div>
         <div class="row py-4">
             <div class="col-sm-12">
                 <h2 class="title d-flex justify-content-between">
@@ -61,8 +61,6 @@
         </div>
     </section>
     <div class="test-ws-loader">
-        <div class="py-3 font-weight-bolder" style="font-size: 24px; color:#000;">
-            Proszę czekać...
         </div>
         <div class="position-relative w-100">
             <div class="loader">
