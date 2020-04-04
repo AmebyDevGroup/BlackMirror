@@ -29,7 +29,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('/', 'Controller@saveConfig')->name('admin');
 
+    Route::get('/configuration/getForm/{feature}', 'ConfigurationController@getConfigurationForm')->name('configuration.getConfigurationForm');
     Route::post('/configuration/setActive/{feature}/{active?}', 'ConfigurationController@setActive')->name('configuration.setActive');
+
 
 
     Route::get('test-websockets/{feature}', 'WebsocketTestController@getData')->name('testWebsocketsData');

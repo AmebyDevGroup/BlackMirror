@@ -18,11 +18,11 @@ class TokenCache
             'userEmail' => null !== $user->getMail() ? $user->getMail() : $user->getUserPrincipalName()
         ]));
         session([
-            'accessToken' => $accessToken->getToken(),
-            'refreshToken' => $accessToken->getRefreshToken(),
-            'tokenExpires' => $accessToken->getExpires(),
-            'userName' => $user->getDisplayName(),
-            'userEmail' => null !== $user->getMail() ? $user->getMail() : $user->getUserPrincipalName()
+            'microsoft.accessToken' => $accessToken->getToken(),
+            'microsoft.refreshToken' => $accessToken->getRefreshToken(),
+            'microsoft.tokenExpires' => $accessToken->getExpires(),
+            'microsoft.userName' => $user->getDisplayName(),
+            'microsoft.userEmail' => null !== $user->getMail() ? $user->getMail() : $user->getUserPrincipalName()
         ]);
         Artisan::call('queue:restart');
     }
@@ -30,11 +30,11 @@ class TokenCache
     public function clearTokens()
     {
         Storage::delete('microsoft.json');
-        session()->forget('accessToken');
-        session()->forget('refreshToken');
-        session()->forget('tokenExpires');
-        session()->forget('userName');
-        session()->forget('userEmail');
+        session()->forget('microsoft.accessToken');
+        session()->forget('microsoft.refreshToken');
+        session()->forget('microsoft.tokenExpires');
+        session()->forget('microsoft.userName');
+        session()->forget('microsoft.userEmail');
         Artisan::call('queue:restart');
     }
 
@@ -45,9 +45,9 @@ class TokenCache
         if (Storage::exists('microsoft.json')) {
             $storage = json_decode(Storage::get('microsoft.json'), true);
         }
-        if (empty(session('accessToken')) ||
-            empty(session('refreshToken')) ||
-            empty(session('tokenExpires'))) {
+        if (empty(session('microsoft.accessToken')) ||
+            empty(session('microsoft.refreshToken')) ||
+            empty(session('microsoft.tokenExpires'))) {
             if ($storage != null) {
                 session($storage);
             } else {
@@ -57,7 +57,7 @@ class TokenCache
         // Sprawdzenie czy token jest aktualny
         // Pobieramy aktualny czas i wydłużamy go o 5 minut dla bezpieczeństwa
         $now = time() + 300;
-        if (session('tokenExpires') <= $now) {
+        if (session('microsoft.tokenExpires') <= $now) {
             // Jeżeli token wygasł lub ma za chwilę wygasnąć pobieramy nowy wykorzystując refresh_token
             $oauthClient = new GenericProvider([
                 'clientId' => env('OAUTH_APP_ID'),
@@ -70,7 +70,7 @@ class TokenCache
             ]);
             try {
                 $newToken = $oauthClient->getAccessToken('refresh_token', [
-                    'refresh_token' => session('refreshToken')
+                    'refresh_token' => session('microsoft.refreshToken')
                 ]);
                 // Zapisujemy wartości zarówno do pliku json jak i do sesji
                 $this->updateTokens($newToken);
@@ -80,7 +80,7 @@ class TokenCache
             }
         }
         // Jeżeli token jest wciąż aktualny to go zwracamy
-        return session('accessToken');
+        return session('microsoft.accessToken');
     }
 
     public function updateTokens($accessToken)
@@ -89,13 +89,13 @@ class TokenCache
             'accessToken' => $accessToken->getToken(),
             'refreshToken' => $accessToken->getRefreshToken(),
             'tokenExpires' => $accessToken->getExpires(),
-            'userName' => session('userName'),
-            'userEmail' => session('userEmail')
+            'userName' => session('microsoft.userName'),
+            'userEmail' => session('microsoft.userEmail')
         ]));
         session([
-            'accessToken' => $accessToken->getToken(),
-            'refreshToken' => $accessToken->getRefreshToken(),
-            'tokenExpires' => $accessToken->getExpires()
+            'microsoft.accessToken' => $accessToken->getToken(),
+            'microsoft.refreshToken' => $accessToken->getRefreshToken(),
+            'microsoft.tokenExpires' => $accessToken->getExpires()
         ]);
         Artisan::call('queue:restart');
     }

@@ -62,7 +62,7 @@
 @yield('scripts-before')
     <script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('lib/bootstrap/js/bootstrap4-toggle.js')}}"></script>
-    <script src="{{asset('lib/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('lib/bootstrap/js/bootstrap.bundle.js')}}"></script>
     <script src="{{asset('lib/jquery.scrollTo.min.js')}}"></script>
     <script src="{{asset('lib/jquery.nicescroll.js')}}" type="text/javascript"></script>
     <script src="{{asset('lib/jquery.sparkline.js')}}"></script>

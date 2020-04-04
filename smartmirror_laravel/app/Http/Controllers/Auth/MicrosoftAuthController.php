@@ -81,15 +81,15 @@ class MicrosoftAuthController extends Controller
                 $tokenCache = new TokenCache();
                 $tokenCache->storeTokens($accessToken, $user);
 
-                return redirect()->route('admin');
+                return redirect()->route('admin.getExternalAccounts');
             } catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-                return redirect()->route('admin')
+                return redirect()->route('admin.getExternalAccounts')
                     ->with('error', 'Error requesting access token')
                     ->with('errorDetail', $e->getMessage());
             }
         }
 
-        return redirect()->route('admin')
+        return redirect()->route('admin.getExternalAccounts')
             ->with('error', $request->query('error'))
             ->with('errorDetail', $request->query('error_description'));
     }
@@ -98,6 +98,6 @@ class MicrosoftAuthController extends Controller
     {
         $tokenCache = new TokenCache();
         $tokenCache->clearTokens();
-        return redirect()->route('admin');
+        return redirect()->route('admin.getExternalAccounts');
     }
 }

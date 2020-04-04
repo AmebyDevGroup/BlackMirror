@@ -12,13 +12,21 @@ class AdminPanelController
 {
     public function getConfigurationPage()
     {
-        $features = Feature::all();
+        $features = Feature::with('config')->get();
         return view('panel.configuration', ['features' => $features]);
     }
 
     public function getExternalAccountsPage()
     {
-        return view('panel.external-accounts');
+        $microsoft = session('microsoft', null);
+        $google = session('google', null);
+        $facebook = session('facebook', null);
+        $data = [
+            'microsoft' => $microsoft,
+            'google' => $google,
+            'facebook' => $facebook
+        ];
+        return view('panel.external-accounts', $data);
     }
 
     public function getWebsocketsTestPage()

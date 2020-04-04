@@ -428,7 +428,8 @@ a.logo span {
 .darkblue-panel {
 	text-align: center;
 	background: #444c57;
-
+    position: relative;
+    overflow: hidden;
 }
 .darkblue-panel .darkblue-header {
     background: #43b1a9;
@@ -902,4 +903,18 @@ fieldset[disabled].btn-konta.focus {
 }
 .sidebar-toggle-box{
     width: 38px;
+}
+
+.feature-configuration {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 48px);
+    top: 48px;
+    background: #444c57;
+    transform: translateY(100%);
+    transition: transform .4s ease;
+}
+
+.feature-configuration.active {
+    transform: translateY(0);
 }

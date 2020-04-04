@@ -146,3 +146,27 @@ $(document).on('change click', '.set-feature-active', function() {
         console.log('OK');
     });
 })
+
+
+$(document).on('change click', '.set-feature-active', function() {
+    let active = 0;
+    if(this.checked){
+       active = 1;
+    }
+    $.post( $(this).data('href')+"/"+active, {
+        _token: $('meta[name="csrf-token"]').attr('content')
+    }).done(function( data ) {
+        console.log('OK');
+    });
+})
+
+$(document).on('click', '.start_configuration', function(e) {
+    e.preventDefault();
+    var $el = $(this);
+    var $parent = $el.parents('.darkblue-panel');
+    var $configuration_box =  $parent.find('.feature-configuration');
+    $.get($(this).attr('href'), function( data ) {
+        $configuration_box.html(data);
+        $configuration_box.addClass('active');
+    });
+})

@@ -16,17 +16,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function test()
-    {
-        dd('stop');
-    }
-
-    public function testWebsockets()
-    {
-        $features = MirrorConfig::all();
-        return view('panel.test-websockets', ['features'=>$features]);
-    }
-
     public function welcome()
     {
         return view('welcome');
@@ -74,33 +63,6 @@ class Controller extends BaseController
         broadcast(new Message('config', $message));
         $this->forceSync();
         return redirect()->back();
-    }
-
-    public function forceSync()
-    {
-        $config = MirrorConfig::where('active', 1)->get();
-        foreach ($config as $item) {
-            switch ($item->name) {
-                case "air":
-                    dispatch(new Jobs\SendAirQualityJob());
-                    break;
-                case "calendar":
-                    dispatch(new Jobs\SendCalendarJob());
-                    break;
-                case "news":
-                    dispatch(new Jobs\SendNewsJob());
-                    break;
-                case "tasks":
-                    dispatch(new Jobs\SendTasksJob());
-                    break;
-                case "weather":
-                    dispatch(new Jobs\SendWeatherJob());
-                    break;
-                case "covid":
-                    dispatch(new Jobs\SendCovidJob());
-                    break;
-            }
-        }
     }
 
     public function loadMicrosoftViewData()
