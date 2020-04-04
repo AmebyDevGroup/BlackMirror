@@ -147,19 +147,6 @@ $(document).on('change click', '.set-feature-active', function() {
     });
 })
 
-
-$(document).on('change click', '.set-feature-active', function() {
-    let active = 0;
-    if(this.checked){
-       active = 1;
-    }
-    $.post( $(this).data('href')+"/"+active, {
-        _token: $('meta[name="csrf-token"]').attr('content')
-    }).done(function( data ) {
-        console.log('OK');
-    });
-})
-
 $(document).on('click', '.start_configuration', function(e) {
     e.preventDefault();
     var $el = $(this);

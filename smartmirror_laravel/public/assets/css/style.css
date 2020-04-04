@@ -430,12 +430,12 @@ a.logo span {
 	background: #444c57;
     position: relative;
     overflow: hidden;
+    margin-top:5px;
 }
 .darkblue-panel .darkblue-header {
     background: #43b1a9;
     padding: 3px;
     margin-bottom: 15px;
-    margin-top:5px;
 }
 .darkblue-panel h1 {
 	color: #f2f2f2;
