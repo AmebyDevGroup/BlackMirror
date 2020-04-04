@@ -12,20 +12,23 @@
 @endphp
 <input type="hidden" name="news[rss]" value="false">
 <div class="main-select">
-    <select class="selectpicker justi" name="news[rss]">
-        @foreach($default_rss_channels as $channel_url => $channel_title)
-            <option value="{{$channel_url}}" @if($current_rss == $channel_url)
-            selected
-                @php
-                    $news_selected = true;
-                @endphp
-                @endif>{{$channel_title}}
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <select id="inverse_propeller-select" class="form-control" name="news[rss]">
+            <option value="" disabled selected>Wybierz źródło</option>
+            @foreach($default_rss_channels as $channel_url => $channel_title)
+                <option value="{{$channel_url}}" @if($current_rss == $channel_url)
+                selected
+                        @php
+                            $news_selected = true;
+                        @endphp
+                        @endif>{{$channel_title}}
+                </option>
+            @endforeach
+            <option value="-1" @if($current_rss != '' && !($news_selected??false)) selected @endif >
+                Inne
             </option>
-        @endforeach
-        <option value="-1" @if($current_rss != '' && !($news_selected??false)) selected @endif >
-            Inne
-        </option>
-    </select>
+        </select>
+    </div>
 </div>
 <div class="second-select">
     <input type="text" class="form-control rss-input" name="news[rss]"
