@@ -17,5 +17,5 @@
     @endforeach
 
     <hr>
-    <a href="https://github.com/KrzychuW/BlackMirror/commits/master" target="_blank"><button>Zobacz pełną historię zmian</button></a>
+    <a href="https://github.com/KrzychuW/BlackMirror/commits/master" target="_blank"><button class="btn btn-info btn-test">Zobacz pełną historię zmian</button></a>
 @endsection

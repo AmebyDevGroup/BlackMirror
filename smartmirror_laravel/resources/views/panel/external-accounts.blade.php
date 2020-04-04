@@ -11,8 +11,14 @@
                 <div class="darkblue-header">
                     <img class="loga" src="{{asset('img/Microsoft_logo_(2012).svg')}}" alt="Microsof"/>
                 </div>
-                <button class="btn btn-warning">ZALOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button>
-                <footer class="des">Logując się do konta Microsoft, uzyskasz synchronizację z todo oraz kalendarzem</footer>
+                @if($microsoft)
+                    <h5>Witaj {{$microsoft['userName']}}</h5>
+                    <a href="{{route('microsoft.signout')}}"><button class="btn btn-konta">WYLOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button></a>
+                    <footer class="des">Po wylogowaniu utracisz synchronizację z ToDo oraz kalendarzem Microsoft</footer>
+                @else
+                    <a href="{{route('microsoft.signin')}}"><button class="btn btn-konta">ZALOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button></a>
+                    <footer class="des">Logując się do konta Microsoft, uzyskasz synchronizację z todo oraz kalendarzem</footer>
+                @endif
             </div>
         </div>
         <!-- /col-md-4-->
@@ -21,7 +27,7 @@
                 <div class="darkblue-header">
                     <img class="loga" src="{{asset('img/Google_2015_logo.svg')}}" alt="Google"/>
                 </div>
-                <button class="btn btn-warning">ZALOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button>
+                <button class="btn btn-konta">ZALOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button>
                 <footer class="des">Logując się do konta Google, uzyskasz synchronizację z kalendarzem</footer>
             </div>
         </div>
@@ -33,7 +39,7 @@
                         <img class="loga" src="{{asset('img/Facebook_Logo_(2015)_light.svg')}}" alt="Facebook"/>
                     </div>
                     <p class="com">COMING SOON ...</p>
-                    <button class="btn btn-warning" disabled>ZALOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button>
+                    <button class="btn btn-konta" disabled>ZALOGUJ <i class="fas fas fa-sign-in-alt pl-1"></i></button>
                     <footer class="des" >Logowanie z facebookiem wkrótce</footer>
                 </div>
             </div>

@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BlackMirror - projekt inteligentnego lustra</title>
 
     <!-- Favicons -->
@@ -20,6 +21,7 @@
     <!-- Custom styles for this template -->
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet">
+    <!--external burger menu-->
 
 </head>
 
@@ -66,6 +68,20 @@
     <script src="{{asset('lib/jquery.sparkline.js')}}"></script>
     <!--common script for all pages-->
     <script src="{{asset('lib/common-scripts.js')}}"></script>
+    <script>
+        var m = $(".tooltips");
+
+        m.addClass("fa-times");
+
+        m.on("click", function () {
+            if (m.hasClass("fa-times")) {
+                m.removeClass("fa-times").addClass("fa-bars");
+            } else {
+                m.removeClass("fa-bars").addClass("fa-times");
+            }
+        });
+
+    </script>
 @yield('scripts-after')
 </body>
 </html>

@@ -28,7 +28,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('info', 'AdminPanelController@getInfoPage')->name('admin.info');
 
     Route::post('/', 'Controller@saveConfig')->name('admin');
-    Route::get('force-sync', 'Controller@forceSync')->name('forceSync');
+
+    Route::post('/configuration/setActive/{feature}/{active?}', 'ConfigurationController@setActive')->name('configuration.setActive');
+
+
     Route::get('test-websockets/{feature}', 'WebsocketTestController@getData')->name('testWebsocketsData');
 
     Route::get('taskFolders/{provider}', 'Controller@getTasksFolder')->name('taskFolders');

@@ -1,17 +1,17 @@
 /*---LEFT BAR ACCORDION----*/
-$(function() {
-  $('#nav-accordion').dcAccordion({
-    eventType: 'click',
-    autoClose: true,
-    saveState: true,
-    disableLink: true,
-    speed: 'slow',
-    showCount: false,
-    autoExpand: true,
-    //        cookie: 'dcjq-accordion-1',
-    classExpand: 'dcjq-current-parent'
-  });
-});
+// $(function() {
+//   $('#nav-accordion').dcAccordion({
+//     eventType: 'click',
+//     autoClose: true,
+//     saveState: true,
+//     disableLink: true,
+//     speed: 'slow',
+//     showCount: false,
+//     autoExpand: true,
+//     //        cookie: 'dcjq-accordion-1',
+//     classExpand: 'dcjq-current-parent'
+//   });
+// });
 
 var Script = function() {
 
@@ -133,3 +133,16 @@ jQuery(document).ready(function( $ ) {
     $('html, body').animate({scrollTop : 0},500);
   });
 });
+
+
+$(document).on('change click', '.set-feature-active', function() {
+    let active = 0;
+    if(this.checked){
+       active = 1;
+    }
+    $.post( $(this).data('href')+"/"+active, {
+        _token: $('meta[name="csrf-token"]').attr('content')
+    }).done(function( data ) {
+        console.log('OK');
+    });
+})
