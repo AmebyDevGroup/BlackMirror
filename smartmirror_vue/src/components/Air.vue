@@ -4,7 +4,8 @@
 			<span class="air__title">{{title}}</span>
 			<div class="air__wrapper">
 				<img :src="prepareIconUrl" alt="" v-if="quality_id !== false">
-				<span class="air__label">{{ data.quality_message }}</span>
+				<span class="air__label" v-if="quality_id !== false && quality_id >= 0">{{ data.quality_message }}</span>
+				<span class="air__label" v-if="quality_id === -1">Brak danych</span>
 			</div>
 		</div>
 	</transition>

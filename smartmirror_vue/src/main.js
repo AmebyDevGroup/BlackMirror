@@ -6,10 +6,12 @@ window.Pusher = require('pusher-js');
 
 let eventCounter = 0;
 let activeSections = 0;
+let module_inactive = false;
 
 const handleLoading = (ev) => {
 	const data = Object.values(ev.data);
 	activeSections = [...data].filter(elem => elem === true).length;
+	if (activeSections === 0) module_inactive = true;
 };
 
 const echo = new Echo({
@@ -27,7 +29,7 @@ echo.channel('mirror')
 		if (e.type === "config") handleLoading(e);
 		window.Vue.$root.$emit(`${e.type}Change`, e.data);
 		eventCounter++;
-		if (eventCounter === activeSections) {
+		if (eventCounter === activeSections || module_inactive) {
 			setTimeout(() => {
 				window.Vue.$root.$emit('loading', false);
 			}, 500)
