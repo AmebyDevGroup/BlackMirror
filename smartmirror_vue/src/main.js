@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Echo from 'laravel-echo';
+import CameraService from './cameraService';
 
 window.Pusher = require('pusher-js');
 
@@ -32,6 +33,7 @@ echo.channel('mirror')
 		if (eventCounter === activeSections || module_inactive) {
 			setTimeout(() => {
 				window.Vue.$root.$emit('loading', false);
+				new CameraService();
 			}, 500)
 		}
 	});

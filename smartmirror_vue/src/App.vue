@@ -1,5 +1,6 @@
 <template>
 	<div id="app" class="app">
+		<video autoplay="true" id="videoElement"></video>
 		<div class="app__wrapper">
 			<div class="app__section">
 				<DateTime></DateTime>
@@ -26,6 +27,7 @@
 			<News></News>
 		</div>
 		<Loader></Loader>
+		<ScreenSaver></ScreenSaver>
 	</div>
 </template>
 
@@ -38,10 +40,12 @@
 	import Calendar from "./components/Calendar";
 	import Loader from "./components/Loader";
 	import CoronaVirus from "./components/CoronaVirus";
+	import ScreenSaver from "./components/ScreenSaver";
 
 	export default {
 		name: 'app',
 		components: {
+			ScreenSaver,
 			CoronaVirus,
 			Loader,
 			Calendar,
@@ -73,6 +77,10 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 		height: 1600px;
+
+		video {
+			display: none;
+		}
 
 		.fade-right-enter-active, .fade-right-leave-active {
 			animation: fade-in-right 1.2s both;
