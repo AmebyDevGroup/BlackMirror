@@ -10,11 +10,12 @@
     ];
     $current_rss = $config->data['rss']??'';
 @endphp
-<input type="hidden" name="news[rss]" value="false">
-<div class="main-select">
+<form action="{{route('configuration.sendConfigurationForm', [$feature])}}" method="POST" class="send_configuration">
+    @csrf
+    <input type="hidden" name="data[rss]" value="">
     <div class="form-group pmd-textfield pmd-textfield-floating-label">
-        <select id="inverse_propeller-select" class="form-control" name="news[rss]">
-            <option value="" disabled selected>Wybierz źródło</option>
+        <select class="form-control zrodlo selectpicker" name="data[rss]">
+            <option disabled selected>Wybierz źródło</option>
             @foreach($default_rss_channels as $channel_url => $channel_title)
                 <option value="{{$channel_url}}" @if($current_rss == $channel_url)
                 selected
@@ -29,9 +30,14 @@
             </option>
         </select>
     </div>
-</div>
-<div class="second-select">
-    <input type="text" class="form-control rss-input" name="news[rss]"
+    <input type="text" class="form-control zrodlo" placeholder="Podaj własne źródło"
+           name="data[rss]"
            @if($current_rss != '' && !($news_selected??false))
            value="{{$current_rss}}" @else disabled @endif>
-</div>
+
+    <div class="config">
+        <button type="submit" class="link savebtn">
+            <i class="fa fa-save"></i> <span> ZAPISZ </span>
+        </button>
+    </div>
+</form>

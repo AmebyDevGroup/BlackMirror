@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>BlackMirror Inteligentne lustro - Panel zarzadzania</title>
+    <title>BlackMirror</title>
     <meta name="author" content="EkipaPolitechnika"/>
     <meta name="description" content="fullPage fixed full-screen backgrounds."/>
     <meta name="keywords" content="fullpage,jquery,demo,screen,fixed,fullscreen,backgrounds,full-screen"/>
@@ -17,8 +17,8 @@
     <link href="apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
     <link href="apple-touch-icon-57.png" rel="apple-touch-icon-precomposed">
     <link
-        href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAC7u7sAAAAAAERERACIiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREREREREREREREzMzMzEREREzMDAAAxERETMzAwADERERMDMwMAMREREwAzMDAxERETAAMzAzERERMwADMwMREREwMAAzMxERETADAAMzEREREzMzMzEREREhEREREhERERIiIiIhERERERERERERHAAwAA//8AAPAPAADgBwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAOAHAADwDwAA"
-        rel="icon" type="image/x-icon"/>
+            href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAC7u7sAAAAAAERERACIiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREREREREREREREREREREREREREREREzMzMzEREREzMDAAAxERETMzAwADERERMDMwMAMREREwAzMDAxERETAAMzAzERERMwADMwMREREwMAAzMxERETADAAMzEREREzMzMzEREREhEREREhERERIiIiIhERERERERERERHAAwAA//8AAPAPAADgBwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAOAHAADwDwAA"
+            rel="icon" type="image/x-icon"/>
     <!-- /Favicon
     ========================================================= -->
 
@@ -28,6 +28,7 @@
             padding: 0;
             margin: 0;
         }
+
         /* Style for H1
         * --------------------------------------- */
         h1 {
@@ -192,28 +193,6 @@
 
         }
 
-        .descrition2 {
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-weight: 700;
-            font-size: calc(10px + 1vw);
-            color: #fff;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            text-shadow: 0 0 0.15em #1da9cc;
-            user-select: none;
-            white-space: nowrap;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-right: -50%;
-            transform: translate(-50%, -50%);
-            background-color: #010100;
-            padding: 50px;
-            box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
-            border: 3px solid #00d7c3;
-            opacity: 0.9;
-        }
-
         .button-1 {
             width: 250px;
             padding-top: 30px;
@@ -360,27 +339,20 @@
             PROJEKT INTELGENTNEGO LUSTRA
             <div class="przycisk">
                 </br>
-                <a href="{{route('admin')}}" class="button-1">LOGOWANIE</a>
+                <a href="{{route('admin.getConfiguration')}}" class="button-1">LOGOWANIE</a>
             </div>
-            {{-- <div class="przycisk">
-                </br>
-                <a href="{{route('help')}}" class="button-1">POMOC</a>
-            </div> --}}
         </div>
-    </div>
-</div>
+        <script type="text/javascript" src="{{asset('js/fullpage.min.js')}}"></script>
+        {{-- <script type="text/javascript" src="{{asset('js/examples.js')}}"></script> --}}
 
-<script type="text/javascript" src="{{asset('js/fullpage.min.js')}}"></script>
-{{-- <script type="text/javascript" src="{{asset('js/examples.js')}}"></script> --}}
-
-<script type="text/javascript">
-    var myFullpage = new fullpage('#fullpage', {
-        verticalCentered: false,
-        anchors: ['logowanie', 'autorzy'],
-        navigation: true,
-        navigationPosition: 'right',
-        css3: false
-    });
-</script>
-</body>
+        <script type="text/javascript">
+            var myFullpage = new fullpage('#fullpage', {
+                verticalCentered: false,
+                anchors: ['logowanie', 'autorzy'],
+                navigation: true,
+                navigationPosition: 'right',
+                css3: false
+            });
+        </script>
+        </body>
 </html>

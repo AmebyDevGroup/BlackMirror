@@ -27,17 +27,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('changelog', 'AdminPanelController@getChangelogPage')->name('admin.getChangelog');
     Route::get('info', 'AdminPanelController@getInfoPage')->name('admin.info');
 
-    Route::post('/', 'Controller@saveConfig')->name('admin');
-
-    Route::get('/configuration/getForm/{feature}', 'ConfigurationController@getConfigurationForm')->name('configuration.getConfigurationForm');
-    Route::post('/configuration/setActive/{feature}/{active?}', 'ConfigurationController@setActive')->name('configuration.setActive');
-
-
-
+    Route::prefix('configuration')->group(function () {
+        Route::post('setPageMode/{mode?}', 'ConfigurationController@setPageMode')->name('configuration.setPageMode');
+        Route::get('getForm/{feature}', 'ConfigurationController@getConfigurationForm')->name('configuration.getConfigurationForm');
+        Route::post('sendForm/{feature}', 'ConfigurationController@sendConfigurationForm')->name('configuration.sendConfigurationForm');
+        Route::post('setActive/{feature}/{active?}', 'ConfigurationController@setActive')->name('configuration.setActive');
+        Route::get('getAir/stations', 'ConfigurationController@getAirStations')->name('configuration.getAirStations');
+        Route::get('taskFolders/{provider}', 'ConfigurationController@getTasksFolder')->name('configuration.getTaskFolders');
+    });
     Route::get('test-websockets/{feature}', 'WebsocketTestController@getData')->name('testWebsocketsData');
-
-    Route::get('taskFolders/{provider}', 'Controller@getTasksFolder')->name('taskFolders');
-    Route::get('air-quality/stations', 'AirQualityController@getStations')->name('air.getStations');
 
     Route::prefix('external-accounts')->group(function () {
         Route::prefix('microsoft')->group(function () {

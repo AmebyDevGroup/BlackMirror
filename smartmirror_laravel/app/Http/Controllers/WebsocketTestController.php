@@ -3,36 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Events\Message;
-use App\MirrorConfig;
+use App\Feature;
 use App\TokenStore\TokenCache;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use Microsoft\Graph\Graph;
 use Feeds;
 
 class WebsocketTestController extends Controller
 {
-    public function getData(MirrorConfig $feature)
+    public function getData(Feature $feature)
     {
-        switch ($feature->name) {
+        $feature_config = $feature->getConfig;
+        switch ($feature->slug) {
             case "air":
-                return $this->SendAirQuality($feature);
+                return $this->SendAirQuality($feature_config);
                 break;
             case "calendar":
-                return $this->SendCalendar($feature);
+                return $this->SendCalendar($feature_config);
                 break;
             case "news":
-                return $this->SendNews($feature);
+                return $this->SendNews($feature_config);
                 break;
             case "tasks":
-                return $this->SendTasks($feature);
+                return $this->SendTasks($feature_config);
                 break;
             case "weather":
-                return $this->SendWeather($feature);
+                return $this->SendWeather($feature_config);
                 break;
             case "covid":
-                return $this->SendCovid($feature);
+                return $this->SendCovid($feature_config);
                 break;
         }
     }

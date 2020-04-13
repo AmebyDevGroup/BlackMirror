@@ -3,7 +3,7 @@
 @section('content')
     <h4 class="header-main">TESTOWANIE KOMUNIKACJI WEBSOCKET</h4>
     <hr>
-    <div class="row">
+    <div class="row dbp-p">
         <div class="col-sm-12">
             <p>
                 Korzystając z poniższych przycisków można wywołać pobranie danych z zewnętrznego systemu
@@ -28,25 +28,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 left-side-home-outer">
+        <div class="col-md-6 left-side-home-outer dbp-p">
             <div class="darkblue-panel pn">
                 <div class="darkblue-header">
                     <h5>Wywołanie API</h5>
                 </div>
-                @foreach($features as $feature)
-                    @if($feature->active)
+                <div class="apiscroll">
+                    @foreach($features as $feature)
                         <a href="{{route('testWebsocketsData', [$feature])}}"
-                           data-name="{{trans('features.'.$feature->name)}}"
-                           class="btn btn-info btn-api init-ws">{{trans('features.'.$feature->name)}}</a>
-                    @else
-                    <!--<div>
-                                    Włącz usługę w panelu zarządzania
-                                </div>-->
-                    @endif
-                @endforeach
+                           data-name="{{trans('features.'.$feature->slug)}}"
+                           class="btn btn-info btn-api init-ws">{{trans('features.'.$feature->slug)}}</a>
+                    @endforeach
+                </div>
             </div>
         </div>
-        <div class="col-md-6 left-side-home-outer">
+        <div class="col-md-6 left-side-home-outer  dbp-p">
             <div class="darkblue-panel pn">
                 <div class="darkblue-header">
                     <h5 id="result-name">Odpowiedź serwera</h5>
@@ -83,7 +79,8 @@
             background-color: transparent;
             border: none;
             max-height: 187px;
-            overflow-y: scroll !important;
+            overflow-y: auto !important;
+            outline: none !important;
         }
 
         pre.sf-dump .sf-dump-key {

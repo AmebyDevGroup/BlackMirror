@@ -26,14 +26,6 @@ class Controller extends BaseController
         return view('help');
     }
 
-    public function admin()
-    {
-        $viewData['microsoft'] = $this->loadMicrosoftViewData();
-        $viewData['weather_cities'] = WeatherCity::all();
-        $viewData['rss'] = $this->loadRssChannels();
-        return view('panel.admin', $viewData);
-    }
-
     public function saveConfig(Request $request)
     {
         foreach ($request->except('_token') as $slug => $config) {
@@ -79,31 +71,5 @@ class Controller extends BaseController
             $viewData['userEmail'] = session('userEmail');
         }
         return $viewData;
-    }
-
-    public function loadRssChannels()
-    {
-        return [
-            'https://www.tvn24.pl/najnowsze.xml' => 'TVN24 - najnowsze',
-            'https://www.tvn24.pl/wiadomosci-z-kraju,3.xml' => 'TVN24 - kraj',
-            'https://www.tvn24.pl/wiadomosci-ze-swiata,2.xml' => 'TVN24 - świat',
-            'https://joemonster.org/backend.php' => 'JoeMonster',
-            'https://www.gazetaprawna.pl/rss.xml' => 'GazetaPrawna',
-            'https://asta24.pl/feed' => 'Asta24 - powiat pilski',
-            'https://www.gry-online.pl/rss/news.xml' => 'GryOnline',
-        ];
-    }
-
-    public function getTasksFolder($provider)
-    {
-        $folders = [];
-        switch ($provider) {
-            case 'microsoft':
-                $folders = app('\App\Http\Controllers\MicrosoftController')->taskFolders();
-                break;
-            default:
-                break;
-        }
-        return response()->json($folders);
     }
 }

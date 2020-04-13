@@ -2,14 +2,21 @@
 
 @section('content')
     <section id="configuration">
-        <div class="row">
+        <div class="row justify-content-center">
             @foreach($features as $feature)
-                <div class="col-md-4 col-sm-4 mb">
+                <div class="col-lg-4 col-md-6 col-sm-6 mb dbp-p">
                     <div class="darkblue-panel pn">
+                        @if($feature->active == 0)
+                        <div class="coming">
+                            <p class="com">COMING SOON ...</p>
+                        </div>
+                        @endif
                         <div class="darkblue-header">
                             <h5>{{mb_strtoupper($feature->name)}}</h5>
                         </div>
-                        <img class="icon" src="{{asset($feature->icon)}}" alt="todo"/>
+
+                        <img class="icon" src="{{asset($feature->icon)}}" alt="{{$feature->name}}"/>
+
                         <p>
                             @php
                                 $checked = '';
@@ -27,9 +34,7 @@
                                 <i class="fa fa-cogs"></i> <span> KONFIGURUJ </span>
                             </a>
                         </div>
-                        <div class="feature-configuration">
-                            aaaaa
-                        </div>
+                        <div class="feature-configuration"></div>
                     </div>
                 </div>
             @endforeach

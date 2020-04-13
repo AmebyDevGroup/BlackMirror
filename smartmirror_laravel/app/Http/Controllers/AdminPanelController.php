@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Feature;
+use App\FeatureConfig;
 use App\MirrorConfig;
 use GuzzleHttp\Client;
 
@@ -12,7 +13,7 @@ class AdminPanelController
 {
     public function getConfigurationPage()
     {
-        $features = Feature::with('config')->get();
+        $features = Feature::with('config')->orderBy('ordering')->get();
         return view('panel.configuration', ['features' => $features]);
     }
 
@@ -31,7 +32,9 @@ class AdminPanelController
 
     public function getWebsocketsTestPage()
     {
-        $features = MirrorConfig::all();
+        $features = Feature::whereHas('config', function ($q) {
+            $q->where('active',1);
+        })->get();
         return view('panel.test-websockets', ['features'=>$features]);
     }
 

@@ -27,10 +27,7 @@ class MicrosoftController extends Controller
     {
         $graph = $this->initConnection();
         $queryParams = array(
-//          '$select' => 'subject,importance,body,dueDateTime,createdDateTime',
-//            '$orderby' => 'importance DESC, createdDateTime DESC',
             '$top' => 100,
-//            '$filter' => "status ne 'completed'"
         );
         $getEventsUrl = '/me/outlook/taskFolders?' . http_build_query($queryParams);
         try {
@@ -38,7 +35,10 @@ class MicrosoftController extends Controller
                 ->setReturnType(Model\OutlookTaskFolder::class)
                 ->execute();
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return [
+                'status' => 'error',
+                'data' => $e->getMessage()
+            ];
         }
         $formatedFolders = [];
         foreach ($folders as $folder) {
@@ -48,6 +48,9 @@ class MicrosoftController extends Controller
             ];
             $formatedFolders[] = $this_folder;
         }
-        return $formatedFolders;
+        return [
+            'status' => 'success',
+            'data' => $formatedFolders
+        ];
     }
 }

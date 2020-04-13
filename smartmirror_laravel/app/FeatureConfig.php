@@ -17,4 +17,9 @@ class FeatureConfig extends Model
         'data' => 'array',
         'active' => 'boolean'
     ];
+
+    public function feature()
+    {
+        return $this->belongsTo(Feature::class);
+    }
 }
