@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SendAirQualityJob;
+use App\Jobs\SendAirJob;
 use Illuminate\Console\Command;
 
-class SendAirQuality extends Command
+class SendAir extends Command
 {
     /**
      * The name and signature of the console command.
@@ -38,6 +38,6 @@ class SendAirQuality extends Command
      */
     public function handle()
     {
-        dispatch(new SendAirQualityJob());
+        dispatch(new SendAirJob());
     }
 }

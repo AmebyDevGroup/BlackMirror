@@ -11,14 +11,19 @@
 |
 */
 
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes(['register' => true]);
+Auth::routes(['register' => true, 'verify' => true]);
 
 Route::get('/', 'Controller@welcome')->name('home');
 Route::get('/pomoc', 'Controller@help')->name('help');
 
+Route::get('test', function() {
+    dd(\Carbon\Carbon::now()->setTimezone('Europe/Warsaw')->format('Y-m-d H:i:s'));
+});
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminPanelController@getConfigurationPage')->name('admin.getConfiguration');
     Route::get('external-accounts', 'AdminPanelController@getExternalAccountsPage')->name('admin.getExternalAccounts');
@@ -27,7 +32,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('changelog', 'AdminPanelController@getChangelogPage')->name('admin.getChangelog');
     Route::get('info', 'AdminPanelController@getInfoPage')->name('admin.info');
 
-    Route::prefix('configuration')->group(function () {
+    Route::prefix('configuration')->middleware('verified')->group(function () {
         Route::post('setPageMode/{mode?}', 'ConfigurationController@setPageMode')->name('configuration.setPageMode');
         Route::get('getForm/{feature}', 'ConfigurationController@getConfigurationForm')->name('configuration.getConfigurationForm');
         Route::post('sendForm/{feature}', 'ConfigurationController@sendConfigurationForm')->name('configuration.sendConfigurationForm');
@@ -37,7 +42,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
     Route::get('test-websockets/{feature}', 'WebsocketTestController@getData')->name('testWebsocketsData');
 
-    Route::prefix('external-accounts')->group(function () {
+    Route::prefix('external-accounts')->middleware('verified')->group(function () {
         Route::prefix('microsoft')->group(function () {
             Route::get('/zaloguj', 'Auth\MicrosoftAuthController@signin')->name('microsoft.signin');
             Route::get('/wyloguj', 'Auth\MicrosoftAuthController@signout')->name('microsoft.signout');

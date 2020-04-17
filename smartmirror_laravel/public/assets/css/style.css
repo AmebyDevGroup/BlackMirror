@@ -1199,6 +1199,37 @@ fieldset[disabled].btn-zaloguj.focus {
 }
 
 
+.apiscroll{
+    overflow-y: auto;
+    height: 188px;
+    padding-bottom: 15px;
+}
+.bd-highlight{
+    height: 60px;
+}
+.not-verified {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: calc(100vh - 114px);
+    display: flex;
+    background: #222a;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    color: whitesmoke;
+}
+.not-verified span {
+    transition: background .4s ease;
+    background: #43b1a9;
+    padding: 30px;
+    font-size: inherit;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
 /*DARK MODE*/
 .night .ico {
     color: #43b1a9;
@@ -1232,6 +1263,10 @@ fieldset[disabled].btn-zaloguj.focus {
 .dark-mode .btn-info,
 .dark-mode .site-footer {
     background: #006d65;
+    color: #ccc;
+}
+.dark-mode .not-verified span {
+    background-color: #006d65;
     color: #ccc;
 }
 
@@ -1273,13 +1308,4 @@ fieldset[disabled].btn-zaloguj.focus {
 .pink-mode .site-footer {
     background: #ff00ea;
     color: #fff;
-}
-
-.apiscroll{
-    overflow-y: auto;
-    height: 188px;
-    padding-bottom: 15px;
-}
-.bd-highlight{
-    height: 60px;
 }

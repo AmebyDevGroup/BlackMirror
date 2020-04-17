@@ -28,11 +28,10 @@ class SendTasksJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feature_config)
     {
-        $config = MirrorConfig::where('name', 'tasks')->first();
-        $this->provider = $config->data['provider'];
-        $this->directory = $config->data['directory'];
+        $this->provider = $feature_config->data['provider'];
+        $this->directory = $feature_config->data['directory'];
     }
 
     /**
@@ -57,7 +56,6 @@ class SendTasksJob implements ShouldQueue
                 "message" => $e->getMessage()
             ]));
         }
-
     }
 
     protected function getMicrosoftTasks()

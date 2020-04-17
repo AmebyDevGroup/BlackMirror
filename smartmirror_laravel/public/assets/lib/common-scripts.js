@@ -120,11 +120,11 @@ var Script = function() {
 
 jQuery(document).ready(function( $ ) {
 
-  // Go to top
-  $('.go-top').on('click', function(e) {
+    // Go to top
+    $('.go-top').on('click', function(e) {
     e.preventDefault();
     $('html, body').animate({scrollTop : 0},500);
-  });
+    });
 });
 
 
@@ -148,7 +148,8 @@ $(document).on('click', '.start_configuration', function(e) {
     $.get($(this).attr('href'), function( data ) {
         $configuration_box.html(data);
         $configuration_box.addClass('active');
-        $configuration_box.find('select.selectpicker').selectpicker({"container":"body", "size":10});
+        $configuration_box.find('select.selectpicker').selectpicker({"container":"body", "size":10, "virtualScroll":200});
+        $(".do-nicescrol").niceScroll(".scroll-wrap")
     });
 })
 
