@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Jobs\SendTimeJob;
 use Illuminate\Database\Eloquent\Model;
 
 class Feature extends Model
@@ -47,5 +48,14 @@ class Feature extends Model
         } else {
             return view('panel.features.default', ['feature' => $this, 'config' => $this->getConfig]);
         }
+    }
+
+    public function getJob($feature_config)
+    {
+        $job_class = 'App\Jobs\Send'.ucfirst($this->slug).'Job';
+        if(class_exists($job_class)){
+            return new $job_class($feature_config);
+        }
+        return false;
     }
 }

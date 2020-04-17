@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\Message;
 use App\Feature;
 use App\TokenStore\TokenCache;
+use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Microsoft\Graph\Graph;
@@ -33,6 +34,9 @@ class WebsocketTestController extends Controller
                 break;
             case "covid":
                 return $this->SendCovid($feature_config);
+                break;
+            case "time":
+                return $this->SendTime($feature_config);
                 break;
         }
     }
@@ -238,6 +242,20 @@ class WebsocketTestController extends Controller
         dump(['type'=>'covid', 'data'=>$covidInfo]);
 //        return response()->json($covidInfo);
     }
+
+    public function SendTime($feature)
+    {
+        $timeInfo = [
+            'timestamp' => Carbon::now()->setTimezone($feature->data['timezone'])->timestamp,
+            'timezone' => $feature->data['timezone'],
+            'time_format' => $feature->data['time-format']
+        ];
+        broadcast(new Message('time', $timeInfo));
+        dump(['type'=>'time', 'data'=>$timeInfo]);
+//        return response()->json($timeInfo);
+    }
+
+
 
     protected function getMicrosoftTasks($feature)
     {
