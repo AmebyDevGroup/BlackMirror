@@ -16,14 +16,21 @@
     <!-- Bootstrap core CSS -->
     <link href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('lib/bootstrap/css/bootstrap4-toggle.css')}}" rel="stylesheet">
+    <link href="{{asset('lib/bootstrap/css/necessary.css')}}" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
     <!--external css-->
     <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet">
+{{--    Stepper--}}
+    <link href="{{asset('css/materialize.css')}}" rel="stylesheet">
+    <link href="{{asset('css/mstepper.css')}}" rel="stylesheet">
     <!--external burger menu-->
-
+    <img src="" alt="">
 </head>
 
 <body @auth @if(auth()->user()->params['page-mode']??false) class="{{auth()->user()->params['page-mode']}}"  @endif @endauth>
@@ -74,12 +81,34 @@
     <script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('lib/bootstrap/js/bootstrap4-toggle.js')}}"></script>
     <script src="{{asset('lib/bootstrap/js/bootstrap.bundle.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+{{--    <script src="{{asset('js/materialize.js')}}"></script>--}}
+    <script src="{{asset('js/mstepper.js')}}"></script>
+
     <script src="{{asset('lib/jquery.scrollTo.min.js')}}"></script>
     <script src="{{asset('lib/jquery.nicescroll.js')}}" type="text/javascript"></script>
     <script src="{{asset('lib/jquery.sparkline.js')}}"></script>
     <!--common script for all pages-->
     <script src="{{asset('lib/common-scripts.js')}}"></script>
+    <script>
+        function anyThing(destroyFeedback) {
+            setTimeout(function () {
+                destroyFeedback(true);
+            }, 1500);
+        }
+
+        function noThing(destroyFeedback) {
+            setTimeout(function () {
+                destroyFeedback(true);
+            }, 10000);
+        }
+
+        var stepperDiv = document.querySelector('.stepper');
+        console.log(stepperDiv);
+        var stepper = new MStepper(stepperDiv);
+
+    </script>
 @yield('scripts-after')
 </body>
 </html>
+
