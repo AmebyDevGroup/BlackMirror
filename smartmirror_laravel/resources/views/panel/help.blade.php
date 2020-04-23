@@ -80,9 +80,7 @@
 
                 <div class="step-content">
                     <div class="step-actions">
-                        <button class="waves-effect waves-dark btn  lighten-2 next-step"
-                        >Continue
-                        </button>
+                        <button class="waves-effect waves-dark btn  lighten-2 next-step">Continue</button>
                     </div>
                     <div class="row">
                         <table class=" white-text ">
@@ -315,8 +313,9 @@
                     </div>
                     <div class="row ">
                         <div class="col-12 center-align">
-                        <h5>BRAWO! TWOJE LUSTRO JEST GOTOWE DO DZIAŁANIA.</h5>
-                        <h6><a href="http://86.63.86.150/mirror/" target="_blank">(Podgląd LIVE dostępny tutaj)</a></h6>
+                            <h5>BRAWO! TWOJE LUSTRO JEST GOTOWE DO DZIAŁANIA.</h5>
+                            <h6><a href="http://86.63.86.150/mirror/" target="_blank">(Podgląd LIVE dostępny tutaj)</a>
+                            </h6>
                         </div>
                     </div>
 
