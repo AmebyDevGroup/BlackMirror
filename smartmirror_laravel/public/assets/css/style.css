@@ -8,12 +8,13 @@ body {
     transition: background .4s ease;
 	background: #eaeaea;
     font-family: 'Quicksand', sans-serif;
-    padding: 0px !important;
-    margin: 0px !important;
+    padding: 0 !important;
+    margin: 0 !important;
     font-size:13px;
     height: 100%;
     position: relative;
 }
+
 .btn {
     transition: color .4s ease,
                 background-color .4s ease,
@@ -66,7 +67,7 @@ a, a:hover, a:focus {
 	display: block;
 	cursor: pointer;
 	border-top: 1px solid #F5F5F5;
-	padding: 5px 0px;
+	padding: 5px 0;
 	line-height: 28.75px;
 	text-transform: uppercase;
 	color: #1a1a1a;
@@ -127,8 +128,8 @@ a, a:hover, a:focus {
 }
 
 hr {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     border: 0;
     border-top: 1px solid #797979;
 }

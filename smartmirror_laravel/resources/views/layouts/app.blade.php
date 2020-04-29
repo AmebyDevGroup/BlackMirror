@@ -16,7 +16,6 @@
     <!-- Bootstrap core CSS -->
     <link href="{{asset('lib/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('lib/bootstrap/css/bootstrap4-toggle.css')}}" rel="stylesheet">
-    <link href="{{asset('lib/bootstrap/css/necessary.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 
@@ -27,10 +26,9 @@
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/style-responsive.css')}}" rel="stylesheet">
 {{--    Stepper--}}
-    <link href="{{asset('css/materialize.css')}}" rel="stylesheet">
-    <link href="{{asset('css/mstepper.css')}}" rel="stylesheet">
+    <link href="{{asset('css/materializer.css')}}" rel="stylesheet">
+    <link href="{{asset('css/mste.css')}}" rel="stylesheet">
     <!--external burger menu-->
-    <img src="" alt="">
 </head>
 
 <body @auth @if(auth()->user()->params['page-mode']??false) class="{{auth()->user()->params['page-mode']}}"  @endif @endauth>
@@ -83,7 +81,7 @@
     <script src="{{asset('lib/bootstrap/js/bootstrap.bundle.js')}}"></script>
 
 {{--    <script src="{{asset('js/materialize.js')}}"></script>--}}
-    <script src="{{asset('js/mstepper.js')}}"></script>
+    <script src="{{asset('js/mstepperr.js')}}"></script>
 
     <script src="{{asset('lib/jquery.scrollTo.min.js')}}"></script>
     <script src="{{asset('lib/jquery.nicescroll.js')}}" type="text/javascript"></script>
@@ -105,7 +103,7 @@
 
         var stepperDiv = document.querySelector('.stepper');
         console.log(stepperDiv);
-        var stepper = new MStepper(stepperDiv);
+        var stepper = new Mstepperr(stepperDiv);
 
     </script>
 @yield('scripts-after')
