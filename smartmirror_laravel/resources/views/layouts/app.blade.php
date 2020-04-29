@@ -54,7 +54,13 @@
                                 @endif
                             </div>
                         @endif
-
+                        @auth
+                            @if(!auth()->user()->hasVerifiedEmail())
+                                <div class="not-verified">
+                                    <span>Aby w pełni korzystać z serwisu potwierdź swój adres email!</span>
+                                </div>
+                            @endif
+                        @endauth
                         @yield('content')
                     </div>
                 </div>

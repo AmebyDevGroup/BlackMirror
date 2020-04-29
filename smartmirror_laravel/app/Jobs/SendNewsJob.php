@@ -22,10 +22,9 @@ class SendNewsJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feature_config)
     {
-        $config = MirrorConfig::where('name', 'news')->first();
-        $this->rss = $config->data['rss'];
+        $this->rss = $feature_config->data['rss'];
     }
 
     /**

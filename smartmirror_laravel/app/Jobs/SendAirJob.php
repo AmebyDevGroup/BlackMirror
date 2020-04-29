@@ -12,7 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SendAirQualityJob implements ShouldQueue
+class SendAirJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -28,11 +28,10 @@ class SendAirQualityJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feature_config)
     {
-        $config = MirrorConfig::where('name', 'air')->first();
-        $this->getIndexUrl = "http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/" . $config->data['station'] ?? '';
-        $this->getStationUrl = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/" . $config->data['station'] ?? '';
+        $this->getIndexUrl = "http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/" . $feature_config->data['station'] ?? '';
+        $this->getStationUrl = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/" . $feature_config->data['station'] ?? '';
         $this->getSensorUrl = "http://api.gios.gov.pl/pjp-api/rest/data/getData/";
     }
 
