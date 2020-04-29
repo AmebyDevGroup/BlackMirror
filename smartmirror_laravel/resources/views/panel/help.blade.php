@@ -183,7 +183,7 @@
                                 <img src="http://localhost/assets/img/elementy.png" class="img-elementy" alt="Google">
                             </div>
                             <div class="col-6 text-left">
-                                <ul>
+                                <ul >
                                     <li>1. "STATYSTYKI COVID-19" - Wyświetla aktualne statystyki pandemi w Polsce i na
                                         świecie.
                                     </li>
