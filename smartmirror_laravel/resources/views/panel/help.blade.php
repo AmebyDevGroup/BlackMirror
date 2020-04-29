@@ -17,7 +17,7 @@
 
                         <div class="row">
                             <div class="card-image col-6 text-right">
-                                <img class="mx-auto img-uruchomienie" src="http://localhost/assets/img/wl.png" alt="Google">
+                                <img class="mx-auto img-uruchomienie" src="{{ asset('img/wl.png') }}" alt="Google">
                             </div>
                             <div class="col-6 text-left ">
                                 <ul>
@@ -49,7 +49,7 @@
 
                         <div class="row">
                             <div class="card-image col-6 text-right">
-                                <img class="mx-auto img-berry img-fluid" src="http://localhost/assets/img/overview.gif" alt="BerrLan">
+                                <img class="mx-auto img-berry img-fluid" src="{{ asset('img/overview.gif') }}" alt="BerrLan">
                             </div>
                             <div class="col-6">
                                 <ul>
@@ -61,9 +61,9 @@
                                         <div class="row">
                                             <div class="col-6 d-inline text-left">
                                                 <a class="d-inline" href="https://apps.apple.com/us/app/berrylan/id1436156018">
-                                                    <img src="http://localhost/assets/img/apppp.png" alt="App-Store" style="width: 35%"></a>
+                                                    <img src="{{ asset('img/apppp.png') }}" alt="App-Store" style="width: 35%"></a>
                                                 <a class="d-inline" href="https://play.google.com/store/apps/details?id=io.guh.berrylan">
-                                                    <img src="http://localhost/assets/img/googlep.png" alt="GooglePlay" style="width: 35%"></a>
+                                                    <img src="{{ asset('img/googlep.png') }}" alt="GooglePlay" style="width: 35%"></a>
 
                                             </div>
                                             <div class="col-6">
@@ -92,7 +92,7 @@
                         </div>
                         <div class="row">
                             <div class="card-image col-6 text-right">
-                                <img class="img-konta" src="http://localhost/assets/img/MG.png" alt="Google">
+                                <img class="img-konta" src="{{ asset('img/MG.png') }}" alt="Google">
                             </div>
                             <div class="col-6 text-left">
 
@@ -126,7 +126,7 @@
                         <div class="row">
 
                             <div class="card-image col-6 text-right">
-                                <img src="http://localhost/assets/img/panel-1.png" class="img-menu" alt="Panel">
+                                <img src="{{ asset('img/panel-1.png') }}" class="img-menu" alt="Panel">
                             </div>
 
                             <div class="col-6 text-left">
@@ -180,7 +180,7 @@
                         <div class="row">
 
                             <div class="card-image text-right col-6">
-                                <img src="http://localhost/assets/img/elementy.png" class="img-elementy" alt="Google">
+                                <img src="{{ asset('img/elementy.png') }}" class="img-elementy" alt="Google">
                             </div>
                             <div class="col-6 text-left">
                                 <ul>
