@@ -85,7 +85,7 @@
     <script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('lib/bootstrap/js/bootstrap4-toggle.js')}}"></script>
     <script src="{{asset('lib/bootstrap/js/bootstrap.bundle.js')}}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 {{--    <script src="{{asset('js/materialize.js')}}"></script>--}}
     <script src="{{asset('js/mstepperr.js')}}"></script>
 
