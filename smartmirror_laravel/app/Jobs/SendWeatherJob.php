@@ -24,10 +24,9 @@ class SendWeatherJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feature_config)
     {
-        $config = MirrorConfig::where('name', 'weather')->first();
-        $this->city = $config->data['city'];
+        $this->city = $feature_config->data['city'];
         $this->key = env('WEATHER_KEY');
     }
 

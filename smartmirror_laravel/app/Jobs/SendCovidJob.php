@@ -23,9 +23,9 @@ class SendCovidJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feature_config)
     {
-        $this->config = MirrorConfig::where('name', 'covid')->first();
+        $this->config = $feature_config;
     }
 
     /**

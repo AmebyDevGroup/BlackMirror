@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <h4 class="header-main">INFORMACJE O PROJEKCIE</h4>
+    <hr>
     <section id="tests">
             <div class="alert alert-warning" role="alert">
                 Komunikacja między panelem administracyjnym (serwerem) a aplikacją kliencką (lustrem) odbywa się za pomocą technologii WebSocket.
                 <div class="font-weight-bolder">
-                    Aby przetestować komunikację przejdź <a href="{{route('testWebsockets')}}">TUTAJ</a>
+                    Aby przetestować komunikację przejdź <a href="{{route('admin.getWebsocketsTest')}}">TUTAJ</a>
                 </div>
             </div>
     </section>

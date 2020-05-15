@@ -7,7 +7,7 @@
     <meta name="author" content="WerVa" />
     <meta name="Resource-type" content="Document" />
 
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/fullpage.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/fullpage.min.css')}}" />
 {{--    <link rel="stylesheet" type="text/css" href="examples.css" />--}}
     <style>
 
@@ -71,7 +71,34 @@
            list-style: none;
             font-size:1.2em;
         }
+        .wrap {
+            width: 500px;
+            height: 800px;
+            padding: 0;
+            overflow: hidden;
+            margin: auto;
+        }
+        .frame {
+            width: 1050px;
+            height: 1680px;
+            border: 0;
+            -ms-transform: scale(0.5);
+            -moz-transform: scale(0.5);
+            -o-transform: scale(0.5);
+            -webkit-transform: scale(0.5);
+            transform: scale(0.5);
 
+            -ms-transform-origin: 0 0;
+            -moz-transform-origin: 0 0;
+            -o-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+        a
+        {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 
     <!--[if IE]>
@@ -154,16 +181,16 @@
     <div class="section" id="section3">
         <div class="intro">
             <h1>Podlgąd twojego lustra:</h1></br>
-            <object type="text/html" data="http://86.63.86.150/mirror/"
-                    style="width:500px; height:800px; border: 1px solid white;">
-            </object>
+                <div class="wrap">
+                <object class="frame"  type="text/html" data="https://transfer.spiszcz.org/"></object>
+            </div>
+            <a href="http://86.63.86.150/mirror/" >Kliknij tutaj </a>
         </div>
     </div>
 </div>
 
 
-<script type="text/javascript" src="{{asset('assets/js/fullpage.min.js')}}"></script>
-
+<script type="text/javascript" src="{{asset('js/fullpage.min.js')}}"></script>
 <script type="text/javascript">
     var myFullpage = new fullpage('#fullpage', {
         anchors: ['POMOC', 'INSTRUKCJA', 'FAQ', 'PODGLAD'],
