@@ -4,6 +4,7 @@ import Echo from 'laravel-echo';
 import CameraService from './cameraService';
 
 window.Pusher = require('pusher-js');
+window.io = require('socket.io-client');
 
 let eventCounter = 0;
 let activeSections = 0;
@@ -16,15 +17,23 @@ const handleLoading = (ev) => {
 };
 
 const echo = new Echo({
-	broadcaster: 'pusher',
-	key: 123456,
-	cluster: 'mt1',
+	broadcaster: 'socket.io',
+	key: "023a905bee315629c3157500199f5065",
+	// cluster: 'mt1',
 	// encrypted: true
-	wsHost: '86.63.86.150',
-	wsPort: 6001
+	host: '86.63.86.150:6001',
 });
 
-echo.channel('mirror')
+echo.join('mirror.123')
+	.here((users) => {
+		console.log(users)
+	})
+	.joining((user) => {
+		console.log(user.name);
+	})
+	.leaving((user) => {
+		console.log(user.name);
+	})
 	.listen('Message', (e) => {
 		console.log(e);
 		if (e.type === "config") handleLoading(e);
