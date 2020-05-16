@@ -19,24 +19,24 @@
 			</div>
 			<div class="weather__item-wrapper">
 				<div class="weather__item">
-				<span class="weather__item-label">
-					<img src="../assets/sunup.svg" alt="" class="weather__sun">
-					<span class="weather__item-value weather__item-value--bigger">{{ sunrise }}</span>
-				</span>
 					<span class="weather__item-label">
-					<img src="../assets/sundown.svg" alt="" class="weather__sun">
-					<span class="weather__item-value weather__item-value--bigger">{{ sunset }}</span>
-				</span>
+						<img src="../assets/sunup.svg" alt="" class="weather__sun">
+						<span class="weather__item-value weather__item-value--bigger">{{ sunrise }}</span>
+					</span>
+						<span class="weather__item-label">
+						<img src="../assets/sundown.svg" alt="" class="weather__sun">
+						<span class="weather__item-value weather__item-value--bigger">{{ sunset }}</span>
+					</span>
 				</div>
 				<div class="weather__item">
-				<span class="weather__item-label">
-					<span class="weather__item-title">Ciśnienie:</span>
-					<span class="weather__item-value">{{ data.pressure }} hPa</span>
-				</span>
 					<span class="weather__item-label">
-					<span class="weather__item-title">Wilgotność:</span>
-					<span class="weather__item-value">{{ data.humidity }}%</span>
-				</span>
+						<span class="weather__item-title">Ciśnienie</span>
+						<span class="weather__item-value">{{ data.pressure }} hPa</span>
+					</span>
+						<span class="weather__item-label">
+						<span class="weather__item-title">Wilgotność</span>
+						<span class="weather__item-value">{{ data.humidity }}%</span>
+					</span>
 				</div>
 			</div>
 		</div>

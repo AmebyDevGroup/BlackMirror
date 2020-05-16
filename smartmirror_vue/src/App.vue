@@ -1,6 +1,6 @@
 <template>
 	<div id="app" class="app">
-		<video autoplay="true" id="videoElement"></video>
+<!--		<video autoplay="true" id="videoElement"></video>-->
 		<div class="app__wrapper">
 			<div class="app__section">
 				<DateTime></DateTime>
@@ -17,6 +17,9 @@
 				<Weather></Weather>
 			</div>
 			<div class="app__section">
+				<HomeSensors></HomeSensors>
+			</div>
+			<div class="app__section">
 				<Air></Air>
 			</div>
 			<div class="app__section">
@@ -27,7 +30,7 @@
 			<News></News>
 		</div>
 		<Loader></Loader>
-		<ScreenSaver></ScreenSaver>
+<!--		<ScreenSaver></ScreenSaver>-->
 	</div>
 </template>
 
@@ -41,10 +44,12 @@
 	import Loader from "./components/Loader";
 	import CoronaVirus from "./components/CoronaVirus";
 	import ScreenSaver from "./components/ScreenSaver";
+	import HomeSensors from "./components/HomeSensors";
 
 	export default {
 		name: 'app',
 		components: {
+			HomeSensors,
 			ScreenSaver,
 			CoronaVirus,
 			Loader,
