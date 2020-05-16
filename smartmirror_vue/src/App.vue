@@ -1,6 +1,6 @@
 <template>
 	<div id="app" class="app">
-<!--		<video autoplay="true" id="videoElement"></video>-->
+		<video autoplay="true" id="videoElement"></video>
 		<div class="app__wrapper">
 			<div class="app__section">
 				<DateTime></DateTime>
@@ -30,7 +30,7 @@
 			<News></News>
 		</div>
 		<Loader></Loader>
-<!--		<ScreenSaver></ScreenSaver>-->
+		<ScreenSaver></ScreenSaver>
 	</div>
 </template>
 

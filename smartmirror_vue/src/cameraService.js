@@ -2,7 +2,7 @@ import * as faceapi from 'face-api.js';
 
 export default class CameraService {
 	constructor() {
-		// this.handleFaceRecognition();
+		this.handleFaceRecognition();
 	}
 
 	startVideo() {
