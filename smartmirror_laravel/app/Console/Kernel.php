@@ -2,15 +2,18 @@
 
 namespace App\Console;
 
-use App\Console\Commands\SendAirQuality;
+use App\Console\Commands\SendAir;
 use App\Console\Commands\SendCalendar;
 use App\Console\Commands\SendNews;
 use App\Console\Commands\SendTasks;
+use App\Console\Commands\SendUserFeatures;
 use App\Console\Commands\SendWeather;
 use App\Console\Commands\SendCovid;
 use App\MirrorConfig;
+use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Jobs\SendTimeJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +27,9 @@ class Kernel extends ConsoleKernel
         SendCalendar::class,
         SendNews::class,
         SendWeather::class,
-        SendAirQuality::class,
-        SendCovid::class
+        SendAir::class,
+        SendCovid::class,
+        SendUserFeatures::class
     ];
 
     /**
@@ -36,42 +40,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $config = MirrorConfig::all();
-        foreach ($config as $item) {
-             if($item->active) {
-                switch ($item->name) {
-                    case "air":
-                        $schedule->command('ws:airquality')
-                            ->everyThirtyMinutes()
-                            ->runInBackground();
-                        break;
-                    case "calendar":
-                        $schedule->command('ws:calendar')
-                            ->everyFifteenMinutes()
-                            ->runInBackground();
-                        break;
-                    case "news":
-                        $schedule->command('ws:news')
-                            ->hourly()
-                            ->runInBackground();
-                        break;
-                    case "tasks":
-                        $schedule->command('ws:tasks')
-                            ->everyMinute()
-                            ->runInBackground();
-                        break;
-                    case "weather":
-                        $schedule->command('ws:weather')
-                            ->hourly()
-                            ->runInBackground();
-                        break;
-                    case "covid":
-                        $schedule->command('ws:covid')
-                            ->everyThirtyMinutes()
-                            ->runInBackground();
-                        break;
-                }
-             }
+        $users = User::whereNotNull('email_verified_at')->get();
+        foreach($users as $key => $user) {
+            $features_configs = $user->featuresConfiguration()->where('active', 1)->get();
+            foreach($features_configs as $feature_config) {
+                $feature = $feature_config->feature;
+                $job = $feature->getJob($feature_config);
+                $schedule->job($job)->cron($feature->crontab);
+            }
         }
     }
 

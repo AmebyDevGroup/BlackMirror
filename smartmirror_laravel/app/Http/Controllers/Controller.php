@@ -16,17 +16,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function test()
-    {
-        dd('stop');
-    }
-
-    public function testWebsockets()
-    {
-        $features = MirrorConfig::all();
-        return view('panel.test-websockets', ['features'=>$features]);
-    }
-
     public function welcome()
     {
         return view('welcome');
@@ -35,14 +24,6 @@ class Controller extends BaseController
     public function help()
     {
         return view('help');
-    }
-
-    public function admin()
-    {
-        $viewData['microsoft'] = $this->loadMicrosoftViewData();
-        $viewData['weather_cities'] = WeatherCity::all();
-        $viewData['rss'] = $this->loadRssChannels();
-        return view('panel.admin', $viewData);
     }
 
     public function saveConfig(Request $request)
@@ -76,33 +57,6 @@ class Controller extends BaseController
         return redirect()->back();
     }
 
-    public function forceSync()
-    {
-        $config = MirrorConfig::where('active', 1)->get();
-        foreach ($config as $item) {
-            switch ($item->name) {
-                case "air":
-                    dispatch(new Jobs\SendAirQualityJob());
-                    break;
-                case "calendar":
-                    dispatch(new Jobs\SendCalendarJob());
-                    break;
-                case "news":
-                    dispatch(new Jobs\SendNewsJob());
-                    break;
-                case "tasks":
-                    dispatch(new Jobs\SendTasksJob());
-                    break;
-                case "weather":
-                    dispatch(new Jobs\SendWeatherJob());
-                    break;
-                case "covid":
-                    dispatch(new Jobs\SendCovidJob());
-                    break;
-            }
-        }
-    }
-
     public function loadMicrosoftViewData()
     {
         $viewData = [];
@@ -117,31 +71,5 @@ class Controller extends BaseController
             $viewData['userEmail'] = session('userEmail');
         }
         return $viewData;
-    }
-
-    public function loadRssChannels()
-    {
-        return [
-            'https://www.tvn24.pl/najnowsze.xml' => 'TVN24 - najnowsze',
-            'https://www.tvn24.pl/wiadomosci-z-kraju,3.xml' => 'TVN24 - kraj',
-            'https://www.tvn24.pl/wiadomosci-ze-swiata,2.xml' => 'TVN24 - świat',
-            'https://joemonster.org/backend.php' => 'JoeMonster',
-            'https://www.gazetaprawna.pl/rss.xml' => 'GazetaPrawna',
-            'https://asta24.pl/feed' => 'Asta24 - powiat pilski',
-            'https://www.gry-online.pl/rss/news.xml' => 'GryOnline',
-        ];
-    }
-
-    public function getTasksFolder($provider)
-    {
-        $folders = [];
-        switch ($provider) {
-            case 'microsoft':
-                $folders = app('\App\Http\Controllers\MicrosoftController')->taskFolders();
-                break;
-            default:
-                break;
-        }
-        return response()->json($folders);
     }
 }

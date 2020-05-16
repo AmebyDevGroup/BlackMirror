@@ -28,10 +28,9 @@ class SendCalendarJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feature_config)
     {
-        $config = MirrorConfig::where('name', 'calendar')->first();
-        $this->provider = $config->data['provider'];
+        $this->provider = $feature_config->data['provider'];
     }
 
     /**
@@ -56,7 +55,6 @@ class SendCalendarJob implements ShouldQueue
                 "message" => $e->getMessage()
             ]));
         }
-
     }
 
     protected function getMicrosoftCalendar()
