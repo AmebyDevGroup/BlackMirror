@@ -3,20 +3,20 @@
 		<div v-if="show && !prerender" class="home-sensors">
 			<span class="home-sensors__title">{{title}}</span>
 			<div class="home-sensors__item">
-					<span class="home-sensors__item-label">
+					<span class="home-sensors__item-label" v-if="pressure">
 						<img :src="hpaSvgUrl" alt="" class="home-sensors__icon">
 						<span class="home-sensors__item-title">Ciśnienie</span>
-						<span class="home-sensors__item-value">932 hPa</span>
+						<span class="home-sensors__item-value">{{ pressure }} hPa</span>
 					</span>
-					<span class="home-sensors__item-label">
+					<span class="home-sensors__item-label" v-if="temperature">
 						<img :src="tempSvgUrl" alt="" class="home-sensors__icon">
 						<span class="home-sensors__item-title">Temperatura</span>
-						<span class="home-sensors__item-value">24&#8451;</span>
+						<span class="home-sensors__item-value">{{ temperature }}&#8451;</span>
 					</span>
-					<span class="home-sensors__item-label">
+					<span class="home-sensors__item-label" v-if="humidity">
 						<img :src="humSvgUrl" alt="" class="home-sensors__icon">
 						<span class="home-sensors__item-title">Wilgotność</span>
-						<span class="home-sensors__item-value">32%</span>
+						<span class="home-sensors__item-value">{{ humidity }}%</span>
 					</span>
 			</div>
 		</div>
@@ -30,8 +30,11 @@
 			return {
 				title: 'Dom',
 				data: null,
-				show: true,
+				show: false,
 				prerender: true,
+				humidity: false,
+				temperature: false,
+				pressure: false,
 			}
 		},
 		mounted() {
@@ -44,10 +47,14 @@
 				this.prerender = bool;
 			},
 			handleConfig(event) {
-				// this.show = event.sensors;
+				this.show = event.sensors;
 			},
 			handleData(data) {
-				// console.log(data);
+				console.log(data.humidity);
+				console.log(parseInt(data.humidity));
+				this.humidity = parseInt(data.humidity);
+				this.temperature = parseInt(data.temperature);
+				this.pressure = parseInt(data.pressure);
 			}
 		},
 		computed: {
