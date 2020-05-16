@@ -18,7 +18,6 @@
 		},
 		methods: {
 			handleScreenSaver(data) {
-				console.log(data);
 				if (!data) return;
 				this.counter = 20;
 			},

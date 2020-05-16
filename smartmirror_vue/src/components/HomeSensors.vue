@@ -50,8 +50,6 @@
 				this.show = event.sensors;
 			},
 			handleData(data) {
-				console.log(data.humidity);
-				console.log(parseInt(data.humidity));
 				this.humidity = parseInt(data.humidity);
 				this.temperature = parseInt(data.temperature);
 				this.pressure = parseInt(data.pressure);
