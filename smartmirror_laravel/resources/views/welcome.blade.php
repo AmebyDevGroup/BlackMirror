@@ -3,8 +3,14 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta property="og:title" content="BlackMirror - Inteligentne lustro">
+    <meta property="og:site_name" content="BlackMirror">
+    <meta property="og:url" content="https://myblackmirror.pl">
+    <meta property="og:description" content="Strona Black Mirror - czyli inteligentnego lustra!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://myblackmirror.pl/assets/img/tmb.jpg">
     <title>BlackMirror</title>
-    <meta name="author" content="EkipaPolitechnika"/>
+    <meta name="author" content="Ameby"/>
     <meta name="description" content="fullPage fixed full-screen backgrounds."/>
     <meta name="keywords" content="fullpage,jquery,demo,screen,fixed,fullscreen,backgrounds,full-screen"/>
     <meta name="Resource-type" content="Document"/>

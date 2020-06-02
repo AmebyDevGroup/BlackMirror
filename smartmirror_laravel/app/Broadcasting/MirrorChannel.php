@@ -2,81 +2,53 @@
 
 namespace App\Broadcasting;
 
+use Illuminate\Support\Str;
 use App\Jobs;
 use App\MirrorConfig;
-use stdClass;
-use Ratchet\ConnectionInterface;
-use BeyondCode\LaravelWebSockets\WebSockets\Channels\Channel;
+use App\Events\Message;
+use App\Feature;
+use Log;
 
-class MirrorChannel extends Channel
+class MirrorChannel
 {
-    // /**
-    //  * Create a new channel instance.
-    //  *
-    //  * @return void
-    //  */
-    // public function __construct()
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Authenticate the user's access to the channel.
-    //  *
-    //  * @param  \App\User  $user
-    //  * @return array|bool
-    //  */
-    // public function join(User $user)
-    // {
-    //     //
-    // }
-
-    /*
-     * @link https://pusher.com/docs/pusher_protocol#presence-channel-events
+    /**
+     * Create a new channel instance.
+     *
+     * @return void
      */
-    public function subscribe(ConnectionInterface $connection, stdClass $payload)
+    public function __construct()
     {
-        $this->saveConnection($connection);
-        $message = [];
-        $config = MirrorConfig::all();
-        foreach ($config as $config_object) {
-            $val = false;
-            if ($config_object->active) {
-                $val = true;
-            }
-            $message[$config_object->name] = $val;
+        
+    }
+
+    /**
+     * Authenticate the user's access to the channel.
+     *
+     * @param  \App\User  $user
+     * @return array|bool
+     */
+    public function join($user)
+    {
+        broadcast(new Message('config', $user->getConfig(), $this->normalizeChannelName(request()->channel_name)));
+        $features_configs = $user->featuresConfiguration()->where('active', 1)->get();
+        foreach($features_configs as $feature_config) {
+            $feature = $feature_config->feature;
+            dispatch($feature->getJob($feature_config, $this->normalizeChannelName(request()->channel_name)));
         }
-        $connection->send(json_encode([
-            'event' => 'App\Events\Message',
-            'channel' => $this->channelName,
-            'data' => json_encode([
-                'type' => 'config',
-                'data' => $message
-            ])
-        ]));
-        foreach ($message as $key => $enabled) {
-            if ($enabled) {
-                switch ($key) {
-                    case "air":
-                        dispatch(new Jobs\SendAirQualityJob());
-                        break;
-                    case "calendar":
-                        dispatch(new Jobs\SendCalendarJob());
-                        break;
-                    case "news":
-                        dispatch(new Jobs\SendNewsJob());
-                        break;
-                    case "tasks":
-                        dispatch(new Jobs\SendTasksJob());
-                        break;
-                    case "weather":
-                        dispatch(new Jobs\SendWeatherJob());
-                        break;
-                    case "covid":
-                        dispatch(new Jobs\SendCovidJob());
-                        break;
-                }
+        return [
+            'user_id' => $user->id,
+            'user_name' => $user->name
+        ];
+    }
+
+    public function normalizeChannelName($channel)
+    {
+        foreach (['private-encrypted-', 'private-', 'presence-'] as $prefix) {
+            if (Str::startsWith($channel, $prefix)) {
+                return Str::replaceFirst($prefix, '', $channel);
             }
         }
+
+        return $channel;
     }
 }

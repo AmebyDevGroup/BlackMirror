@@ -60,6 +60,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'reply_to' => ['address' => 'kontakt@myblackmirror.pl', 'name' => 'Kontakt | BlackMirror'],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

@@ -8,6 +8,7 @@ use App\TokenStore\TokenCache;
 use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Microsoft\Graph\Beta\Model;
 use Microsoft\Graph\Graph;
 use Feeds;
 
@@ -250,7 +251,7 @@ class WebsocketTestController extends Controller
             'timezone' => $feature->data['timezone'],
             'time_format' => $feature->data['time-format']
         ];
-        broadcast(new Message('time', $timeInfo));
+        broadcast(new Message('time', $timeInfo, 'mirror.1231'));
         dump(['type'=>'time', 'data'=>$timeInfo]);
 //        return response()->json($timeInfo);
     }

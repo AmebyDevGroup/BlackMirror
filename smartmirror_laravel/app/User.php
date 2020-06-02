@@ -44,6 +44,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function featuresConfiguration()
     {
-        return $this->hasMany(FeatureConfig::class)->with('feature');
+        return $this->hasMany(FeatureConfig::class)->with('feature')->with('feature');
+    }
+
+    public function getConfig()
+    {
+        return $this->featuresConfiguration->pluck('active', 'feature.slug')->toArray();
     }
 }

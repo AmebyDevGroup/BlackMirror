@@ -16,15 +16,17 @@ class SendNewsJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $rss;
+    protected $channel_name;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($feature_config)
+    public function __construct($feature_config, $channel_name)
     {
         $this->rss = $feature_config->data['rss'];
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -58,6 +60,6 @@ class SendNewsJob implements ShouldQueue
         }
         $data['items'] = $data['prepared_items'];
         unset($data['prepared_items']);
-        broadcast(new Message('news', $data));
+        broadcast(new Message('news', $data, $this->channel_name));
     }
 }

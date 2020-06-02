@@ -7,5 +7,6 @@ return [
     'weather' => 'Pogoda',
     'air' => 'Jakość powietrza',
     'covid' => 'Statystyki COVID19',
-    'time' => 'Czas'
+    'time' => 'Czas',
+    'sensors' => 'Czujniki wewnętrzne'
 ];

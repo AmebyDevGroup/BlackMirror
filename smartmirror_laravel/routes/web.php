@@ -31,6 +31,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('help', 'AdminPanelController@getHelpPage')->name('admin.getHelp');
     Route::get('changelog', 'AdminPanelController@getChangelogPage')->name('admin.getChangelog');
     Route::get('info', 'AdminPanelController@getInfoPage')->name('admin.info');
+    Route::get('contact', 'AdminPanelController@getContactForm')->name('admin.contactUs');
+    Route::post('contact', 'AdminPanelController@sendContactForm')->name('admin.contactUs');
 
     Route::prefix('configuration')->middleware('verified')->group(function () {
         Route::post('setPageMode/{mode?}', 'ConfigurationController@setPageMode')->name('configuration.setPageMode');

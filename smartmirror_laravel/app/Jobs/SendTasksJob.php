@@ -22,16 +22,18 @@ class SendTasksJob implements ShouldQueue
     private $tasks;
     private $provider;
     private $directory;
+    private $channel_name;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($feature_config)
+    public function __construct($feature_config, $channel_name)
     {
         $this->provider = $feature_config->data['provider'];
         $this->directory = $feature_config->data['directory'];
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -42,6 +44,8 @@ class SendTasksJob implements ShouldQueue
     public function handle()
     {
         try {
+            $tokenCache = new TokenCache();
+            $accessToken = $tokenCache->getAccessToken();
             switch ($this->provider) {
                 case 'microsoft':
                     $this->tasks = $this->getMicrosoftTasks();
@@ -49,12 +53,13 @@ class SendTasksJob implements ShouldQueue
                 default:
                     break;
             }
-            broadcast(new Message('tasks', $this->tasks));
+            broadcast(new Message('tasks', $this->tasks, $this->channel_name));
         } catch (Exception $e) {
-            return broadcast(new Message('tasks', [
-                "status" => 'failed',
+            broadcast(new Message('tasks', [
+                "status" => 'failed', 
                 "message" => $e->getMessage()
-            ]));
+            ], $this->channel_name));
+            throw $e;
         }
     }
 

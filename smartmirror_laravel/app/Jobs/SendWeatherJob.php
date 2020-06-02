@@ -18,17 +18,19 @@ class SendWeatherJob implements ShouldQueue
 
     protected $key;
     protected $city;
+    protected $channel_name;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($feature_config)
+    public function __construct($feature_config, $channel_name)
     {
         $this->city = $feature_config->data['city'];
         $this->key = env('WEATHER_KEY');
-    }
+        $this->channel_name = $channel_name;
+    }   
 
     /**
      * Execute the job.
@@ -56,6 +58,6 @@ class SendWeatherJob implements ShouldQueue
             'icon' => $data->weather[0]->icon,
             'time' => Carbon::parse($data->dt)->format('Y-m-d H:i:s'),
         ];
-        return broadcast(new Message('current_weather', $weatherInfo));
+        return broadcast(new Message('current_weather', $weatherInfo, $this->channel_name));
     }
 }

@@ -23,16 +23,18 @@ class SendAirJob implements ShouldQueue
     // http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/{stationId}
     protected $getIndexUrl;
 
+    protected $channel_name;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($feature_config)
+    public function __construct($feature_config, $channel_name)
     {
         $this->getIndexUrl = "http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/" . $feature_config->data['station'] ?? '';
         $this->getStationUrl = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/" . $feature_config->data['station'] ?? '';
         $this->getSensorUrl = "http://api.gios.gov.pl/pjp-api/rest/data/getData/";
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -61,12 +63,12 @@ class SendAirJob implements ShouldQueue
                     'value' => json_decode($sensor->getBody()->getContents())->values[0] ?? false
                 ];
             }
-            return broadcast(new Message('air', $airInfo));
+            return broadcast(new Message('air', $airInfo, $this->channel_name));
         } catch (Exception $e) {
             return broadcast(new Message('air', [
                 "status" => 'failed',
                 "message" => $e->getMessage()
-            ]));
+            ], $this->channel_name));
         }
     }
 }

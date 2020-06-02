@@ -42,11 +42,11 @@ class MicrosoftAuthController extends Controller
         if (!isset($expectedState)) {
             // If there is no expected state in the session,
             // do nothing and redirect to the home page.
-            return redirect()->route('admin');
+            return redirect()->route('admin.getExternalAccounts');
         }
 
         if (!isset($providedState) || $expectedState != $providedState) {
-            return redirect()->route('admin')
+            return redirect()->route('admin.getExternalAccounts')
                 ->with('error', 'Invalid auth state')
                 ->with('errorDetail', 'The provided auth state did not match the expected value');
         }

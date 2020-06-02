@@ -17,15 +17,17 @@ class SendCovidJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $config;
+    protected $channel_name;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($feature_config)
+    public function __construct($feature_config, $channel_name)
     {
         $this->config = $feature_config;
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -66,6 +68,6 @@ class SendCovidJob implements ShouldQueue
                 'recovered' => $poland->TotalRecovered,
             ];
         }
-        return broadcast(new Message('covid', $covidInfo));
+        return broadcast(new Message('covid', $covidInfo, $this->channel_name));
     }
 }
