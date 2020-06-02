@@ -8,7 +8,7 @@
             <p>
                 Korzystając z poniższych przycisków można wywołać pobranie danych z zewnętrznego systemu
                 a następnie przekazanie ich za pomocą WebSocket do aplikacji klienckiej (lustra)
-                <a href="http://86.63.86.150/mirror/" target="_blank">(Podgląd LIVE dostępny tutaj)</a>.
+                <a href="https://show.myblackmirror.pl" target="_blank">(Podgląd LIVE dostępny tutaj)</a>.
                 <br/><br/>
                 Na potrzeby testowania komunikacji zarówno po stronie panelu jak i podglądu można podejrzeć
                 przesyłane obiekty.

@@ -6,6 +6,7 @@
         'admin.getHelp' => ['name' => 'Instrukcja', 'icon' => 'fa fa-book'],
         'admin.info' => ['name' => 'Informacje', 'icon' => 'fa fa-info-circle'],
         'admin.getChangelog' => ['name' => 'Dziennik zmian', 'icon' => 'fa fa-tasks'],
+        'admin.contactUs' => ['name' => 'Kontakt', 'icon' => 'fa fa-envelope']
     ];
     $currentRoute = Route::currentRouteName();
 @endphp

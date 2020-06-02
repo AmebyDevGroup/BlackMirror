@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SendTimeJob implements ShouldQueue
+class SendSensorsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -38,11 +38,11 @@ class SendTimeJob implements ShouldQueue
      */
     public function handle()
     {
-        $timeInfo = [
-            'timestamp' => Carbon::now()->setTimezone($this->config['timezone'])->timestamp,
-            'timezone' => $this->config['timezone'],
-            'time_format' => $this->config['time-format']
+        $teimInInfo = [
+            'temperature' => (float)24.11,
+            'humidity' => (float)41.32,
+            'pressure' => (float)1100.1324
         ];
-        broadcast(new Message('time', $timeInfo, $this->channel_name));
+        broadcast(new Message('sensors', $teimInInfo, $this->channel_name));
     }
 }

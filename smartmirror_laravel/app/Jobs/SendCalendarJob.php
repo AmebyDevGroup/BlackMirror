@@ -22,15 +22,16 @@ class SendCalendarJob implements ShouldQueue
     private $tasks;
     private $provider;
     private $directory;
-
+    private $channel_name;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($feature_config)
+    public function __construct($feature_config, $channel_name)
     {
         $this->provider = $feature_config->data['provider'];
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -48,12 +49,12 @@ class SendCalendarJob implements ShouldQueue
                 default:
                     break;
             }
-            broadcast(new Message('calendar', $this->tasks));
+            broadcast(new Message('calendar', $this->tasks, $this->channel_name));
         } catch (Exception $e) {
             return broadcast(new Message('calendar', [
                 "status" => 'failed',
                 "message" => $e->getMessage()
-            ]));
+            ], $this->channel_name));
         }
     }
 

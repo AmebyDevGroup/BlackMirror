@@ -16,16 +16,18 @@ class Message implements ShouldBroadcast
 
     public $type;
     public $data;
+    private $channel;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($type, $data)
+    public function __construct($type, $data, $channel = 'mirror')
     {
         $this->type = $type;
         $this->data = $data;
+        $this->channel = $channel;
     }
 
     /**
@@ -35,6 +37,6 @@ class Message implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('mirror');
+        return new PresenceChannel($this->channel);
     }
 }

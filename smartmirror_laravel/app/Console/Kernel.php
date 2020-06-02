@@ -9,6 +9,9 @@ use App\Console\Commands\SendTasks;
 use App\Console\Commands\SendUserFeatures;
 use App\Console\Commands\SendWeather;
 use App\Console\Commands\SendCovid;
+
+use App\Console\Commands\RedisSubscribe;
+
 use App\MirrorConfig;
 use App\User;
 use Illuminate\Console\Scheduling\Schedule;
@@ -29,7 +32,8 @@ class Kernel extends ConsoleKernel
         SendWeather::class,
         SendAir::class,
         SendCovid::class,
-        SendUserFeatures::class
+        SendUserFeatures::class,
+        RedisSubscribe::class
     ];
 
     /**
@@ -40,15 +44,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $users = User::whereNotNull('email_verified_at')->get();
-        foreach($users as $key => $user) {
-            $features_configs = $user->featuresConfiguration()->where('active', 1)->get();
-            foreach($features_configs as $feature_config) {
-                $feature = $feature_config->feature;
-                $job = $feature->getJob($feature_config);
-                $schedule->job($job)->cron($feature->crontab);
-            }
-        }
+        // $users = User::whereNotNull('email_verified_at')->get();
+        // foreach($users as $key => $user) {
+        //     $features_configs = $user->featuresConfiguration()->where('active', 1)->get();
+        //     foreach($features_configs as $feature_config) {
+        //         $feature = $feature_config->feature;
+        //         $job = $feature->getJob($feature_config);
+        //         $schedule->job($job)->cron($feature->crontab);
+        //     }
+        // }
     }
 
     /**

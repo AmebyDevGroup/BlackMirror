@@ -11,11 +11,11 @@ class TokenCache
     public function storeTokens($accessToken, $user)
     {
         Storage::put('microsoft.json', json_encode([
-            'accessToken' => $accessToken->getToken(),
-            'refreshToken' => $accessToken->getRefreshToken(),
-            'tokenExpires' => $accessToken->getExpires(),
-            'userName' => $user->getDisplayName(),
-            'userEmail' => null !== $user->getMail() ? $user->getMail() : $user->getUserPrincipalName()
+            'microsoft.accessToken' => $accessToken->getToken(),
+            'microsoft.refreshToken' => $accessToken->getRefreshToken(),
+            'microsoft.tokenExpires' => $accessToken->getExpires(),
+            'microsoft.userName' => $user->getDisplayName(),
+            'microsoft.userEmail' => null !== $user->getMail() ? $user->getMail() : $user->getUserPrincipalName()
         ]));
         session([
             'microsoft.accessToken' => $accessToken->getToken(),

@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Jobs\SendTimeJob;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Feature extends Model
 {
@@ -50,11 +50,11 @@ class Feature extends Model
         }
     }
 
-    public function getJob($feature_config)
+    public function getJob($feature_config, $channel_name)
     {
-        $job_class = 'App\Jobs\Send'.ucfirst($this->slug).'Job';
+        $job_class = 'App\Jobs\Send'.Str::studly($this->slug).'Job';
         if(class_exists($job_class)){
-            return new $job_class($feature_config);
+            return new $job_class($feature_config, $channel_name);
         }
         return false;
     }
