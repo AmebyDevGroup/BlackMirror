@@ -56,10 +56,9 @@ class SendTasksJob implements ShouldQueue
             broadcast(new Message('tasks', $this->tasks, $this->channel_name));
         } catch (Exception $e) {
             broadcast(new Message('tasks', [
-                "status" => 'failed', 
+                "status" => 'failed',
                 "message" => $e->getMessage()
             ], $this->channel_name));
-            throw $e;
         }
     }
 

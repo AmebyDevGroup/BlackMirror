@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Feature;
+use App\Jobs\SendConfigJob;
 use App\TokenStore\TokenCache;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -24,7 +25,12 @@ class ConfigurationController extends BaseController
 
     public function setActive(Feature $feature, $active = 1)
     {
+        $old_active = $feature->getConfig->active;
         $feature->getConfig->update(['active' => (int)$active]);
+        dispatch(new SendConfigJob(auth()->user(), 'mirror.123'));
+        if ($active == 1 && $old_active != $active) {
+            dispatch($feature->getJob($feature->getConfig, 'mirror.123'));
+        }
     }
 
     public function getConfigurationForm(Feature $feature)
@@ -35,6 +41,9 @@ class ConfigurationController extends BaseController
     public function sendConfigurationForm(Request $request, Feature $feature)
     {
         $feature->getConfig()->update($request->except('_token'));
+        if ($feature->getConfig->active) {
+            dispatch($feature->getJob($feature->getConfig, 'mirror.123'));
+        }
         return response()->json(['status'=>'success', 'message'=>"Pomyślnie zapisano konfigurację"]);
     }
 
