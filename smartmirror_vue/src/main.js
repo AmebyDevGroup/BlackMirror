@@ -21,7 +21,7 @@ const echo = new Echo({
 	key: "023a905bee315629c3157500199f5065",
 	// cluster: 'mt1',
 	// encrypted: true
-	host: 'ws.myblackmirror.pl',
+	host: 'https://ws.myblackmirror.pl',
 });
 
 echo.join('mirror.123')
