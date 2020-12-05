@@ -26,6 +26,7 @@ const echo = new Echo({
 
 setTimeout(() => {
 	const isConnected = echo.connector.socket.connected;
+	console.log('isConnected', isConnected);
 	if (!isConnected) window.Vue.$root.$emit('connectionError', isConnected);
 }, 5000)
 

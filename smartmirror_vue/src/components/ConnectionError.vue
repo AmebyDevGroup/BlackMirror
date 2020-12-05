@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     handleConnectionError(error) {
-      // this.show = !error;
+      this.show = !error;
     },
   },
 }
