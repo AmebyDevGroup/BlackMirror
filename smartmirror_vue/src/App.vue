@@ -31,6 +31,7 @@
 		</div>
 		<Loader></Loader>
 		<ScreenSaver></ScreenSaver>
+		<ConnectionError></ConnectionError>
 	</div>
 </template>
 
@@ -45,10 +46,12 @@
 	import CoronaVirus from "./components/CoronaVirus";
 	import ScreenSaver from "./components/ScreenSaver";
 	import HomeSensors from "./components/HomeSensors";
+  import ConnectionError from "@/components/ConnectionError";
 
 	export default {
 		name: 'app',
 		components: {
+      ConnectionError,
 			HomeSensors,
 			ScreenSaver,
 			CoronaVirus,

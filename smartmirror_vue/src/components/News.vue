@@ -110,6 +110,7 @@
 				let i = 0;
 
 				setInterval(() => {
+				  if (this.data.length === 0) return;
 					if (i === this.data.length) i = 0;
 					this.currentHours = this.data[i].hours;
 					this.currentMinutes = this.data[i].minutes;

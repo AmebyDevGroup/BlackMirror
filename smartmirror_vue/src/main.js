@@ -24,6 +24,11 @@ const echo = new Echo({
 	host: 'https://ws.myblackmirror.pl',
 });
 
+setTimeout(() => {
+	const isConnected = echo.connector.socket.connected;
+	if (!isConnected) window.Vue.$root.$emit('connectionError', isConnected);
+}, 5000)
+
 echo.join('mirror.123')
 	.here((users) => {
 		console.log(users)
@@ -42,6 +47,8 @@ echo.join('mirror.123')
 		if (eventCounter === activeSections || module_inactive) {
 			setTimeout(() => {
 				window.Vue.$root.$emit('loading', false);
+				window.Vue.$root.$emit('connectionError', echo.connector.socket.connected);
+				window.Vue.$root.$emit('hideSaver', echo.connector.socket.connected);
 				new CameraService();
 			}, 500)
 		}

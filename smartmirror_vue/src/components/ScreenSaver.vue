@@ -14,9 +14,13 @@
 		},
 		mounted() {
 			this.$root.$on('screenSaver', this.handleScreenSaver);
+			this.$root.$on('hideSaver', this.handleErrorConnection);
 			this.countToHide();
 		},
 		methods: {
+      handleErrorConnection(error) {
+        this.show = !error;
+      },
 			handleScreenSaver(data) {
 				if (!data) return;
 				this.counter = 20;
